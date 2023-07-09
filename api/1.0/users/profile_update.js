@@ -40,7 +40,7 @@ router.put('/', checkAuthorization, async (req, res) => {
       const user = {
         id
       };
-      console.log(user);
+
       return res.status(200).json({ data: {user} });
 
     } catch (err) {

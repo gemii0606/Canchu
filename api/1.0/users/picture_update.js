@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
         cb(null, 'static/image'); 
     },
     filename: function (req, file, cb) {
-        cb(null, file.filename + '_' + Date.now() + '.png'); 
+        cb(null, file.originalname + '_' + Date.now() + '.png'); 
     }
 });
   
