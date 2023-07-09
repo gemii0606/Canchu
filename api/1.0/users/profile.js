@@ -54,9 +54,8 @@ router.get('/:id/profile', checkAuthorization, async (req, res) => {
             status: "requested"
           }
       };
-      console.log(user);
-      console.log({ data: user });
-      return res.status(200).json({ data: user });
+
+      return res.status(200).json({ data: {user} });
 
     } catch (err) {
         console.error(`${err.message} `);
