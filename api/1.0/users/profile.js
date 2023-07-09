@@ -30,9 +30,9 @@ router.get('/:id/profile', checkAuthorization, async (req, res) => {
       const userId = parseInt(req.params.id);
       const { id, provider, name, email, picture, iat } = req.decodedToken;
 
-      // if (id !== userId) {
-      //     return res.status(403).json({ error: 'Forbidden' });
-      // }
+      if (id !== userId) {
+          return res.status(403).json({ error: 'Forbidden' });
+      }
 
       const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
       const userInfo = userItem[0];
