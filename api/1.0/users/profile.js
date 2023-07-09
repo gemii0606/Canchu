@@ -28,14 +28,17 @@ const pool = require('../utils/mysql');
 router.get('/:id/profile', checkAuthorization, async (req, res) => {
     try {
       const userId = parseInt(req.params.id);
-      const { id, provider, name, email, picture, iat } = req.decodedToken;
+      // const { id, provider, name, email, picture, iat } = req.decodedToken;
 
-      if (id !== userId) {
-          return res.status(403).json({ error: 'Forbidden' });
-      }
+      // if (id !== userId) {
+      //     return res.status(403).json({ error: 'Forbidden' });
+      // }
 
-      const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [id]);
+      const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
       const userInfo = userItem[0];
+      const id = userInfo.id;
+      const name = userInfo.name;
+      const picture = userInfo.picture;
       const introduction = userInfo.introduction;
       const tags = userInfo.tags;
 
