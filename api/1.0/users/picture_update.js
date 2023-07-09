@@ -27,10 +27,11 @@ const pool = require('../utils/mysql');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, 'static/image'); 
+        cb(null, './static/image'); 
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname + '_' + Date.now() + '.png'); 
+        cb(null, file.filename  + '_' + Date.now() + '.png'); 
+        console.log(file.filename);
     }
 });
   
@@ -43,11 +44,12 @@ router.put('/', checkAuthorization, upload.single('picture'), async (req, res) =
     if (!req.file) {
         return res.status(400).json({ error: 'No image file uploaded' });
     }
-    const fileName = req.file.originalname;
+    console.log(id)
+    const fileName = req.file.filename ;
     const picturePAth = 'http://13.210.26.62/api/1.0/images/' + fileName;
 
     const [result] = await pool.query('UPDATE users SET picture = ? WHERE id = ?', [picturePAth, id]);
-    
+    console.log(result);
 
     console.log(picturePAth);   
     return res.status(200).json({ picture: picturePAth });
