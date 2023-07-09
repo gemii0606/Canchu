@@ -41,7 +41,7 @@ router.put('/', checkAuthorization, async (req, res) => {
         id
       };
       console.log(user);
-      return res.status(200).json({ data: user });
+      return res.status(200).json({ data: {user} });
 
     } catch (err) {
         console.error(`${err.message} `);
