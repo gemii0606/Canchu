@@ -31,7 +31,7 @@ const storage = multer.diskStorage({
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname.split('/')[0]  + '_' + Date.now() + '.png'); 
-        console.log(file);
+        console.log(file.originalname.split('/')[0]);
     }
 });
   
