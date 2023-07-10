@@ -9,7 +9,7 @@ const pool = require('../utils/mysql');
 
 
 router.post('/', checkAuthorization, async (req, res) => {
-
+    console.log(req.customProperty1);
     const decodedToken = req.decodedToken;
     console.log(decodedToken);
     console.log(req.params.passId);

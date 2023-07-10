@@ -15,16 +15,14 @@ function checkAuthorization(req, res, next) {
       }
       const decodedToken = decoded;
       req.decodedToken = decodedToken;
-      req.params.passId = req.params.passParams;
-      console.log(req.params.passId);
+      console.log(req.customProperty1);
       return next();
     });
   }
 
 function passReqparams(req, res, next) {
-  console.log(req.params.user_id);
-  req.params.passParams = req.params.user_id;
-  console.log(req.params.passParams);
+  req.customProperty1 = 'Value 1';
+
   next();
 }
 
