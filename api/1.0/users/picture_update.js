@@ -30,7 +30,7 @@ const storage = multer.diskStorage({
         cb(null, '../../public'); 
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname.split('.')[0]  + '_' + Date.now() + '.png'); 
+        cb(null, file.originalname.split('.')[0]  + '_' + Date.now() + '.jpg'); 
         console.log(file.originalname.split('.')[0]);
     }
 });
