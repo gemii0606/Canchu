@@ -21,7 +21,7 @@ const router = express.Router();
 //   });
 // }
 
-require('../utils/function');
+const { checkAuthorization } = require('../utils/function');
 
 // set the connection with mysql server
 const pool = require('../utils/mysql');
