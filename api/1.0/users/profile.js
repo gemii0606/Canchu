@@ -11,9 +11,9 @@ const pool = require('../utils/mysql');
 router.get('/', checkAuthorization, async (req, res) => {
   // if the authorization passes, user can see others profile
     try {
-      // taken id should be int
-      console.log(req.baseUrl.split('/').slice(-2,-1)[0]);
-      const userId = parseInt(req.params.id);
+      // taken id from its baseUrl property, if /:id/profile, then :id should be in the -2 position
+      const reqId = req.baseUrl.split('/').slice(-2,-1)[0];
+      const userId = parseInt(reqId);
 
       const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
       const userInfo = userItem[0];
