@@ -19,14 +19,8 @@ function checkAuthorization(req, res, next) {
     });
   }
 
-function passReqparams(req, res, next) {
-  req.customProperty1 = 'Value 1';
-
-  next();
-}
 
 
 module.exports = {
     checkAuthorization,
-    passReqparams
 };
