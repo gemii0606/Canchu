@@ -15,9 +15,6 @@ function checkAuthorization(req, res, next) {
       }
       const decodedToken = decoded;
       req.decodedToken = decodedToken;
-      console.log(req.customProperty1);
-      const variable = req.customProperty1;
-      req.passReqparams = variable;
       return next();
     });
   }
