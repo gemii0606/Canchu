@@ -27,7 +27,7 @@ const pool = require('../utils/mysql');
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb) {
-        cb(null, '/api/1.0/public'); 
+        cb(null, '../public'); 
     },
     filename: function (req, file, cb) {
         cb(null, file.originalname.split('.')[0]  + '_' + Date.now() + '.jpg'); 
