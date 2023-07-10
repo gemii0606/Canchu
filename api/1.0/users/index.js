@@ -13,7 +13,7 @@ router.use('/signin', signinRoute);
 router.get('/:id/profile', profileRoute);
 router.use('/profile', profileUpdateRoute);
 router.use('/picture', picetureUpdateRoute);
-router.use('/friends/:user_id/request', friendRequestRoute);
+router.post('/friends/:user_id/request', friendRequestRoute);
 // router.post('/friends/:friendship_id/agree', friendAgreeRoute);
 
 
