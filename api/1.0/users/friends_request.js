@@ -27,7 +27,7 @@ router.post('/', checkAuthorization, async (req, res) => {
         return res.status(400).json({error: 'The request has already sent'});
     }
 
-    const [BtoA] = await pool.query('SELECT * FROM users WHERE friend_id_id = ? AND user_id = ?', [user_id, request_id]);
+    const [BtoA] = await pool.query('SELECT * FROM users WHERE friend_id = ? AND user_id = ?', [user_id, request_id]);
     if (BtoA[0].status === 'pending') {
         return res.status(400).json({error: 'He/She is waiting for your acceptance.'});
     }
