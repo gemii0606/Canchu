@@ -16,11 +16,13 @@ function checkAuthorization(req, res, next) {
       const decodedToken = decoded;
       req.decodedToken = decodedToken;
       req.params = req.params;
+      console.log(req.params);
       return next();
     });
   }
 
 function passReqparams(req, res, next) {
+  console.log(req.params);
   req.params = req.params;
   next();
 }
