@@ -30,8 +30,8 @@ const storage = multer.diskStorage({
         cb(null, './static/image'); 
     },
     filename: function (req, file, cb) {
-        cb(null, file.originalname.split('/')[0]  + '_' + Date.now() + '.png'); 
-        console.log(file.originalname.split('/')[0]);
+        cb(null, file.originalname.split('.')[0]  + '_' + Date.now() + '.png'); 
+        console.log(file.originalname.split('.')[0]);
     }
 });
   
@@ -41,6 +41,7 @@ const upload = multer({ storage: storage });
 router.put('/', checkAuthorization, upload.single('picture'), async (req, res) => {
     const decodedToken = req.decodedToken;
     const id = decodedToken.id;
+    console.log(req.file);
     if (!req.file) {
         return res.status(400).json({ error: 'No image file uploaded' });
     }
