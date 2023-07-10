@@ -8,7 +8,7 @@ const { checkAuthorization } = require('../utils/function');
 const pool = require('../utils/mysql');
   
 
-router.get('/../profile', checkAuthorization, async (req, res) => {
+router.get('/', checkAuthorization, async (req, res) => {
   // if the authorization passes, user can see others profile
     try {
       // taken id should be int
