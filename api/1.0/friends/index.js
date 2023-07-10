@@ -7,7 +7,12 @@ const friendsRequestRoute = require('./friends_request');
 router.all('/:user_id/request', (req, res, next) => {
     console.log('index');
     next();
-}, friendsRequestRoute);
+}, 
+(req, res, next) => {
+    console.log('index2');
+    next();
+}, 
+friendsRequestRoute);
 // router.get('/:friendship_id/agree', friendsAgreeRoute);
 
 module.exports = router;
