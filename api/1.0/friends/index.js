@@ -4,7 +4,7 @@ const router = express.Router();
 const friendsRequestRoute = require('./friends_request');
 // const friendsAgreeRoute = require('./friends_agree');
 
-router.get('/:user_id/request', (req, res, next) => {
+router.use('/:user_id/request', (req, res, next) => {
     console.log('index');
     next();
 }, friendsRequestRoute);
