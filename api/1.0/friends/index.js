@@ -1,4 +1,3 @@
-console.log('index');
 const express = require('express');
 const router = express.Router();
 const friendRequestRoute = require('./friends_request');
