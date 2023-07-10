@@ -12,9 +12,9 @@ router.post('/', checkAuthorization, async (req, res) => {
 
     const decodedToken = req.decodedToken;
     console.log(decodedToken);
-    console.log(req.params.user_id);
+    console.log(req.params.passId);
     const user_id = decodedToken.id;
-    const request_id = req.params.user_id;
+    const request_id = req.params.passId;
 
     const [selectUsers] = await pool.query('SELECT * FROM users WHERE id = ?', [request_id]);
     if (selectUsers.length === 0) {
