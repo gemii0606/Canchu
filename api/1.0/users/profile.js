@@ -3,23 +3,25 @@ const jwt = require('jsonwebtoken');
 const mysql = require('mysql2/promise');
 const router = express.Router();
 
-function checkAuthorization(req, res, next) {
+// function checkAuthorization(req, res, next) {
 
-  if (!req.headers.authorization) {
-    return res.status(401).send({ error: 'No token provided' });
-  }
-  const token = req.headers.authorization.split(' ')[1];
+//   if (!req.headers.authorization) {
+//     return res.status(401).send({ error: 'No token provided' });
+//   }
+//   const token = req.headers.authorization.split(' ')[1];
 
-  const jwtSecret = 'Secret';
-  jwt.verify(token, jwtSecret, (err, decoded) => {
-    if (err) {
-      return res.status(403).send({ error: "Wrong token" });
-    }
-    const decodedToken = decoded;
-    req.decodedToken = decodedToken;
-    return next();
-  });
-}
+//   const jwtSecret = 'Secret';
+//   jwt.verify(token, jwtSecret, (err, decoded) => {
+//     if (err) {
+//       return res.status(403).send({ error: "Wrong token" });
+//     }
+//     const decodedToken = decoded;
+//     req.decodedToken = decodedToken;
+//     return next();
+//   });
+// }
+
+require('/api/1.0/function');
 
 // set the connection with mysql server
 const pool = require('../utils/mysql');
