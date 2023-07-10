@@ -32,9 +32,7 @@ router.put('/', checkAuthorization, upload.single('picture'), async (req, res) =
     const picturePAth = 'http://13.210.26.62/api/1.0/images/' + fileName;
 
     const [result] = await pool.query('UPDATE users SET picture = ? WHERE id = ?', [picturePAth, id]);
-    console.log(result);
 
-    console.log(picturePAth);   
     return res.status(200).json({ picture: picturePAth });
 });
 
