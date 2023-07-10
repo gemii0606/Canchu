@@ -24,7 +24,7 @@ function checkAuthorization(req, res, next) {
 function passReqparams(req, res, next) {
   console.log(req.params);
   req.params = req.params;
-  next();
+  next(req.params);
 }
 
 
