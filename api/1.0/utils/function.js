@@ -19,7 +19,13 @@ function checkAuthorization(req, res, next) {
     });
   }
 
+function passReqparams(req, res, next) {
+  req.params = req.params;
+  next();
+}
+
 
 module.exports = {
-    checkAuthorization
+    checkAuthorization,
+    passReqparams
 };
