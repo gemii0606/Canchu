@@ -37,7 +37,7 @@ router.post('/', checkAuthorization, async (req, res) => {
 
     const [item] = await pool.query('INSERT INTO friendships (user_id, friend_id, status) VALUES (?, ?, ?)', [user_id, request_id, 'pending']);
     const [friendshipInfo] = await pool.query('SELECT * FROM users WHERE id = ?', [item.insertId])[0];
-    const friendship = { id: friendshipInfo.id};
+    const friendship = { id: friendshipInfo.id };
     return res.status(200).json({data: {friendship} });
 
 });
