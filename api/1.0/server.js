@@ -7,7 +7,7 @@ app.use(express.static('public'))
 
 const usersRoute = require('./users');
 app.use('/api/1.0/users', usersRoute);
-
+console.log('server');
 const friendsRoute = require('./friends');
 app.use('/api/1.0/friends', friendsRoute);
 
