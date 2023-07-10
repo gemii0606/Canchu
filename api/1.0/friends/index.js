@@ -5,6 +5,6 @@ const friendsRequestRoute = require('./friends_request');
 const friendsAgreeRoute = require('./friends_agree');
 
 router.get('/:user_id/request', friendsRequestRoute);
-router.get('/:friendship_id/agree', friendsRequestRoute);
+router.get('/:friendship_id/agree', friendsAgreeRoute);
 
 module.exports = router;
