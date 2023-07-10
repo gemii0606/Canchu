@@ -6,7 +6,7 @@ const friendRequestRoute = require('./friends_request');
 
 router.post('/:user_id/request', (req, res, next) => {req.user_id = req.params.user_id; next();}, friendRequestRoute);
 
-router.post('/:friendship_id/agree', friendAgreeRoute);
+// router.post('/:friendship_id/agree', friendAgreeRoute);
 
 
 module.exports = router;
