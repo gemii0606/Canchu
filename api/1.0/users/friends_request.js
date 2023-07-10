@@ -12,6 +12,7 @@ router.post('/', checkAuthorization, async (req, res) => {
 
     const decodedToken = req.decodedToken;
     console.log(decodedToken);
+    console.log(req.params.user_id);
     const id = decodedToken.id;
 
 
