@@ -9,7 +9,7 @@ const picetureUpdateRoute = require('./picture_update');
 
 router.use('/signup', signupRoute);
 router.use('/signin', signinRoute);
-router.get('/:id/profile', profileRoute);
+router.use('/:id/profile', profileRoute);
 router.use('/profile', profileUpdateRoute);
 router.use('/picture', picetureUpdateRoute);
 
