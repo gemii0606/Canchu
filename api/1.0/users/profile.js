@@ -12,6 +12,7 @@ router.get('/', checkAuthorization, async (req, res) => {
   // if the authorization passes, user can see others profile
     try {
       // taken id should be int
+      console.log(req.params.id);
       const userId = parseInt(req.params.id);
 
       const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
