@@ -8,7 +8,7 @@ const { checkAuthorization } = require('../utils/function');
 const pool = require('../utils/mysql');
 
 
-router.post('/:user_id/request', checkAuthorization, async (req, res) => {
+router.post('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     console.log(decodedToken);
     console.log(req.params.user_id);
