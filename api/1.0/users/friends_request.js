@@ -10,8 +10,10 @@ const pool = require('../utils/mysql');
 
 router.post('/', checkAuthorization, async (req, res) => {
 
+    const decodedToken = req.decodedToken;
+    console.log(decodedToken);
+    const id = decodedToken.id;
 
-    
 
 });
 
