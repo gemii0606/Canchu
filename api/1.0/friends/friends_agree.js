@@ -1,0 +1,6 @@
+const express = require('express');
+const router = express.Router();
+
+router.get('/', checkAuthorization, async (req, res) => {
+    res.send('agree');
+});
