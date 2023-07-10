@@ -1,26 +1,7 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const mysql = require('mysql2/promise');
 const router = express.Router();
 
-// function checkAuthorization(req, res, next) {
-
-//   if (!req.headers.authorization) {
-//     return res.status(401).send({ error: 'No token provided' });
-//   }
-//   const token = req.headers.authorization.split(' ')[1];
-
-//   const jwtSecret = 'Secret';
-//   jwt.verify(token, jwtSecret, (err, decoded) => {
-//     if (err) {
-//       return res.status(403).send({ error: "Wrong token" });
-//     }
-//     const decodedToken = decoded;
-//     req.decodedToken = decodedToken;
-//     return next();
-//   });
-// }
-
+// take out the function
 const { checkAuthorization } = require('../utils/function');
 
 // set the connection with mysql server
@@ -28,17 +9,15 @@ const pool = require('../utils/mysql');
   
 
 router.get('/:id/profile', checkAuthorization, async (req, res) => {
+  // if the authorization passes, user can see others profile
     try {
+      // taken id should be int
       const userId = parseInt(req.params.id);
-
 
       const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
       const userInfo = userItem[0];
-      const id = userInfo.id;
-      const name = userInfo.name;
-      const picture = userInfo.picture;
-      const introduction = userInfo.introduction;
-      const tags = userInfo.tags;
+
+      const {id, name, picture, introduction, tags} = userInfo;
 
       const user = {
           id,

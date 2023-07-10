@@ -1,26 +1,9 @@
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const mysql = require('mysql2/promise');
 const multer = require('multer');
 const router = express.Router();
 
-function checkAuthorization(req, res, next) {
-
-    if (!req.headers.authorization) {
-      return res.status(401).send({ error: 'No token provided' });
-    }
-    const token = req.headers.authorization.split(' ')[1];
-  
-    const jwtSecret = 'Secret';
-    jwt.verify(token, jwtSecret, (err, decoded) => {
-      if (err) {
-        return res.status(403).send({ error: "Wrong token" });
-      }
-      const decodedToken = decoded;
-      req.decodedToken = decodedToken;
-      return next();
-    });
-  }
+// take out the function
+const { checkAuthorization } = require('../utils/function');
 
 // set the connection with mysql server
 const pool = require('../utils/mysql');
@@ -45,7 +28,6 @@ router.put('/', checkAuthorization, upload.single('picture'), async (req, res) =
     if (!req.file) {
         return res.status(400).json({ error: 'No image file uploaded' });
     }
-    console.log(id)
     const fileName = req.file.filename ;
     const picturePAth = 'http://13.210.26.62/api/1.0/images/' + fileName;
 
