@@ -15,16 +15,17 @@ function checkAuthorization(req, res, next) {
       }
       const decodedToken = decoded;
       req.decodedToken = decodedToken;
-      req.params = req.params;
-      console.log(req.params);
+      req.params.passId = req.params.passParams;
+      console.log(req.params.passId);
       return next();
     });
   }
 
 function passReqparams(req, res, next) {
-  console.log(req.params);
-  req.params = req.params;
-  next(req.params);
+  console.log(req.params.user_id);
+  req.params.passParams = req.params.user_id;
+  onsole.log(req.params.passParams);
+  next();
 }
 
 
