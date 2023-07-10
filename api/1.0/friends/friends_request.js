@@ -7,8 +7,9 @@ const { checkAuthorization } = require('../utils/function');
 // set the connection with mysql server
 const pool = require('../utils/mysql');
 
-console.log('requset1');
+
 router.get('/',  async (req, res) => {
+    console.log('requset1');
     res.send('request2');
     // const decodedToken = req.decodedToken;
     // console.log(decodedToken);
