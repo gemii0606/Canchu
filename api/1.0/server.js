@@ -1,13 +1,15 @@
 const express = require('express');
 const app = express();
+const usersRoute = require('./users');
+const friendsRoute = require('./friends');
 
 app.use(express.json());
 app.use(express.static('public'))
 
-const usersRoute = require('./users');
+
 app.use('/api/1.0/users', usersRoute);
 
-const friendsRoute = require('./friends');
+
 app.use('/api/1.0/friends', friendsRoute);
 
 
