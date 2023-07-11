@@ -24,6 +24,7 @@ router.post('/', checkAuthorization, async (req, res) => {
     
     const result = friendships_info.map(friend =>{
         const user_info = friend.dataValues.FromUser.dataValues;
+        return user_info;
     });
     
     console.log(result)
