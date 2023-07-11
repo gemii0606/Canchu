@@ -16,7 +16,8 @@ router.post('/', checkAuthorization, async (req, res) => {
         include: [
             {
                 model: User,
-                attributes: ['id', 'name', 'email', 'picture']
+                attributes: ['id', 'name', 'email', 'picture'],
+                as: 'fromUser'
             }
         ]
       });
@@ -25,6 +26,9 @@ router.post('/', checkAuthorization, async (req, res) => {
     
     console.log(friendships_info[0].dataValues);
     console.log(friendships_info[0].dataValues.User);
+
+    const fromUser = friendships_info[0].fromUser;
+    console.log(fromUser);
     
     return res.status(200).json({ok: 'ok'});
 
