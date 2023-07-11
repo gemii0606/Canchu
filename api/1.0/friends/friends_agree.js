@@ -30,7 +30,8 @@ router.post('/', checkAuthorization, async (req, res) => {
         return res.status(400).json({ error: 'You are not the receiver.' });
     }
 
-    console.log(friendship);
+    friendship.status = 'requested';
+    return res.status(200).json({ data: });
 
 });
 
