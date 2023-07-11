@@ -22,7 +22,7 @@ router.post('/', checkAuthorization, async (req, res) => {
         ]
       });
     
-    const result = friendships_info.map(friend =>{
+    const users = friendships_info.map(friend =>{
         const user_info = friend.dataValues.FromUser.dataValues;
         const data ={
             ...user_info,
@@ -34,7 +34,8 @@ router.post('/', checkAuthorization, async (req, res) => {
         return data;
     });
     
-    console.log(result)
+ 
+    console.log({data: {users}})
     // console.log(friendships_info[0].dataValues);
     // console.log(friendships_info[1].dataValues);
 
