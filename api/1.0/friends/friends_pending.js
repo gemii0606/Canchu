@@ -30,12 +30,11 @@ router.post('/', checkAuthorization, async (req, res) => {
                 id: friend.id,
                 status: 'pending'
             }
-
         };
         return data;
     });
     
-    console.log(data)
+    console.log(result)
     // console.log(friendships_info[0].dataValues);
     // console.log(friendships_info[1].dataValues);
 
