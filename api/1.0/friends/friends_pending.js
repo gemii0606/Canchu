@@ -13,10 +13,12 @@ const pool = require('../utils/mysql');
 router.post('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     const from_id = decodedToken.id;
+    const from_pending = await Friendship.findOne({
+        where: { from_id, status: 'pending' }
+      });
 
+    console.log(from_pending)
     
-    
-    const friendshipInfo = await User.findByPk(friendship.id);
     return res.status(200).json({ data: { friendship: friendshipInfo } });
 
 });
