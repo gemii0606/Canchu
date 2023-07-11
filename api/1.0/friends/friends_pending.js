@@ -16,7 +16,7 @@ router.post('/', checkAuthorization, async (req, res) => {
         include: [
             {
                 model: User,
-                attributes: ['id', 'name', 'email', 'picture']
+                attributes: ['id', 'name', 'email', 'picture'],
                 as: 'FromUser'
             }
         ]
