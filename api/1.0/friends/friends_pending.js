@@ -21,10 +21,14 @@ router.post('/', checkAuthorization, async (req, res) => {
             }
         ]
       });
-
-    console.log(friendships_info)
-    console.log(friendships_info[0].dataValues);
-    console.log(friendships_info[1].dataValues);
+    
+    const result = friendships_info.map(friend =>{
+        const user_info = friend.dataValues.FromUser.dataValues;
+    });
+    
+    console.log(result)
+    // console.log(friendships_info[0].dataValues);
+    // console.log(friendships_info[1].dataValues);
 
 
     
