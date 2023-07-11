@@ -31,7 +31,7 @@ router.post('/', checkAuthorization, async (req, res) => {
     }
 
     friendship.status = 'requested';
-    return res.status(200).json({ data: });
+    return res.status(200).json({ data: {friendship: friendship_id}});
 
 });
 
