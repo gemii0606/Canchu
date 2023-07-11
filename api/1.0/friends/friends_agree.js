@@ -33,3 +33,5 @@ router.post('/', checkAuthorization, async (req, res) => {
     console.log(friendship);
 
 });
+
+module.exports = router;
