@@ -35,7 +35,11 @@ router.delete('/', checkAuthorization, async (req, res) => {
             return res.status(200).json({ data: {friendship: delete_id}});
             
         }
+        const delete_action = await Friendship.destroy({
+            where: { id: delete_id }
+        });
 
+        return res.status(200).json({ data: {friendship: delete_id}});
 
     } catch (err) {
         console.error(`${err.message} `);
