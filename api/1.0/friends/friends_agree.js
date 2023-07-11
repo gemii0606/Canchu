@@ -22,7 +22,7 @@ router.post('/', checkAuthorization, async (req, res) => {
             return res.status(400).json({ error: 'There is no request.' });
         }
 
-        if (friendship.status === 'requested') {
+        if (friendship.status === 'friend') {
             return res.status(400).json({ error: 'You are already friends.' });
         }
 
@@ -30,7 +30,7 @@ router.post('/', checkAuthorization, async (req, res) => {
             return res.status(400).json({ error: 'You are not the receiver.' });
         }
 
-        friendship.status = 'requested';
+        friendship.status = 'friend';
         await friendship.save(); // to save this change permanently
 
         return res.status(200).json({ data: {friendship: friendship_id}});

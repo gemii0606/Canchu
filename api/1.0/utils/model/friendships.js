@@ -33,7 +33,7 @@ Friendship.init({
     }
   },
   status: {
-    type: DataTypes.ENUM('pending', 'requested'),
+    type: DataTypes.ENUM('pending', 'friend'),
     defaultValue: 'pending'
   }
 }, {
