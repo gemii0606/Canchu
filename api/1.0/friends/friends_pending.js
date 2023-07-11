@@ -8,34 +8,38 @@ const { checkAuthorization } = require('../utils/function');
 
 
 router.get('/', checkAuthorization, async (req, res) => {
-    const decodedToken = req.decodedToken;
-    const to_id = decodedToken.id;  // see if you are receiver
-    const friendships_info = await Friendship.findAll({
-        where: { to_id, status: 'pending' },
-        attributes: ['id', 'from_id', 'to_id'],
-        include: [
-            {
-                model: User,
-                attributes: ['id', 'name', 'picture'],
-                as: 'FromUser'
-            }
-        ]
-      });
+    try {
+        const decodedToken = req.decodedToken;
+        const to_id = decodedToken.id;  // see if you are receiver
+        const friendships_info = await Friendship.findAll({
+            where: { to_id, status: 'pending' },
+            attributes: ['id', 'from_id', 'to_id'],
+            include: [
+                {
+                    model: User,
+                    attributes: ['id', 'name', 'picture'],
+                    as: 'FromUser'
+                }
+            ]
+        });
+        
+        const users = friendships_info.map(friend =>{
+            const user_info = friend.dataValues.FromUser.dataValues;
+            const data ={
+                ...user_info,
+                friendship: {
+                    id: friend.id,
+                    status: 'pending'
+                }
+            };
+            return data;
+        });
     
-    const users = friendships_info.map(friend =>{
-        const user_info = friend.dataValues.FromUser.dataValues;
-        const data ={
-            ...user_info,
-            friendship: {
-                id: friend.id,
-                status: 'pending'
-            }
-        };
-        return data;
-    });
-   
-    return res.status(200).json({data: {users}});
-
+        return res.status(200).json({data: {users}});
+    } catch (err) {
+        console.error(`${err.message} `);
+        res.status(500).json({ error: 'Server error' });
+    }
 });
 
 module.exports = router;
