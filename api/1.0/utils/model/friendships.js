@@ -41,5 +41,5 @@ Friendship.init({
   tableName: 'friendships'
 });
 
-
+Friendship.sync()
 module.exports = Friendship;
