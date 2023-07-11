@@ -21,9 +21,10 @@ router.post('/', checkAuthorization, async (req, res) => {
         ]
       });
 
-
     
-    console.log(friendships_info);
+    
+    console.log(friendships_info[0].dataValues);
+    console.log(friendships_info[0].dataValues.User);
     
     return res.status(200).json({ok: 'ok'});
 
