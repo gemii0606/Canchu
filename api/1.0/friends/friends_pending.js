@@ -16,7 +16,7 @@ router.post('/', checkAuthorization, async (req, res) => {
         include: [
             {
                 model: User,
-                attributes: ['id', 'name', 'email', 'picture'],
+                attributes: ['id', 'name', 'picture'],
                 as: 'FromUser'
             }
         ]
@@ -24,10 +24,18 @@ router.post('/', checkAuthorization, async (req, res) => {
     
     const result = friendships_info.map(friend =>{
         const user_info = friend.dataValues.FromUser.dataValues;
-        return user_info;
+        const data ={
+            ...user_info,
+            friendship: {
+                id: friend.id,
+                status: 'pending'
+            }
+
+        };
+        return data;
     });
     
-    console.log(result)
+    console.log(data)
     // console.log(friendships_info[0].dataValues);
     // console.log(friendships_info[1].dataValues);
 
