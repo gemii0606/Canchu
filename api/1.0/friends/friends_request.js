@@ -30,30 +30,29 @@ router.post('/', checkAuthorization, async (req, res) => {
     const AtoB = await Friendship.findOne({
         where: { from_id, to_id }
       });
-    console.log('1');
+  
     if (AtoB) {
     return res.status(400).json({ error: 'The request has already been sent.' });
     }
-    console.log('2');
+
     const BtoA = await Friendship.findOne({
     where: { from_id, to_id }
     });
-    console.log('3');
+  
     if (BtoA && BtoA.status === 'pending') {
     return res.status(400).json({ error: 'He/She is waiting for your acceptance.' });
     }
-    console.log('4');
+  
     if (BtoA && BtoA.status === 'accepted') {
     return res.status(400).json({ error: 'You are already friends.' });
     }
-    console.log('5');
+  
     const friendship = await Friendship.create({
     from_id,
     to_id
     });
     
     const friendshipInfo = await User.findByPk(friendship.id);
-    console.log('6');
     return res.status(200).json({ data: { friendship: friendshipInfo } });
 
 });
