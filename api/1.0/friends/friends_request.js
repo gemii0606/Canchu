@@ -11,10 +11,9 @@ const pool = require('../utils/mysql');
 
 
 router.post('/', checkAuthorization, async (req, res) => {
+    try {
     const reqUserId = req.baseUrl.split('/').slice(-2,-1)[0];
     const decodedToken = req.decodedToken;
-    console.log(decodedToken);
-    console.log(reqUserId);
     const from_id = decodedToken.id;
     const to_id = parseInt(reqUserId);
 
@@ -54,6 +53,10 @@ router.post('/', checkAuthorization, async (req, res) => {
     
     const friendshipInfo = await User.findByPk(friendship.id);
     return res.status(200).json({ data: { friendship: friendshipInfo } });
+    } catch (err) {
+        console.error(`${err.message} `);
+        res.status(500).json({ error: 'Server error' });
+    }
 
 });
 
