@@ -19,6 +19,6 @@ router.post('/', checkAuthorization, async (req, res) => {
 
     console.log(from_pending)
     
-    return res.status(200).json({ data: { friendship: friendshipInfo } });
+    // return res.status(200).json({ data: { friendship: friendshipInfo } });
 
 });
