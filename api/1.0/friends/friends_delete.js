@@ -26,7 +26,7 @@ router.delete('/', checkAuthorization, async (req, res) => {
             return res.status(400).json({ error: 'Your relationship has not connected.' });
         }
 
-        if (friendship.status === 'friend') {
+        if (delete_target.status === 'friend') {
 
             const delete_action = await Friendship.destroy({
                 where: { id: delete_id }
