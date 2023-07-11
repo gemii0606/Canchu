@@ -18,7 +18,7 @@ router.post('/', checkAuthorization, async (req, res) => {
 
     console.log(pendings_info)
     
-    return res.status(200).json({ data: { from_pending } });
+    return res.status(200).json({ok: 'ok'});
 
 });
 
