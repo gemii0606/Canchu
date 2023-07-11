@@ -14,9 +14,9 @@ router.post('/', checkAuthorization, async (req, res) => {
         where: { to_id, status: 'pending' }
       });
 
-    const friendships_pending = friendships_info.dataValues;
+    const friendships_pending = friendships_info.map(item => {item.dataValues});
     
-    console.log(friendships_info);
+    console.log(friendships_pending);
     
     return res.status(200).json({ok: 'ok'});
 
