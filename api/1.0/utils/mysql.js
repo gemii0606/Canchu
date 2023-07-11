@@ -8,4 +8,11 @@ const pool = mysql.createPool({
     database: 'canchu',
 });
 
+
+
+
+
+
+
+
 module.exports = pool;
