@@ -31,6 +31,8 @@ router.post('/', checkAuthorization, async (req, res) => {
         }
 
         friendship.status = 'requested';
+        await friendship.save(); // to save this change permanently
+
         return res.status(200).json({ data: {friendship: friendship_id}});
     } catch (err) {
         console.error(`${err.message} `);
