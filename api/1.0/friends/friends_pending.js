@@ -22,3 +22,5 @@ router.post('/', checkAuthorization, async (req, res) => {
     // return res.status(200).json({ data: { friendship: friendshipInfo } });
 
 });
+
+module.exports = router;
