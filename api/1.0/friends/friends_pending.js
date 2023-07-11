@@ -11,12 +11,19 @@ router.post('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     const to_id = decodedToken.id;  // see if you are receiver
     const friendships_info = await Friendship.findAll({
-        where: { to_id, status: 'pending' }
+        where: { to_id, status: 'pending' },
+        attributes: ['id', 'from_id', 'to_id'],
+        include: [
+            {
+                model: User,
+                attributes: ['name', 'email']
+            }
+        ]
       });
 
-    const friendships_pending = friendships_info.map(item => {item.dataValues});
+
     
-    console.log(friendships_pending);
+    console.log(friendships_info);
     
     return res.status(200).json({ok: 'ok'});
 
