@@ -15,8 +15,8 @@ router.post('/', checkAuthorization, async (req, res) => {
       });
 
     const friendships_pending = friendships_info.dataValues;
-
-    console.log(friendships_pending)
+    
+    console.log(friendships_info);
     
     return res.status(200).json({ok: 'ok'});
 
