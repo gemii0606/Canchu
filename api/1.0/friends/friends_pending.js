@@ -10,7 +10,7 @@ const { checkAuthorization } = require('../utils/function');
 router.post('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     const to_id = decodedToken.id;  // see if you are receiver
-    const {pendings_info} = await Friendship.findOne({
+    const pendings_info = await Friendship.findOne({
         where: { to_id, status: 'pending' }
       });
 
