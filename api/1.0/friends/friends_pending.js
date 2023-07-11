@@ -33,15 +33,8 @@ router.post('/', checkAuthorization, async (req, res) => {
         };
         return data;
     });
-    
- 
-    console.log({data: {users}})
-    // console.log(friendships_info[0].dataValues);
-    // console.log(friendships_info[1].dataValues);
-
-
-    
-    return res.status(200).json({ok: 'ok'});
+   
+    return res.status(200).json({data: {users}});
 
 });
 
