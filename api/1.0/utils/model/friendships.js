@@ -43,7 +43,7 @@ Friendship.init({
 });
 
 Friendship.sync()
-Friendship.belongsTo(User, { foreignKey: 'from_id' })
-Friendship.belongsTo(User, { foreignKey: 'to_id' })
+Friendship.belongsTo(User, { foreignKey: 'from_id', as: 'FromUser' })
+Friendship.belongsTo(User, { foreignKey: 'to_id', , as: 'ToUser' })
 
 module.exports = Friendship;
