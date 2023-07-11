@@ -23,8 +23,7 @@ router.post('/', checkAuthorization, async (req, res) => {
       });
 
     
-    console.log(friendships_info);
-    console.log(friendships_info.dataValues);
+    console.log(friendships_info[0].dataValues);
     console.log(friendships_info.dataValues.User);
 
     const fromUser = friendships_info.FromUser;
