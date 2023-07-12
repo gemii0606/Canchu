@@ -39,7 +39,7 @@ router.post('/', checkAuthorization, async (req, res) => {
             where: { id: friendship.from_id },
             attributes: ['name']
         });
-        console.log(request_event.dataValues.name);
+        console.log(accept_event.dataValues.name);
         const events = await Event.create({
             from_id,
             to_id,
@@ -49,7 +49,7 @@ router.post('/', checkAuthorization, async (req, res) => {
         });
 
 
-        return res.status(200).json({ data: {friendship: friendship_id}});
+        return res.status(200).json({ data: {friendship: {id: friendship.id} } });
     } catch (err) {
         console.error(`${err.message} `);
         res.status(500).json({ error: 'Server error' });
