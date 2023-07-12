@@ -25,20 +25,20 @@ router.get('/', checkAuthorization, async (req, res) => {
             ]
         });
 
-        if (events_request.length !== 0) {
-            const events = events_request.map(event =>{
-                const data ={
-                    id: event.dataValues.id,
-                    type: event.dataValues.type,
-                    is_read: event.dataValues.is_read,
-                    image: event.dataValues.FromUser.dataValues.picture,
-                    created_at: moment(event.dataValues.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                    summary: event.dataValues.summary
-                    };
-                return data;
-            });
-            return res.status(200).json({data: {events}});
-    }
+
+        const events = events_request.map(event =>{
+            const data ={
+                id: event.dataValues.id,
+                type: event.dataValues.type,
+                is_read: event.dataValues.is_read,
+                image: event.dataValues.FromUser.dataValues.picture,
+                created_at: moment(event.dataValues.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                summary: event.dataValues.summary
+                };
+            return data;
+        });
+        return res.status(200).json({data: {events}});
+    
     } catch {
         console.error(`${err.message} `);
         res.status(500).json({ error: 'Server error' });
