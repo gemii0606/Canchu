@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../utils/model/users');
 const Event = require('../utils/model/events');
-
+const moment = require('moment');
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
@@ -32,7 +32,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                     type: event.dataValues.type,
                     is_read: event.dataValues.is_read,
                     image: event.dataValues.FromUser.dataValues.picture,
-                    created_at: event.dataValues.createdAt.toLocaleString().replace(',', ''),
+                    created_at: moment(event.dataValues.createdAt).format("YYYY-MM-DD HH:mm:ss"),
                     summary: event.dataValues.summary
                     };
                 return data;
