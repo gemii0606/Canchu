@@ -32,7 +32,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                     type: event.dataValues.type,
                     is_read: event.dataValues.is_read,
                     image: event.dataValues.FromUser.dataValues.picture,
-                    created_at: event.dataValues.createdAt,
+                    created_at: event.dataValues.createdAt.toLocaleString().replace(',', ''),
                     summary: event.dataValues.summary
                     };
                 return data;
