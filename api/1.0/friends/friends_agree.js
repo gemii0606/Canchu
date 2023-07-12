@@ -19,10 +19,6 @@ router.post('/', checkAuthorization, async (req, res) => {
             where: { id: friendship_id }
         });
 
-        if (!friendship) {
-            return res.status(400).json({ error: 'There is no request.' });
-        }
-
         if (friendship.status === 'friend') {
             return res.status(400).json({ error: 'You are already friends.' });
         }
@@ -37,12 +33,13 @@ router.post('/', checkAuthorization, async (req, res) => {
         // create accept event in events table 
         const accept_event = await User.findOne({
             where: { id: friendship.from_id },
-            attributes: ['name']
+            attributes: ['id', 'name']
         });
+
         console.log(accept_event.dataValues.name);
         const events = await Event.create({
-            from_id,
-            to_id,
+            from_id: accept_event.dataValues.id,
+            to_id: user_id,
             type:'friend_accept',
             is_read: false,
             summary: `${accept_event.dataValues.name} has accepted your friend request.`
