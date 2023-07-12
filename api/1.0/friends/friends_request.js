@@ -57,7 +57,7 @@ router.post('/', checkAuthorization, async (req, res) => {
             summary: `${request_event.dataValues.name}邀請你成為好友`
         });
         
-        return res.status(200).json({ data: { friendship: friendship.id } });
+        return res.status(200).json({ data: { friendship: {id: friendship.id} } });
 
     } catch (err) {
         console.error(`${err.message} `);
