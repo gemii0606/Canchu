@@ -16,20 +16,12 @@ Event.init({
     primaryKey: true,
     autoIncrement: true
   },
-  from_id: {
+  user_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'friendships',
-      key: 'from_id'
-    }
-  },
-  to_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'friendships',
-      key: 'to_id'
+      model: 'users'
+      key: 'id'
     }
   },
   type: {
@@ -51,8 +43,7 @@ Event.init({
 });
 
 Event.sync().then(() => {
-    Event.belongsTo(Friendship, { foreignKey: 'from_id' });
-    Event.belongsTo(Friendship, { foreignKey: 'to_id' });
+    Event.belongsTo(Friendship, { foreignKey: 'id' });
   }).catch(error => {
     console.error('Error syncing Event model:', error);
   });
