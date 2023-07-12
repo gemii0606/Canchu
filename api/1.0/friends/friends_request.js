@@ -48,7 +48,7 @@ router.post('/', checkAuthorization, async (req, res) => {
             where: { id: from_id },
             attributes: ['name']
         });
-        console.log(request_event);
+        console.log(request_event.dataValues.name);
         const events = await Event.create({
             from_id,
             to_id,
