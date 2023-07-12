@@ -8,7 +8,7 @@ const Event = require('../utils/model/events');
 const { checkAuthorization } = require('../utils/function');
 
 
-router.post('/', checkAuthorization, async (req, res) => {
+router.get('/', checkAuthorization, async (req, res) => {
 
     const decodedToken = req.decodedToken;
     const user_id = decodedToken.id;
