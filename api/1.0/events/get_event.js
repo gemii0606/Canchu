@@ -25,6 +25,8 @@ router.post('/', checkAuthorization, async (req, res) => {
         ]
     });
 
+    console.log(events_request);
+    console.log(events_request.length);
     if (events_request.length !== 0) {
         const events = events_request.map(event =>{
             const data ={
