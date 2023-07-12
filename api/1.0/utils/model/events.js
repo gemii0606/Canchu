@@ -20,7 +20,7 @@ Event.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'users'
+      model: 'users',
       key: 'id'
     }
   },
