@@ -16,7 +16,15 @@ Event.init({
     primaryKey: true,
     autoIncrement: true
   },
-  user_id: {
+  from_id: {
+    type: DataTypes.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'users',
+      key: 'id'
+    }
+  },
+  to_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
@@ -41,6 +49,9 @@ Event.init({
   tableName: 'events',
   timestamps: true
 });
+
+Event.belongsTo(User, { foreignKey: 'from_id', as: 'FromUser' })
+Event.belongsTo(User, { foreignKey: 'to_id', as: 'ToUser' })
 
 Event.sync().then(() => {
     Event.belongsTo(User, { foreignKey: 'id' });
