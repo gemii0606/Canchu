@@ -30,12 +30,12 @@ router.get('/', checkAuthorization, async (req, res) => {
     if (events_request.length !== 0) {
         const events = events_request.map(event =>{
             const data ={
-                id: events_request.id,
-                type: events_request.type,
-                is_read: events_request.is_read,
-                image: event.dataValues.FromUser.picture,
-                created_at: events_request.createdAt,
-                summary: events_request.summary
+                id: event.dataValues.id,
+                type: event.dataValues.type,
+                is_read: event.dataValues.is_read,
+                image: event.dataValues.FromUser.dataValues.picture,
+                created_at: event.dataValues.createdAt,
+                summary: event.dataValues.summary
                 };
             return data;
         });
