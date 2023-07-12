@@ -32,14 +32,14 @@ router.post('/', checkAuthorization, async (req, res) => {
 
         // create accept event in events table 
         const accept_event = await User.findOne({
-            where: { id: friendship.to_id },
+            where: { id: friendship.from_id },
             attributes: ['id', 'name']
         });
 
         console.log(accept_event.dataValues.name);
         const events = await Event.create({
-            from_id: accept_event.dataValues.id,
-            to_id: user_id,
+            from_id: user_id,
+            to_id: accept_event.dataValues.id,
             type:'friend_accept',
             is_read: false,
             summary: `${accept_event.dataValues.name} has accepted your friend request.`
