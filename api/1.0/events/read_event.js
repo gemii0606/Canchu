@@ -8,18 +8,29 @@ const { checkAuthorization } = require('../utils/function');
 
 
 router.post('/', checkAuthorization, async (req, res) => {
-    //get the user id
-    const reqEventId = req.baseUrl.split('/').slice(-2,-1)[0];
-    const decodedToken = req.decodedToken;
-    const user_id = decodedToken.id;
-    const event_id = parseInt(reqEventId);
+    try {
+        //get the user id
+        const reqEventId = req.baseUrl.split('/').slice(-2,-1)[0];
+        const decodedToken = req.decodedToken;
+        const user_id = decodedToken.id;
+        const event_id = parseInt(reqEventId);
 
-    const event = await Event.findOne({
-        where: {id: event_id}
-    });
-    event.is_read = true;
-    console.log(event.is_read);
+        const event = await Event.findOne({
+            where: {id: event_id}
+        });
 
+        if (!event) {
+            return res.status(400).json({ error: 'Request does not exist.' });
+        }
+
+        event.is_read = true;
+        await event.save();
+
+        return res.status(400).json({ data: { event: event.id} });
+    } catch (err) {
+        console.error(`${err.message} `);
+        res.status(500).json({ error: 'Server error' });
+    }
 });
 
 
