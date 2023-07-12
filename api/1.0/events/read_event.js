@@ -17,7 +17,8 @@ router.post('/', checkAuthorization, async (req, res) => {
     const event = await Event.findOne({
         where: {id: event_id}
     });
-    console.log(event);
+    event.is_read = true;
+    console.log(event.is_read);
 
 });
 
