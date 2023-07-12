@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../utils/model/users');
 const Friendship = require('../utils/model/friendships');
+const Event = require('../utils/model/events');
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
@@ -32,6 +33,21 @@ router.post('/', checkAuthorization, async (req, res) => {
 
         friendship.status = 'friend';
         await friendship.save(); // to save this change permanently
+
+        // create accept event in events table 
+        const accept_event = await User.findOne({
+            where: { id: friendship.from_id },
+            attributes: ['name']
+        });
+        console.log(request_event.dataValues.name);
+        const events = await Event.create({
+            from_id,
+            to_id,
+            type:'friend_accept',
+            is_read: false,
+            summary: `${accept_event.dataValues.name} has accepted your friend request.`
+        });
+
 
         return res.status(200).json({ data: {friendship: friendship_id}});
     } catch (err) {

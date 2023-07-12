@@ -54,7 +54,7 @@ router.post('/', checkAuthorization, async (req, res) => {
             to_id,
             type:'friend_request',
             is_read: false,
-            summary: `${request_event.dataValues.name}邀請你成為好友`
+            summary: `${request_event.dataValues.name} invited you to be friends.`
         });
         
         return res.status(200).json({ data: { friendship: {id: friendship.id} } });
