@@ -46,7 +46,7 @@ router.post('/', checkAuthorization, async (req, res) => {
         // create request event in events table
         const request_event = await User.findOne({
             where: { id: from_id },
-            attributes: null
+            attributes: ['name']
         });
         console.log(request_event);
         const events = await Event.create({
@@ -54,7 +54,7 @@ router.post('/', checkAuthorization, async (req, res) => {
             to_id,
             type:'friend_request',
             is_read: false,
-            summary: `${request_event.name}邀請你成為好友`
+            summary: `${request_event}邀請你成為好友`
         });
         
         return res.status(200).json({ data: { friendship: friendship.id } });
