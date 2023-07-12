@@ -25,8 +25,14 @@ router.post('/', checkAuthorization, async (req, res) => {
 
         event.is_read = true;
         await event.save();
-
-        return res.status(400).json({ data: { event: event.id} });
+        
+        const event_info = {
+            event: {
+                id: event.id
+            }
+        };
+        return res.status(400).json({ data: event_info});
+        
     } catch (err) {
         console.error(`${err.message} `);
         res.status(500).json({ error: 'Server error' });
