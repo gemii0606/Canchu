@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
-const Friendship = require('./friendships');
+const User = require('./users');
 require('dotenv').config();
 
 const sequelize = new Sequelize('canchu', 'gemii0606', process.env.SQL_NODEJS_PW, {
@@ -43,7 +43,7 @@ Event.init({
 });
 
 Event.sync().then(() => {
-    Event.belongsTo(Friendship, { foreignKey: 'id' });
+    Event.belongsTo(User, { foreignKey: 'id' });
   }).catch(error => {
     console.error('Error syncing Event model:', error);
   });
