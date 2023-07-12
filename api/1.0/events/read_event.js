@@ -31,8 +31,8 @@ router.post('/', checkAuthorization, async (req, res) => {
                 id: event.id
             }
         };
-        return res.status(400).json({ data: event_info});
-        
+        return res.status(200).json({ data: event_info});
+
     } catch (err) {
         console.error(`${err.message} `);
         res.status(500).json({ error: 'Server error' });
