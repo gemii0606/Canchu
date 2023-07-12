@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const usersRoute = require('./users');
 const friendsRoute = require('./friends');
+const eventsRoute = require('./events');
 
 app.use(express.json());
 app.use(express.static('public'))
@@ -11,6 +12,7 @@ app.use('/api/1.0/users', usersRoute);
 
 
 app.use('/api/1.0/friends', friendsRoute);
+app.use('/api/1.0/events', eventsRoute);
 
 
 

@@ -1,6 +1,5 @@
 const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
-const User = require('./users');
 const Friendship = require('./friendships');
 require('dotenv').config();
 
@@ -21,57 +20,41 @@ Event.init({
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'users',
-      key: 'id'
+      model: 'friendships',
+      key: 'from_id'
     }
   },
   to_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'users',
-      key: 'id'
+      model: 'friendships',
+      key: 'to_id'
     }
   },
   type: {
     type: DataTypes.STRING
   },
   is_read: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.BOOLEAN,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
-  },
-  image: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
-  },
-  created_at: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
+    defaultValue: false
   },
   summary: {
-    type: DataTypes.ENUM('pending', 'friend'),
-    defaultValue: 'pending'
+    type: DataTypes.STRING
   }
 }, {
   sequelize,
   modelName: 'Event',
-  tableName: 'Events'
+  tableName: 'events',
+  timestamps: true
 });
 
-Event.sync()
-Event.belongsTo(Friendship, { foreignKey: 'from_id', as: 'FromUser' })
-Event.belongsTo(Friendship, { foreignKey: 'to_id', as: 'ToUser' })
+Event.sync().then(() => {
+    Event.belongsTo(Friendship, { foreignKey: 'from_id' });
+    Event.belongsTo(Friendship, { foreignKey: 'to_id' });
+  }).catch(error => {
+    console.error('Error syncing Event model:', error);
+  });
 
 module.exports = Event;
