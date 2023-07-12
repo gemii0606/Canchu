@@ -4,7 +4,7 @@ const router = express.Router();
 const eventGetRoute = require('./get_event');
 
 
-router.use('/events', eventGetRoute);
+router.use('/', eventGetRoute);
 
 
 module.exports = router;
