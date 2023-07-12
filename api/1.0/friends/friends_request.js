@@ -45,7 +45,8 @@ router.post('/', checkAuthorization, async (req, res) => {
         
         // create request event in events table
         const request_event = await User.findOne({
-            where: { id: from_id }
+            where: { id: from_id },
+            attributes: null
         });
         console.log(request_event);
         const events = await Event.create({
