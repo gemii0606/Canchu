@@ -55,8 +55,8 @@ const Event = require('./events');
 //     console.error('Error syncing :', error);
 // });
 
-User.hasMany(Friendship, { foreignKey: 'id', sourceKey: 'from_id' });
-Friendship.belongsTo(User, { foreignKey: 'id', targetKey: 'from_id'});
+User.hasMany(Friendship, { foreignKey: 'from_id', sourceKey: 'id' });
+Friendship.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id'});
 
 module.exports = {
     User,
