@@ -24,11 +24,11 @@ router.get('/', checkAuthorization, async (req, res) => {
       },
       attributes: ['id', 'name', 'picture']
     });
-    console.log(query_users);
+
     let users = [];
 
     for (const other of query_users) {
-      const friendship = await Friendship.findAll({
+      const [friendship] = await Friendship.findAll({
         where: {
           [Op.or]: [
             { from_id: user_id },
