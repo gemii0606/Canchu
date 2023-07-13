@@ -16,10 +16,14 @@ Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'EventToUser' 
 
 
 User.associate = function(models) {
-    User.hasMany(Friendship, { foreignKey: 'from_id', sourceKey: 'id' });
-    User.hasMany(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
-    User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
-    User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
+    // User.hasMany(Friendship, { foreignKey: 'from_id', sourceKey: 'id' });
+    // User.hasMany(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
+    // User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
+    // User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
+    User.belongsTo(Friendship, { foreignKey: 'from_id', sourceKey: 'id' });
+    User.belongsTo(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
+    User.belongsTo(Event, { foreignKey: 'from_id', sourceKey: 'id' });
+    User.belongsTo(Event, { foreignKey: 'to_id', sourceKey: 'id' });
   }
 
 
