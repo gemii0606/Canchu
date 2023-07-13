@@ -19,14 +19,6 @@ Friendship.associate = function(models) {
 Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'EventFromUser' })
 Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'EventToUser' })
 
-
-
-module.exports = {
-    User,
-    Friendship,
-    Event
-};
-
 User.sync()
 Friendship.sync()
 Event.sync().then(() => {
@@ -34,3 +26,10 @@ Event.sync().then(() => {
 }).catch(error => {
     console.error('Error syncing Event model:', error);
 });
+
+module.exports = {
+    User,
+    Friendship,
+    Event
+};
+
