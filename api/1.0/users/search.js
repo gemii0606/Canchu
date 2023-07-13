@@ -37,7 +37,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         }
       });    
       console.log(friendship);
-      if (friendship.length === 0) {
+      if (!friendship) {
         const data = {
           id: other.dataValues.id,
           name: other.dataValues.name,
