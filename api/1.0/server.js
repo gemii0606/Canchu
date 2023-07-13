@@ -19,7 +19,6 @@ app.use('/api/1.0/events', eventsRoute);
 
 app.get('/api/1.0/users/search', async (req, res) => {
   console.log('1');
-  const friendship = await Friendship.create({ from_id: 1, to_id: 2 });
   res.send('Hello,friend!');
 });
 
