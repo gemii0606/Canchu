@@ -37,7 +37,15 @@ router.get('/', checkAuthorization, async (req, res) => {
         }
       });    
       console.log(friendship);
-      if ( friendship.dataValues.from_id === user_id && friendship.dataValues.status === 'pending') {
+      if (!friendship) {
+        const data = {
+          id: item.dataValues.id,
+          name: item.dataValues.name,
+          picture: item.dataValues.picture,
+          friendship: null
+        };
+        users.push(data);
+      } else if ( friendship.dataValues.from_id === user_id && friendship.dataValues.status === 'pending') {
         const data = {
           id: friendship.dataValues.id,
           name: friendship.dataValues.name,
@@ -68,14 +76,6 @@ router.get('/', checkAuthorization, async (req, res) => {
             id: friendship.dataValues.id,
             status: 'friend'
           }
-        };
-        users.push(data);
-      } else {
-        const data = {
-          id: item.dataValues.id,
-          name: item.dataValues.name,
-          picture: item.dataValues.picture,
-          friendship: null
         };
         users.push(data);
       }
