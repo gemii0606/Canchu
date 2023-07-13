@@ -8,6 +8,8 @@ const { checkAuthorization } = require('../utils/function');
 
 router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
+    console.log(req);
+    console.log(req.query);
 
     res.send('ok');
 });
