@@ -29,7 +29,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         ]
       });
       console.log(users[0]);
-      console.log(users[0].include);
+      console.log(users[0].Friendship);
     
 });
 
