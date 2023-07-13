@@ -1,5 +1,6 @@
 const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
+// const User = require('./users');
 require('dotenv').config();
 
 const sequelize = new Sequelize('canchu', 'gemii0606', process.env.SQL_NODEJS_PW, {
@@ -42,11 +43,11 @@ Friendship.init({
 });
 
 
-Friendship.associate = function(models) {
-  Friendship.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' });
-  Friendship.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' });
-}
+// Friendship.associate = function(models) {
+//   Friendship.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' });
+//   Friendship.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' });
+// }
 
-Friendship.sync()
+// Friendship.sync()
 
 module.exports = Friendship;

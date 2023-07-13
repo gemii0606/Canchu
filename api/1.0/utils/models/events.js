@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
-const User = require('./users');
+// const User = require('./users');
 require('dotenv').config();
 
 const sequelize = new Sequelize('canchu', 'gemii0606', process.env.SQL_NODEJS_PW, {
@@ -50,13 +50,13 @@ Event.init({
   timestamps: true
 });
 
-Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' })
-Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' })
+// Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' })
+// Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' })
 
-Event.sync().then(() => {
-    Event.belongsTo(User, { foreignKey: 'id' });
-  }).catch(error => {
-    console.error('Error syncing Event model:', error);
-  });
+// Event.sync().then(() => {
+//     Event.belongsTo(User, { foreignKey: 'id' });
+//   }).catch(error => {
+//     console.error('Error syncing Event model:', error);
+//   });
 
 module.exports = Event;
