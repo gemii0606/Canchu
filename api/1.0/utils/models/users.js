@@ -17,7 +17,7 @@ const User = sequelize.define('User', {}, { tableName: 'users', timestamps: fals
 // }
 
 User.associate = function(models) {
-  User.belongsTo(Friendship);
+  User.hasOne(Friendship);
 };
 
 User.sync()
