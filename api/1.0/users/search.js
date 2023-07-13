@@ -25,19 +25,19 @@ router.get('/', checkAuthorization, async (req, res) => {
       attributes: ['id', 'name', 'picture']
     });
 
-
+    const friendships = await Friendship.findAll({
+      where: {
+        [Op.or]: [
+          { from_id: user_id },
+          { to_id: user_id }
+        ]
+      }
+    });
+    
     let users = [];
 
-    for (const item of query_users) {
-      const [friendship] = await Friendship.findAll({
-        where: {
-          [Op.or]: [
-            { from_id: user_id },
-            { to_id: user_id }
-          ]
-        }
-      });
-
+    for (const friendship of friendships) {
+      console.log(friendship);
       if ( friendship.dataValues.from_id === user_id && friendship.dataValues.status === 'pending') {
         const data = {
           id: item.dataValues.id,
