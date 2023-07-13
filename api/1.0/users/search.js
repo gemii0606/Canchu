@@ -11,6 +11,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     console.log(req.query);
     const { keyword } = req.query;
+    console.log(keyword);
 
     const users = await User.findAll({
       where: {
