@@ -22,7 +22,7 @@ const Event = require('./events');
 
 User.sync().then(() => {
     User.associate = function(models) {
-        User.hasOne(Friendship, { foreignKey: 'from_id', sourceKey: 'id' });
+        User.hasOne(Friendship);
         // User.hasMany(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
         // User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
         // User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
