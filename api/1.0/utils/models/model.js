@@ -56,7 +56,7 @@ const Event = require('./events');
 // });
 
 User.hasMany(Friendship);
-Friendship.belongsTo(User, { foreignKey: 'from_id'});
+Friendship.belongsTo(User, { foreignKey: 'id'});
 
 module.exports = {
     User,
