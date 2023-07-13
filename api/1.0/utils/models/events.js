@@ -49,4 +49,10 @@ Event.init({
   timestamps: true
 });
 
+Event.sync().then(() => {
+  Event.belongsTo(User, { foreignKey: 'id' });
+}).catch(error => {
+  console.error('Error syncing Event model:', error);
+});
+
 module.exports = Event;
