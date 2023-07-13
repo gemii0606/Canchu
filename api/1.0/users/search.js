@@ -81,7 +81,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         users.push(data);
       }
     }
-
+    console.log(friendship.id);
     return res.status(200).json({data: {users: users}});
 });
 
