@@ -3,9 +3,6 @@ const Friendship = require('./friendships');
 const Event = require('./events');
 
 
-
-
-  
 Friendship.associate = function(models) {
     Friendship.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' });
     Friendship.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' });
@@ -27,11 +24,16 @@ User.associate = function(models) {
   }
 
 
-User.sync().then(() => {
-    User.hasMany(Friendship, { foreignKey: 'id' });
-}).catch(error => {
-    console.error('Error syncing :', error);
-});
+// User.sync().then(() => {
+//     User.hasMany(Friendship, { foreignKey: 'id' });
+// }).catch(error => {
+//     console.error('Error syncing :', error);
+// });
+
+User.sync()
+Friendship.sync()
+Event.sync()
+
 
 module.exports = {
     User,
