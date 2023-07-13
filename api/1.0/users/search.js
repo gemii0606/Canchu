@@ -7,7 +7,9 @@ const Friendship = require('../utils/model/friendships');
 const { checkAuthorization } = require('../utils/function');
 
 router.get('/', checkAuthorization, async (req, res) => {
+    const decodedToken = req.decodedToken;
 
+    res.send('ok');
 });
 
 module.exports = router;
