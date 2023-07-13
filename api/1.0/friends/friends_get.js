@@ -26,7 +26,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         include: [
           {
             model: Friendship,
-            attributes: ['id', 'from_id', 'status']
+            // attributes: ['id', 'from_id', 'status']
           }
         ]
       });
