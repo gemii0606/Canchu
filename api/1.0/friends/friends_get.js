@@ -21,7 +21,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     //     }
     //   });
     const users = await User.findAll({
-        where = { id: 5}
+        where: { id: 5},
         attributes: ['id', 'name', 'picture'],
         include: [
           {
