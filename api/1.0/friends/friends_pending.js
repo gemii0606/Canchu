@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-// const User = require('../utils/models/users');
-// const Friendship = require('../utils/models/friendships');
 const {User, Friendship, Event} = require('../utils/models/model')
 
 // take out the function
