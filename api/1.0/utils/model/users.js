@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
-const Friendship = require('./friendships');
+// const Friendship = require('./friendships');
 // const Event = require('./events');
 require('dotenv').config();
 
@@ -18,7 +18,7 @@ User.associate = function(models) {
   User.hasMany(models.Event, { foreignKey: 'to_id', sourceKey: 'id' });
 }
 
-// User.sync()
+User.sync()
 
 
 module.exports = User;
