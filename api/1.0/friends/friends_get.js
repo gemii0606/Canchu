@@ -8,6 +8,7 @@ const { checkAuthorization } = require('../utils/function');
 
 
 router.get('/', checkAuthorization, async (req, res) => {
+    console.log('1');
     const decodedToken = req.decodedToken;
     const user_id = decodedToken.id;  // see if you are receiver
 
