@@ -9,6 +9,7 @@ const { checkAuthorization } = require('../utils/function');
 
 router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
+    const user_id = decodedToken.id;
     const { keyword } = req.query;
 
 
@@ -22,6 +23,17 @@ router.get('/', checkAuthorization, async (req, res) => {
     });
 
     console.log(users);
+
+    const friendship = await Friendship.findAll({
+      where: {
+        [Op.or]: [
+          { from_id: user_id },
+          { to_id: user_id }
+        ]
+      }
+    });
+
+    console.log(friendship);
     return res.send('ok');
     // return res.status(200).json({data: });
 });
