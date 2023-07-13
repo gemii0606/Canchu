@@ -3,11 +3,11 @@ const Friendship = require('./friendships');
 const Event = require('./events');
 
 
-Friendship.associate = function(models) {
-    Friendship.belongsTo(User);
+// Friendship.associate = function(models) {
+//     Friendship.belongsTo(User);
     // Friendship.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' });
     // Friendship.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' });
-}
+// }
   
 // Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'EventFromUser' })
 // Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'EventToUser' })
@@ -55,6 +55,8 @@ Friendship.associate = function(models) {
 //     console.error('Error syncing :', error);
 // });
 
+User.hasMany(Friendship);
+Friendship.belongsTo(User, { foreignKey: 'from_id'});
 
 module.exports = {
     User,
