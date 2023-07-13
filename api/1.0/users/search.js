@@ -38,7 +38,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         }
       });
     
-      if ( friendship.status === 'friend') {
+      if ( friendship.status === 'pending') {
         const data = {
           id: item.id,
           name: item.name,
@@ -47,6 +47,25 @@ router.get('/', checkAuthorization, async (req, res) => {
             id: friendship.id,
             status: friendship.status
           }
+        };
+        users.push(data);
+      } else if ( friendship.status === 'friend') {
+        const data = {
+          id: item.id,
+          name: item.name,
+          picture: item.picture,
+          friendship: {
+            id: friendship.id,
+            status: friendship.status
+          }
+        };
+        users.push(data);
+      } else {
+        const data = {
+          id: item.id,
+          name: item.name,
+          picture: item.picture,
+          friendship: null
         };
         users.push(data);
       }
