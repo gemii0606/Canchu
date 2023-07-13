@@ -16,8 +16,8 @@ Friendship.associate = function(models) {
     Friendship.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' });
 }
   
-Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' })
-Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' })
+Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'EventFromUser' })
+Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'EventToUser' })
 
 User.sync()
 Friendship.sync()
