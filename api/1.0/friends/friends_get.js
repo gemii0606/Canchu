@@ -21,12 +21,12 @@ router.get('/', checkAuthorization, async (req, res) => {
     //   });
     const users = await User.findAll({
         attributes: ['id', 'Username', 'Picture'],
-        include: [
-          {
-            model: Friendship,
-            attributes: ['id', 'status']
-          }
-        ]
+        // include: [
+        //   {
+        //     model: Friendship,
+        //     attributes: ['id', 'status']
+        //   }
+        // ]
       });
       console.log(users);
     
