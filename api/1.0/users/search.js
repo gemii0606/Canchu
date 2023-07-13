@@ -8,8 +8,20 @@ const { checkAuthorization } = require('../utils/function');
 
 router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
-    console.log(req);
     console.log(req.query);
+    const { keyword } = req.query;
+
+    const users = await User.findAll({
+      where: {
+        name: {
+          [Sequelize.Op.like]: `%${keyword}%`
+        }
+      },
+      include: [{
+        model: Friendship,
+        required: false
+      }]
+    });
 
     res.send('ok');
 });
