@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../utils/model/users');
-const Friendship = require('../utils/model/friendships');
+const User = require('../utils/models/users');
+const Friendship = require('../utils/models/friendships');
 const { Op } = require('sequelize');
 
 // take out the function

@@ -1,6 +1,5 @@
 const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
-const User = require('./users');
 require('dotenv').config();
 
 const sequelize = new Sequelize('canchu', 'gemii0606', process.env.SQL_NODEJS_PW, {

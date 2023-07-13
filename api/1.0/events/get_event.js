@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../utils/model/users');
-const Event = require('../utils/model/events');
+const User = require('../utils/models/users');
+const Event = require('../utils/models/events');
 const moment = require('moment');
 
 // take out the function

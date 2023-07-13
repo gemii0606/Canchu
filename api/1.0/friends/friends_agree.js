@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../utils/model/users');
-const Friendship = require('../utils/model/friendships');
-const Event = require('../utils/model/events');
+// const User = require('../utils/models/users');
+// const Friendship = require('../utils/models/friendships');
+// const Event = require('../utils/models/events');
+const {User, Friendship, Event} = require('../utils/models/model')
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
