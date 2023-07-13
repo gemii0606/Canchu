@@ -39,18 +39,18 @@ router.get('/', checkAuthorization, async (req, res) => {
       console.log(friendship);
       if (friendship.length === 0) {
         const data = {
-          id: item.dataValues.id,
-          name: item.dataValues.name,
-          picture: item.dataValues.picture,
+          id: other.dataValues.id,
+          name: other.dataValues.name,
+          picture: other.dataValues.picture,
           friendship: null
         };
         users.push(data);
         continue;
       } else if ( friendship.dataValues.from_id === user_id && friendship.dataValues.status === 'pending') {
         const data = {
-          id: friendship.dataValues.id,
-          name: friendship.dataValues.name,
-          picture: friendship.dataValues.picture,
+          id: other.dataValues.id,
+          name: other.dataValues.name,
+          picture: other.dataValues.picture,
           friendship: {
             id: friendship.dataValues.id,
             status: 'requested'
@@ -59,9 +59,9 @@ router.get('/', checkAuthorization, async (req, res) => {
         users.push(data);
       } else if ( friendship.dataValues.to_id === user_id && friendship.dataValues.status === 'pending') {
         const data = {
-          id: item.dataValues.id,
-          name: item.dataValues.name,
-          picture: item.dataValues.picture,
+          id: other.dataValues.id,
+          name: other.dataValues.name,
+          picture: other.dataValues.picture,
           friendship: {
             id: friendship.dataValues.id,
             status: 'pending'
@@ -70,9 +70,9 @@ router.get('/', checkAuthorization, async (req, res) => {
         users.push(data);
       } else if ( friendship.dataValues.status === 'friend') {
         const data = {
-          id: item.dataValues.id,
-          name: item.dataValues.name,
-          picture: item.dataValues.picture,
+          id: other.dataValues.id,
+          name: other.dataValues.name,
+          picture: other.dataValues.picture,
           friendship: {
             id: friendship.dataValues.id,
             status: 'friend'
