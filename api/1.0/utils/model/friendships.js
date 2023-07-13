@@ -43,8 +43,8 @@ Friendship.init({
 });
 
 
-Friendship.belongsTo(User, { foreignKey: 'from_id', as: 'FromUser' })
-Friendship.belongsTo(User, { foreignKey: 'to_id', as: 'ToUser' })
+Friendship.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' })
+Friendship.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' })
 
 Friendship.sync()
 
