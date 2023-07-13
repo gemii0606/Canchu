@@ -30,7 +30,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     for (const other of query_users) {
       console.log(other.id)
 
-      const friendship = await Friendship.findAll({
+      const [friendship] = await Friendship.findAll({
         where: {
           [Op.or]: [
             { [Op.and]: [{ from_id: user_id }, { to_id: other.id }] },
