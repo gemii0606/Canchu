@@ -40,31 +40,31 @@ router.get('/', checkAuthorization, async (req, res) => {
     
       if ( friendship.status === 'pending') {
         const data = {
-          id: item.id,
-          name: item.name,
-          picture: item.picture,
+          id: item.dataValues.id,
+          name: item.dataValues.name,
+          picture: item.dataValues.picture,
           friendship: {
-            id: friendship.id,
-            status: friendship.status
+            id: friendship.dataValues.id,
+            status: friendship.dataValues.status
           }
         };
         users.push(data);
       } else if ( friendship.status === 'friend') {
         const data = {
-          id: item.id,
-          name: item.name,
-          picture: item.picture,
+          id: item.dataValues.id,
+          name: item.dataValues.name,
+          picture: item.dataValues.picture,
           friendship: {
-            id: friendship.id,
-            status: friendship.status
+            id: friendship.dataValues.id,
+            status: friendship.dataValues.status
           }
         };
         users.push(data);
       } else {
         const data = {
-          id: item.id,
-          name: item.name,
-          picture: item.picture,
+          id: item.dataValues.id,
+          name: item.dataValues.name,
+          picture: item.dataValues.picture,
           friendship: null
         };
         users.push(data);
