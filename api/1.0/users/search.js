@@ -93,7 +93,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           END`), 'friendship_status']
       ],
       include: {
-        model: Friendship,
+        model: 'friendships',
         required: false,
         attributes: []
       },
