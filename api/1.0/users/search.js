@@ -38,14 +38,25 @@ router.get('/', checkAuthorization, async (req, res) => {
         }
       });
     
-      if ( friendship.status === 'pending') {
+      if ( friendship.from_id === user_id && friendship.status === 'pending') {
         const data = {
           id: item.dataValues.id,
           name: item.dataValues.name,
           picture: item.dataValues.picture,
           friendship: {
             id: friendship.dataValues.id,
-            status: friendship.dataValues.status
+            status: 'requested'
+          }
+        };
+        users.push(data);
+      } else if ( friendship.to_id === user_id && friendship.status === 'pending') {
+        const data = {
+          id: item.dataValues.id,
+          name: item.dataValues.name,
+          picture: item.dataValues.picture,
+          friendship: {
+            id: friendship.dataValues.id,
+            status: 'pending'
           }
         };
         users.push(data);
@@ -56,7 +67,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           picture: item.dataValues.picture,
           friendship: {
             id: friendship.dataValues.id,
-            status: friendship.dataValues.status
+            status: 'friend'
           }
         };
         users.push(data);
