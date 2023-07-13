@@ -50,8 +50,8 @@ Event.init({
   timestamps: true
 });
 
-Event.belongsTo(User, { foreignKey: 'from_id', as: 'FromUser' })
-Event.belongsTo(User, { foreignKey: 'to_id', as: 'ToUser' })
+Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'FromUser' })
+Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'ToUser' })
 
 Event.sync().then(() => {
     Event.belongsTo(User, { foreignKey: 'id' });
