@@ -24,7 +24,9 @@ router.get('/', checkAuthorization, async (req, res) => {
       }]
     });
 
-    return res.status(200).json({data: });
+    console.log(users);
+    return res.send('ok');
+    // return res.status(200).json({data: });
 });
 
 module.exports = router;
