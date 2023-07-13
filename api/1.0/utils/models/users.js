@@ -16,5 +16,5 @@ const User = sequelize.define('User', {}, { tableName: 'users', timestamps: fals
 //   User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
 // }
 
-// User.sync()
+User.sync()
 module.exports = User;
