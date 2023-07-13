@@ -20,16 +20,16 @@ const Event = require('./events');
 //   }
 
 
-User.sync().then(() => {
-    User.associate = function(models) {
-        User.hasMany(Friendship);
-        // User.hasMany(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
-        // User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
-        // User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
-      }
-}).catch(error => {
-    console.error('Error syncing :', error);
-});
+// User.sync().then(() => {
+//     User.associate = function(models) {
+//         User.hasMany(Friendship);
+//         User.hasMany(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
+//         User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
+//         User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
+//       }
+// }).catch(error => {
+//     console.error('Error syncing :', error);
+// });
 
 // Friendship.sync().then(() => {
 //     Friendship.associate = function(models) {
