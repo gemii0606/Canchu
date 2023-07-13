@@ -1,6 +1,6 @@
 const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
-// const Friendship = require('./friendships');
+const Friendship = require('./friendships');
 // const Event = require('./events');
 require('dotenv').config();
 
