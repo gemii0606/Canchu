@@ -11,6 +11,8 @@ router.get('/', checkAuthorization, async (req, res) => {
     try {
         const decodedToken = req.decodedToken;
         const to_id = decodedToken.id;  // see if you are receiver
+
+        // get the pending info from friendships table, and drag the associated sender info from users table
         const friendships_info = await Friendship.findAll({
             where: { to_id, status: 'pending' },
             attributes: ['id', 'from_id', 'to_id'],
@@ -23,6 +25,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             ]
         });
         
+        // data reform
         const users = friendships_info.map(friend =>{
             const user_info = friend.dataValues.FromUser.dataValues;
             const data ={

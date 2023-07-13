@@ -30,13 +30,13 @@ router.post('/', checkAuthorization, async (req, res) => {
         friendship.status = 'friend';
         await friendship.save(); // to save this change permanently
 
-        // create accept event in events table 
+        // find the user's id and name 
         const accept_event = await User.findOne({
             where: { id: friendship.from_id },
             attributes: ['id', 'name']
         });
 
-        console.log(accept_event.dataValues.name);
+        // create accept event in events table. Note: when sending agree message, your are the sender.
         const events = await Event.create({
             from_id: user_id,
             to_id: accept_event.dataValues.id,

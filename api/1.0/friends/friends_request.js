@@ -43,12 +43,12 @@ router.post('/', checkAuthorization, async (req, res) => {
             to_id
         });
         
-        // create request event in events table
+        // get the sender's name from users
         const request_event = await User.findOne({
             where: { id: from_id },
             attributes: ['name']
         });
-        console.log(request_event.dataValues.name);
+        // create request event in events table
         const events = await Event.create({
             from_id,
             to_id,
