@@ -9,16 +9,16 @@ const { checkAuthorization } = require('../utils/function');
 
 router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
-    console.log(req.query);
     const { keyword } = req.query;
-    console.log(keyword);
+
 
     const users = await User.findAll({
       where: {
         name: {
           [Op.like]: `%${keyword}%`
         }
-      }
+      },
+      attributes: ['id', 'name', 'picture']
     });
 
     console.log(users);
