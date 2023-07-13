@@ -17,11 +17,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         name: {
           [Op.like]: `%${keyword}%`
         }
-      },
-      include: [{
-        model: Friendship,
-        required: false
-      }]
+      }
     });
 
     console.log(users);
