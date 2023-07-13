@@ -18,7 +18,7 @@ User.associate = function(models) {
   User.hasMany(models.Event, { foreignKey: 'to_id', sourceKey: 'id' });
 }
 
-User.sync()
+// User.sync()
 
 
 module.exports = User;
