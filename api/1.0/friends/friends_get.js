@@ -28,7 +28,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           }
         ]
       });
-      console.log(users);
+      console.log(users[0].include);
     
 });
 
