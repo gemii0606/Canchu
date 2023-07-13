@@ -44,7 +44,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           name: item.dataValues.name,
           picture: item.dataValues.picture,
           friendship: {
-            id: friendship.dataValues.id,
+            id: friendship.id,
             status: 'requested'
           }
         };
@@ -55,7 +55,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           name: item.dataValues.name,
           picture: item.dataValues.picture,
           friendship: {
-            id: friendship.dataValues.id,
+            id: friendship.id,
             status: 'pending'
           }
         };
@@ -66,7 +66,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           name: item.dataValues.name,
           picture: item.dataValues.picture,
           friendship: {
-            id: friendship.dataValues.id,
+            id: friendship.id,
             status: 'friend'
           }
         };
