@@ -1,5 +1,5 @@
 const User = require('./users');
-const Friendship = require('./friendshipss');
+const Friendship = require('./friendships');
 const Event = require('./events');
 
 
