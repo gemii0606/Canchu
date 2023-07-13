@@ -20,7 +20,7 @@ User.associate = function(models) {
     // User.hasMany(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
     // User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
     // User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
-    User.belongsTo(Friendship);
+    User.hasMany(Friendship);
     // User.belongsTo(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
     // User.belongsTo(Event, { foreignKey: 'from_id', sourceKey: 'id' });
     // User.belongsTo(Event, { foreignKey: 'to_id', sourceKey: 'id' });
