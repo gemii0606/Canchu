@@ -5,7 +5,7 @@ const signinRoute = require('./signin');
 const profileRoute = require('./profile');
 const profileUpdateRoute = require('./profile_update');
 const picetureUpdateRoute = require('./picture_update');
-// const searchRoute = require('./search');
+const searchRoute = require('./search');
 
 
 router.use('/signup', signupRoute);
@@ -13,7 +13,7 @@ router.use('/signin', signinRoute);
 router.use('/:id/profile', profileRoute);
 router.use('/profile', profileUpdateRoute);
 router.use('/picture', picetureUpdateRoute);
-// router.use('/search', searchRoute);
+router.use('/search', searchRoute);
 
 
 
