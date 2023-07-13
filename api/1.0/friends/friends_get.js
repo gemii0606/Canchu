@@ -27,6 +27,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           {
             model: Friendship,
             // attributes: ['id', 'from_id', 'status']
+            as: 'fr'
           }
         ]
       });
