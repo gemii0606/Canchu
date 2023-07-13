@@ -20,7 +20,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     //     }
     //   });
     const users = await User.findAll({
-        attributes: ['id', 'Username', 'Picture'],
+        attributes: ['id', 'name', 'picture'],
         // include: [
         //   {
         //     model: Friendship,
