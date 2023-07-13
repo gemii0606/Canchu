@@ -31,8 +31,8 @@ router.get('/', checkAuthorization, async (req, res) => {
       const friendship = await Friendship.findAll({
         where: {
           [Op.or]: [
-            { [Op.and]: [{ from_id: user_id }, { to_id: other.dataValues.id }] },
-            { [Op.and]: [{ from_id: other.dataValues.id }, { to_id: user_id }] }
+            { from_id: user_id },
+            { to_id: other.dataValues.id  }
           ]
         }
       });    
