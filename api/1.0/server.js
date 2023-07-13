@@ -3,10 +3,11 @@ const app = express();
 const usersRoute = require('./users');
 const friendsRoute = require('./friends');
 const eventsRoute = require('./events');
+const model = require('./utils/model/model')
 
 app.use(express.json());
 app.use(express.static('public'))
-
+app.use(model);
 
 app.use('/api/1.0/users', usersRoute);
 
