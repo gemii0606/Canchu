@@ -24,7 +24,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       },
       attributes: ['id', 'name', 'picture']
     });
-
+    console.log(query_users);
     let users = [];
 
     for (const other of query_users) {
