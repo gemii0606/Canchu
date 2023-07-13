@@ -27,6 +27,12 @@ User.associate = function(models) {
   }
 
 
+User.sync().then(() => {
+    User.hasOne(Friendship, { foreignKey: 'id' });
+}).catch(error => {
+    console.error('Error syncing :', error);
+});
+
 module.exports = {
     User,
     Friendship,
