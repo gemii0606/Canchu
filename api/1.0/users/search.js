@@ -37,7 +37,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           ]
         }
       });
-      console.log(friendship.id);
+      console.log(friendship);
       if ( friendship.dataValues.from_id === user_id && friendship.dataValues.status === 'pending') {
         const data = {
           id: item.dataValues.id,
