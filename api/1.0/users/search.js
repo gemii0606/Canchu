@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../utils/model/users');
 const Friendship = require('../utils/model/friendships');
+const { Op } = require('sequelize');
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
@@ -14,7 +15,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const users = await User.findAll({
       where: {
         name: {
-          [Sequelize.Op.like]: `%${keyword}%`
+          [Op.like]: `%${keyword}%`
         }
       },
       include: [{
@@ -23,7 +24,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       }]
     });
 
-    res.send('ok');
+    return res.status(200).json({data: });
 });
 
 module.exports = router;
