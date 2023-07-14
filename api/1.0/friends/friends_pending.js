@@ -19,7 +19,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                 {
                     model: User,
                     attributes: ['id', 'name', 'picture'],
-                    as: 'FromUser'
+                    as: 'fromUser'
                 }
             ]
         });
