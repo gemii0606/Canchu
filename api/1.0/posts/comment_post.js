@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {Post, Like, Comment} = require('../utils/models/model');
+const {Comment} = require('../utils/models/model');
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
