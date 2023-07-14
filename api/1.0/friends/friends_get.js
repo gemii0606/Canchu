@@ -51,7 +51,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       for (const friend of friends) {
         let userObj = {};
       
-        if (user.fromFriendship.length > 0) {
+        if (friend.fromFriendship.length > 0) {
           userObj.id = friend.fromFriendship.toUser.id;
           userObj.name = friend.fromFriendship.toUser.name;
           userObj.picture = friend.fromFriendship.toUser.picture;
@@ -60,7 +60,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             status: friend.status
           };
           result.push(userObj);
-        } else if (user.toFriendship.length > 0) {
+        } else if (friend.toFriendship.length > 0) {
           userObj.id = friend.toFriendship.toUser.id;
           userObj.name = friend.toFriendship.toUser.name;
           userObj.picture = friend.toFriendship.toUser.picture;
