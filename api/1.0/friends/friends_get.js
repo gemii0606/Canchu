@@ -53,6 +53,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       
         // 提取 outgoingFriendships 中的友誼信息
         if (user.outgoingFriendships.length > 0) {
+          console.log('here')
           friendship.id = user.outgoingFriendships[0].id;
           friendship.status = user.outgoingFriendships[0].status;
         }
