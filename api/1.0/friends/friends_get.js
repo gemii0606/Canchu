@@ -24,6 +24,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         ]
       });
       console.log(users);
+      console.log(users[0].Friendships);
       res.status(200).json({ users });
     } catch (error) {
       console.error(error);
