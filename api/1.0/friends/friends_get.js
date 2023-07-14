@@ -20,12 +20,12 @@ router.get('/', checkAuthorization, async (req, res) => {
     //       ]
     //     }
     //   });
-    const users = await User.findOne({
+    const users = await User.findAll({
         attributes: ['id', 'name', 'picture'],
         include: [
           {
             model: Friendship,
-            attributes: ['id', 'from_id', 'status']
+            // attributes: ['id', 'from_id', 'status']
           }
         ]
       });
