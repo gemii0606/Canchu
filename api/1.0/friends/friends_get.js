@@ -20,8 +20,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     //       ]
     //     }
     //   });
-    const users = await User.findAll({
-        where: { id: 10},
+    const users = await User.findOne({
         attributes: ['id', 'name', 'picture'],
         include: [
           {
