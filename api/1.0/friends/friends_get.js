@@ -14,12 +14,18 @@ router.get('/', checkAuthorization, async (req, res) => {
 
     try {
       const users = await User.findAll({
-        where: {id: user_id},
+        where: { id: user_id },
         attributes: ['id', 'name', 'picture'],
         include: [
           {
             model: Friendship,
-            attributes: ['id', 'status']
+            attributes: ['id', 'status'],
+            where: {
+              [Op.or]: [
+                { from_id: user_id },
+                { to_id: user_id }
+              ]
+            }
           }
         ]
       });
