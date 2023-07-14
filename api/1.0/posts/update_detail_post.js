@@ -43,6 +43,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     // const user_id = decodedToken.id;  // see if you are receiver
  
+    // find the post and get the associated like and comment
     const result_1 = await Post.findOne({
         where: { id: search_post_id },
         attributes: ['id', 'user_id', 'context', 'createdAt'],
@@ -60,11 +61,13 @@ router.get('/', checkAuthorization, async (req, res) => {
         ]
     });
 
+    // get the post author id
     const result_2 = await User.findOne({
         where: { id: result_1.user_id },
         attributes: ['name', 'picture'],
     });
 
+    // to see if the author like his post
     const [result_3] = await Like.findAll({
         where: { id: result_1.user_id, post_id: search_post_id}
     });
@@ -78,6 +81,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const post_picture = result_2.picture;
     const post_name = result_2.name;
     
+    // to get the commenter's info
     const result_4 = result_1.postComment.map(async (element) => {
         const user_info = await User.findOne({
             where: {id: element.commenter_id},
@@ -95,8 +99,11 @@ router.get('/', checkAuthorization, async (req, res) => {
         };
         return outcome;
     });
-    
+ 
+    // unpack the Promise element
     const resolvedResults = await Promise.all(result_4);
+ 
+    // data reform
     const data = {
         post:{
             id: post_id,

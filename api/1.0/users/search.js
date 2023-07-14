@@ -11,7 +11,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const user_id = decodedToken.id;
     const { keyword } = req.query;
 
-
+    // find the alike name id
     const query_users = await User.findAll({
       where: {
         id: {
@@ -24,8 +24,8 @@ router.get('/', checkAuthorization, async (req, res) => {
       attributes: ['id', 'name', 'picture']
     });
 
+    // to check the friend status and get other info from the alike name
     let users = [];
-
     for (const other of query_users) {
       const [friendship] = await Friendship.findAll({
         where: {
