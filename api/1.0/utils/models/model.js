@@ -77,8 +77,8 @@ Like.belongsTo(User, { foreignKey: 'liker_id', targetKey: 'id'});
 User.hasMany(Comment, { foreignKey: 'commenter_id', sourceKey: 'id' });
 Comment.belongsTo(User, { foreignKey: 'commenter_id', targetKey: 'id'});
 
-Post.hasMany(Like, { foreignKey: 'post_id', sourceKey: 'id' });
-Like.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id'});
+Post.hasMany(Like, { foreignKey: 'post_id', sourceKey: 'id', as: 'postLike'});
+Like.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'likePost'});
 
 Post.hasMany(Comment, { foreignKey: 'post_id', sourceKey: 'id' });
 Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id'});

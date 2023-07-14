@@ -65,6 +65,9 @@ Comment.init({
   commenter_id: {
     type: DataTypes.INTEGER,
     allowNull: false
+  },
+  content: {
+    type: DataTypes.STRING
   }
 }, {
   sequelize,
