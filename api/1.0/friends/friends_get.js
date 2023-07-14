@@ -47,7 +47,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       });
 
       const result = [];
-      const refroming = users.map(user => {
+      const refroming = friends.map(user => {
         let userObj = {
           id: user.id,
           name: user.name,
