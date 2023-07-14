@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const {User, Friendship, Event} = require('../utils/models/model');
-const { Op } = require('sequelize');
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
