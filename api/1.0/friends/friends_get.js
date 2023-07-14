@@ -47,39 +47,34 @@ router.get('/', checkAuthorization, async (req, res) => {
       });
       console.log(users);
       console.log(users[0].Friendships);
-      // const usersWithFriendships = users.map(user => {
-      //   const friendship = {
-      //     id: null,
-      //     status: null
-      //   };
+      const result = users.map(user => {
+        const userObj = {
+          id: user.id,
+          name: user.name,
+          picture: user.picture,
+          friendship: null
+        };
       
-      //   // 提取 outgoingFriendships 中的友誼信息
-      //   if (user.outgoingFriendships.length > 0) {
-      //     friendship.id = user.outgoingFriendships[0].id;
-      //     friendship.status = user.outgoingFriendships[0].status;
-      //   }
+        if (user.fromFriendship.length > 0) {
+          userObj.friendship = {
+            id: user.fromFriendship[0].id,
+            status: user.fromFriendship[0].status
+          };
+        } else if (user.toFriendship.length > 0) {
+          userObj.friendship = {
+            id: user.toFriendship[0].id,
+            status: user.toFriendship[0].status
+          };
+        }
       
-      //   // 提取 incomingFriendships 中的友誼信息
-      //   if (user.incomingFriendships.length > 0) {
-      //     friendship.id = user.incomingFriendships[0].id;
-      //     friendship.status = user.incomingFriendships[0].status;
-      //   }
+        return userObj;
+      });
       
-      //   return {
-      //     id: user.id,
-      //     name: user.name,
-      //     picture: user.picture,
-      //     friendship: friendship
-      //   };
-      // });
-      
-      // const response = {
-      //   data: {
-      //     users: usersWithFriendships
-      //   }
-      // };
+      const responseData = {
+        users: result
+      };
 
-      res.status(200).json(users);
+      res.status(200).json(responseData);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
