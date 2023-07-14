@@ -107,7 +107,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             comment_count: post_comment_count,
             picture: post_picture,
             name: post_name,
-            comments: result_4
+            comments: resolvedResults
         }
     };  
     
