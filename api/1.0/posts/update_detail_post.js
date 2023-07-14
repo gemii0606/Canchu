@@ -46,31 +46,18 @@ router.get('/', checkAuthorization, async (req, res) => {
         where: { id: post_id },
         attributes: ['id', 'user_id', 'context', 'createdAt'],
         include: [
-          {
-            model: User,
-            where: { id: user_id },
-            as: 'postUser',
-            attributes: ['name', 'picture']
-          },
-          {
-            model: Like,
-            where: { post_id: post_id },
-            as: 'postLike',
-            attributes: ['name', 'picture']
-          },
-          {
-            model: Comment,
-            as: 'postComment',
-            attributes: ['id', 'commenter_id', 'createdAt', 'content'],
-            include: {
-              model: User,
-              where: { id: commenter_id },
-              as: 'commentUser',
-              attributes: ['id', 'name', 'picture']
+            {
+                model: Like,
+                as: 'postLike',
+                attributes: ['id']
+            },
+            {
+                model: Comment,
+                as: 'postComment',
+                attributes: ['id', 'commenter_id', 'content', 'createdAt']
             }
-          }
         ]
-      });
+    });
       
     //   // 格式化回應資料
     //   const formattedPost = {
