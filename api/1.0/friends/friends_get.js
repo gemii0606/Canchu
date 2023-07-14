@@ -12,46 +12,24 @@ router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     const user_id = decodedToken.id;  // see if you are receiver
 
-    // const users = await Friendship.findAll({
-    //     where: {
-    //       [Op.and]: [
-    //         { [Op.or]: [{ from_id: user_id }, { to_id: user_id }] },
-    //         { status: 'friend' }
-    //       ]
-    //     }
-    //   });
-    // const users = await User.findAll({
-    //     where: { id: 205},
-    //     attributes: ['id', 'name'],
-    //     include: [
-    //       {
-    //         model: Friendship,
-    //         // attributes: ['id', 'from_id', 'status']
-    //       }
-    //     ]
-    //   });
-    const users = await User.findAll({
-      where: {id: 242},
-      include: [
-        {
-          model: Friendship,
-          attributes: ['id', 'from_id', 'to_id']
-        },
-        {
-          model: Event,
-          attributes: ['id', 'from_id', 'to_id']
-        }
-      ]
-    });
+    try {
+      const users = await User.findAll({
+        where: {id: user_id}
+        attributes: ['id', 'name', 'picture'],
+        include: [
+          {
+            model: Friendship,
+            attributes: ['id', 'status']
+          }
+        ]
+      });
       console.log(users);
-      console.log(users[0].Friendships);
-      console.log(users[0].Events);
-      // console.log(users[0].Friendships);
-      const userAssociations = User.associations;
-      const postAssociations = Friendship.associations;
+      res.status(200).json({ users });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Server error' });
+    }
 
-      console.log('User associations:', userAssociations);
-      console.log('Post associations:', postAssociations);
     
 });
 
