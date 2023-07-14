@@ -48,14 +48,14 @@ router.get('/', checkAuthorization, async (req, res) => {
         include: [
           {
             model: User,
-            where: {id: user_id},
+            where: { id: user_id },
             as: 'postUser',
             attributes: ['name', 'picture']
           },
           {
             model: Like,
-            where: {post_id: post_id},
-            as: 'postUser',
+            where: { post_id: post_id },
+            as: 'postLike',
             attributes: ['name', 'picture']
           },
           {
@@ -64,7 +64,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             attributes: ['id', 'commenter_id', 'createdAt', 'content'],
             include: {
               model: User,
-              where: {id: commenter_id},
+              where: { id: commenter_id },
               as: 'commentUser',
               attributes: ['id', 'name', 'picture']
             }
