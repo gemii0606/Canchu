@@ -43,7 +43,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         }
       ]
     });
-      console.log(users[0].Friendships);
+      console.log(users);
       // console.log(users[0].Friendships);
       const userAssociations = User.associations;
       const postAssociations = Friendship.associations;
