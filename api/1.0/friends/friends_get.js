@@ -25,7 +25,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             include: [
               {
                 model: User,
-                as: 'toUser',
+                as: 'fromUser',
                 attributes: ['id', 'name', 'picture']
               }
             ]
@@ -38,43 +38,42 @@ router.get('/', checkAuthorization, async (req, res) => {
             include: [
               {
                 model: User,
-                as: 'fromUser',
+                as: 'toUser',
                 attributes: ['id', 'name', 'picture']
               }
             ]
           }
         ]
       });
+      console.log(friends);
 
-      const result = [];
-      const refroming = friends.map(user => {
-        let userObj = {
-          id: user.id,
-          name: user.name,
-          picture: user.picture,
-          friendship: null
-        };
+    //   const result = [];
+    //   for (const friend of friends) {
+    //     let userObj = {
+    //       id: user.id,
+    //       name: user.name,
+    //       picture: user.picture,
+    //       friendship: null
+    //     };
       
-        if (user.fromFriendship.length > 0) {
-          userObj.friendship = {
-            id: user.fromFriendship[0].id,
-            status: user.fromFriendship[0].status      
-          };
-          result.push(userObj);
-        } else if (user.toFriendship.length > 0) {
-          userObj.friendship = {
-            id: user.toFriendship[0].id,
-            status: user.toFriendship[0].status
-          };
-          result.push(userObj);
-        }
-      });
-      
-      const responseData = {
-        users: result
-      };
+    //     if (user.fromFriendship.length > 0) {
+    //       userObj.id = friend.fromFriendship.id;
 
-      res.status(200).json(responseData);
+    //       result.push(userObj);
+    //     } else if (user.toFriendship.length > 0) {
+    //       userObj.friendship = {
+    //         id: user.toFriendship[0].id,
+    //         status: user.toFriendship[0].status
+    //       };
+    //       result.push(userObj);
+    //     }
+      
+      
+    //   const responseData = {
+    //     users: result
+    //   };
+    // }
+    //   res.status(200).json(responseData);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
