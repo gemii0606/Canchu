@@ -25,7 +25,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             include: [
               {
                 model: User,
-                as: 'fromUser',
+                as: 'toUser',
                 attributes: ['id', 'name', 'picture']
               }
             ]
@@ -38,7 +38,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             include: [
               {
                 model: User,
-                as: 'toUser',
+                as: 'fromUser',
                 attributes: ['id', 'name', 'picture']
               }
             ]
