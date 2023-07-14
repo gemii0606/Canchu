@@ -45,7 +45,39 @@ router.get('/', checkAuthorization, async (req, res) => {
       });
       console.log(users);
       console.log(users[0].Friendships);
-      res.status(200).json({ users });
+      const usersWithFriendships = users.map(user => {
+        const friendship = {
+          id: null,
+          status: null
+        };
+      
+        // 提取 outgoingFriendships 中的友誼信息
+        if (user.outgoingFriendships.length > 0) {
+          friendship.id = user.outgoingFriendships[0].id;
+          friendship.status = user.outgoingFriendships[0].status;
+        }
+      
+        // 提取 incomingFriendships 中的友誼信息
+        if (user.incomingFriendships.length > 0) {
+          friendship.id = user.incomingFriendships[0].id;
+          friendship.status = user.incomingFriendships[0].status;
+        }
+      
+        return {
+          id: user.id,
+          name: user.name,
+          picture: user.picture,
+          friendship: friendship
+        };
+      });
+      
+      const response = {
+        data: {
+          users: usersWithFriendships
+        }
+      };
+
+      res.status(200).json(response);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
