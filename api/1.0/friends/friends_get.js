@@ -70,12 +70,12 @@ router.get('/', checkAuthorization, async (req, res) => {
           };
           result.push(userObj);
         }
-      
+      }
       
       const responseData = {
         users: result
       };
-    }
+    
       res.status(200).json(responseData);
     } catch (error) {
       console.error(error);
