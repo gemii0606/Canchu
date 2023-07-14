@@ -68,20 +68,20 @@ Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id'});
 User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
 Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id'});
 
-User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id' });
-Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id'});
+User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id', as: 'userPost'});
+Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id', as: 'postUser'});
 
-User.hasMany(Like, { foreignKey: 'liker_id', sourceKey: 'id' });
-Like.belongsTo(User, { foreignKey: 'liker_id', targetKey: 'id'});
+User.hasMany(Like, { foreignKey: 'liker_id', sourceKey: 'id', as: 'userLike' });
+Like.belongsTo(User, { foreignKey: 'liker_id', targetKey: 'id', as: 'likeUser'});
 
-User.hasMany(Comment, { foreignKey: 'commenter_id', sourceKey: 'id' });
-Comment.belongsTo(User, { foreignKey: 'commenter_id', targetKey: 'id'});
+User.hasMany(Comment, { foreignKey: 'commenter_id', sourceKey: 'id', as: 'userComment' });
+Comment.belongsTo(User, { foreignKey: 'commenter_id', targetKey: 'id', as: 'commentUser'});
 
 Post.hasMany(Like, { foreignKey: 'post_id', sourceKey: 'id', as: 'postLike'});
 Like.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'likePost'});
 
-Post.hasMany(Comment, { foreignKey: 'post_id', sourceKey: 'id' });
-Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id'});
+Post.hasMany(Comment, { foreignKey: 'post_id', sourceKey: 'id', as: 'postComment'});
+Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'commentPost'});
 
 
 module.exports = {
