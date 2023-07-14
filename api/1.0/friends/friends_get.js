@@ -19,13 +19,27 @@ router.get('/', checkAuthorization, async (req, res) => {
         include: [
           {
             model: Friendship,
+            as: 'outgoingFriendships',
             attributes: ['id', 'from_id', 'to_id', 'status'],
-            where: {
-              [Op.or]: [
-                { from_id: user_id },
-                { to_id: user_id }
-              ]
-            }
+            include: [
+              {
+                model: User,
+                as: 'toUser',
+                attributes: ['id', 'name', 'picture']
+              }
+            ]
+          },
+          {
+            model: Friendship,
+            as: 'incomingFriendships',
+            attributes: ['id', 'from_id', 'to_id', 'status'],
+            include: [
+              {
+                model: User,
+                as: 'fromUser',
+                attributes: ['id', 'name', 'picture']
+              }
+            ]
           }
         ]
       });
