@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const {User, Post, Like, Comment} = require('../utils/models/model');
+const moment = require('moment');
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
@@ -64,12 +65,12 @@ router.get('/', checkAuthorization, async (req, res) => {
         attributes: ['name', 'picture'],
     });
 
-    const result_3 = await Like.findOne({
+    const [result_3] = await Like.findAll({
         where: { id: result_1.user_id, post_id: search_post_id}
     });
 
     const post_id = result_1.id;
-    const post_created_at = result_1.createdAt;
+    const post_created_at = moment(result_1.createdAt).format("YYYY-MM-DD HH:mm:ss");
     const post_context = result_1.context;
     const post_is_like = (!!result_3);
     const post_like_count = result_1.postLike.length;
@@ -84,7 +85,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         });
         const outcome = {
             id: element.id,
-            created_at: element.createdAt,
+            created_at: moment(element.createdAt).format("YYYY-MM-DD HH:mm:ss"),
             content: element.content,
             user: {
                 id: user_info.id,
@@ -94,9 +95,8 @@ router.get('/', checkAuthorization, async (req, res) => {
         };
         return outcome;
     });
+    
     const resolvedResults = await Promise.all(result_4);
-    console.log(resolvedResults);
-
     const data = {
         post:{
             id: post_id,
