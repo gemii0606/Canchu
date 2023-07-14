@@ -49,40 +49,40 @@ router.get('/', checkAuthorization, async (req, res) => {
 
       const result = [];
       
-      if (friends.fromFriendship.length > 0) {
-        for (const friend of friends.fromFriendship) {
-          let userObj = {};
-          userObj.id = friend.fromFriendship.toUser.id;
-          userObj.name = friend.fromFriendship.toUser.name;
-          userObj.picture = friend.fromFriendship.toUser.picture;
-          userObj.friendship = { 
-            id: friend.fromFriendship.id,
-            status: friend.status
-          };
-          result.push(userObj);
-          }
-      } 
+      // if (friends.fromFriendship.length > 0) {
+      //   for (const friend of friends.fromFriendship) {
+      //     let userObj = {};
+      //     userObj.id = friend.fromFriendship.toUser.id;
+      //     userObj.name = friend.fromFriendship.toUser.name;
+      //     userObj.picture = friend.fromFriendship.toUser.picture;
+      //     userObj.friendship = { 
+      //       id: friend.fromFriendship.id,
+      //       status: friend.status
+      //     };
+      //     result.push(userObj);
+      //     }
+      // } 
       
-      if (friends.toFriendship.length > 0) {
-        for (const friend of friends.toFriendship) {
-          let userObj = {};
-          userObj.id = friend.toFriendship.toUser.id;
-          userObj.name = friend.toFriendship.toUser.name;
-          userObj.picture = friend.toFriendship.toUser.picture;
-          userObj.friendship = { 
-            id: friend.fromFriendship.id,
-            status: friend.status
-          };
-          result.push(userObj);
-        }
-      }
+      // if (friends.toFriendship.length > 0) {
+      //   for (const friend of friends.toFriendship) {
+      //     let userObj = {};
+      //     userObj.id = friend.toFriendship.toUser.id;
+      //     userObj.name = friend.toFriendship.toUser.name;
+      //     userObj.picture = friend.toFriendship.toUser.picture;
+      //     userObj.friendship = { 
+      //       id: friend.fromFriendship.id,
+      //       status: friend.status
+      //     };
+      //     result.push(userObj);
+      //   }
+      // }
       
       
-      const responseData = {
-        users: result
-      };
+      // const responseData = {
+      //   users: result
+      // };
     
-      res.status(200).json(responseData);
+      res.status(200).json(friends.fromFriendship);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
