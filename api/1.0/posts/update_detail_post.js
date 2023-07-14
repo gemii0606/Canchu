@@ -99,7 +99,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         where: {id: 242},
         attributes: ['id', 'name', 'picture']
     });
-    console.log(user_info.id);
+    console.log(result_1.postComment);
 
     const data = {
         post:{
