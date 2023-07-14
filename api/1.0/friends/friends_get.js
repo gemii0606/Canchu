@@ -60,7 +60,8 @@ router.get('/', checkAuthorization, async (req, res) => {
             status: friend.status
           };
           result.push(userObj);
-        } else if (friend.toFriendship.length > 0) {
+        } 
+        if (friend.toFriendship.length > 0) {
           userObj.id = friend.toFriendship[0].toUser.id;
           userObj.name = friend.toFriendship[0].toUser.name;
           userObj.picture = friend.toFriendship[0].toUser.picture;
