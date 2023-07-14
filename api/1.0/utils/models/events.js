@@ -50,6 +50,6 @@ Event.init({
 });
 
 
-// Event.sync()
+Event.sync()
 
 module.exports = Event;

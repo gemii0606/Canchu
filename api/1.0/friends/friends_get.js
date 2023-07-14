@@ -20,16 +20,28 @@ router.get('/', checkAuthorization, async (req, res) => {
     //       ]
     //     }
     //   });
+    // const users = await User.findAll({
+    //     where: { id: 205},
+    //     attributes: ['id', 'name'],
+    //     include: [
+    //       {
+    //         model: Friendship,
+    //         // attributes: ['id', 'from_id', 'status']
+    //       }
+    //     ]
+    //   });
     const users = await User.findAll({
-        where: { id: 205},
-        attributes: ['id', 'name'],
-        include: [
-          {
-            model: Friendship,
-            // attributes: ['id', 'from_id', 'status']
-          }
-        ]
-      });
+      include: [
+        {
+          model: Friendship,
+          attributes: ['id', 'from_id', 'to_id']
+        },
+        {
+          model: Event,
+          attributes: ['id', 'from_id', 'to_id']
+        }
+      ]
+    });
       console.log(users[0].Friendships);
       // console.log(users[0].Friendships);
       const userAssociations = User.associations;

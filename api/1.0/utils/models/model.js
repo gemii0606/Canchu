@@ -59,6 +59,8 @@ User.hasMany(Friendship, { foreignKey: 'from_id', sourceKey: 'id' });
 User.hasMany(Friendship, { foreignKey: 'to_id', sourceKey: 'id' });
 Friendship.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id'});
 Friendship.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id'});
+Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id'});
+Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id'});
 
 module.exports = {
     User,
