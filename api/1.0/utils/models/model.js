@@ -1,6 +1,7 @@
 const User = require('./users');
 const Friendship = require('./friendships');
 const Event = require('./events');
+const {Post, Like, Comment} = require('./posts');
 
 
 // Friendship.associate = function(models) {
@@ -56,17 +57,39 @@ const Event = require('./events');
 // });
 
 User.hasMany(Friendship, { foreignKey: 'from_id', as: 'fromFriendship' });
-User.hasMany(Friendship, { foreignKey: 'to_id', as: 'toFriendship' });
-User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
-User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
 Friendship.belongsTo(User, { foreignKey: 'from_id', as: 'fromUser' });
+
+User.hasMany(Friendship, { foreignKey: 'to_id', as: 'toFriendship' });
 Friendship.belongsTo(User, { foreignKey: 'to_id', as: 'toUser' });
+
+User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
 Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id'});
+
+User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
 Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id'});
+
+User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id' });
+Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id'});
+
+User.hasMany(Like, { foreignKey: 'liker_id', sourceKey: 'id' });
+Like.belongsTo(User, { foreignKey: 'liker_id', targetKey: 'id'});
+
+User.hasMany(Comment, { foreignKey: 'commenter_id', sourceKey: 'id' });
+Comment.belongsTo(User, { foreignKey: 'commenter_id', targetKey: 'id'});
+
+Post.hasMany(Like, { foreignKey: 'post_id', sourceKey: 'id' });
+Like.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id'});
+
+Post.hasMany(Comment, { foreignKey: 'post_id', sourceKey: 'id' });
+Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id'});
+
 
 module.exports = {
     User,
     Friendship,
-    Event
+    Event,
+    Post,
+    Like,
+    Comment
 };
 
