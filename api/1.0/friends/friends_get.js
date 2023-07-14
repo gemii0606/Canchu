@@ -31,7 +31,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     //     ]
     //   });
     const users = await User.findAll({
-      where: {id: 199},
+      where: {id: 242},
       include: [
         {
           model: Friendship,
