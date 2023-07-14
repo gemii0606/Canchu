@@ -49,40 +49,40 @@ router.get('/', checkAuthorization, async (req, res) => {
 
       const result = [];
       
-      if (friends.fromFriendship.length > 0) {
-        for (const friend of friends) {
-          let userObj = {};
-          userObj.id = friend.fromFriendship[0].toUser.id;
-          userObj.name = friend.fromFriendship[0].toUser.name;
-          userObj.picture = friend.fromFriendship[0].toUser.picture;
-          userObj.friendship = { 
-            id: friend.fromFriendship.id,
-            status: friend.status
-          };
-          result.push(userObj);
-          }
-      } 
+      // if (friends.fromFriendship.length > 0) {
+      //   for (const friend of friends) {
+      //     let userObj = {};
+      //     userObj.id = friend.fromFriendship[0].toUser.id;
+      //     userObj.name = friend.fromFriendship[0].toUser.name;
+      //     userObj.picture = friend.fromFriendship[0].toUser.picture;
+      //     userObj.friendship = { 
+      //       id: friend.fromFriendship.id,
+      //       status: friend.status
+      //     };
+      //     result.push(userObj);
+      //     }
+      // } 
       
-      if (friends.toFriendship.length > 0) {
-        for (const friend of friends) {
-          let userObj = {};
-          userObj.id = friend.toFriendship[0].toUser.id;
-          userObj.name = friend.toFriendship[0].toUser.name;
-          userObj.picture = friend.toFriendship[0].toUser.picture;
-          userObj.friendship = { 
-            id: friend.fromFriendship.id,
-            status: friend.status
-          };
-          result.push(userObj);
-        }
-      }
+      // if (friends.toFriendship.length > 0) {
+      //   for (const friend of friends) {
+      //     let userObj = {};
+      //     userObj.id = friend.toFriendship[0].toUser.id;
+      //     userObj.name = friend.toFriendship[0].toUser.name;
+      //     userObj.picture = friend.toFriendship[0].toUser.picture;
+      //     userObj.friendship = { 
+      //       id: friend.fromFriendship.id,
+      //       status: friend.status
+      //     };
+      //     result.push(userObj);
+      //   }
+      // }
       
       
-      const responseData = {
-        users: result
-      };
+      // const responseData = {
+      //   users: result
+      // };
     
-      res.status(200).json(responseData);
+      res.status(200).json(friends);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
