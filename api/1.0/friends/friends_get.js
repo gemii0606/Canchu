@@ -47,33 +47,41 @@ router.get('/', checkAuthorization, async (req, res) => {
       });
       console.log(friends);
 
-    //   const result = [];
-    //   for (const friend of friends) {
-    //     let userObj = {
-    //       id: user.id,
-    //       name: user.name,
-    //       picture: user.picture,
-    //       friendship: null
-    //     };
+      const result = [];
+      for (const friend of friends) {
+        let userObj = {
+          id: user.id,
+          name: user.name,
+          picture: user.picture,
+          friendship: null
+        };
       
-    //     if (user.fromFriendship.length > 0) {
-    //       userObj.id = friend.fromFriendship.id;
-
-    //       result.push(userObj);
-    //     } else if (user.toFriendship.length > 0) {
-    //       userObj.friendship = {
-    //         id: user.toFriendship[0].id,
-    //         status: user.toFriendship[0].status
-    //       };
-    //       result.push(userObj);
-    //     }
+        if (user.fromFriendship.length > 0) {
+          userObj.id = friend.fromFriendship.toUser.id;
+          userObj.name = friend.fromFriendship.toUser.name;
+          userObj.picture = friend.fromFriendship.toUser.picture;
+          userObj.friendship = { 
+            id: friend.fromFriendship.id,
+            status: friend.status
+          };
+          result.push(userObj);
+        } else if (user.toFriendship.length > 0) {
+          userObj.id = friend.toFriendship.toUser.id;
+          userObj.name = friend.toFriendship.toUser.name;
+          userObj.picture = friend.toFriendship.toUser.picture;
+          userObj.friendship = { 
+            id: friend.fromFriendship.id,
+            status: friend.status
+          };
+          result.push(userObj);
+        }
       
       
-    //   const responseData = {
-    //     users: result
-    //   };
-    // }
-      res.status(200).json(friends);
+      const responseData = {
+        users: result
+      };
+    }
+      res.status(200).json(responseData);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
