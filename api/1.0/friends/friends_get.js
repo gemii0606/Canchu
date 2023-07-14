@@ -48,34 +48,34 @@ router.get('/', checkAuthorization, async (req, res) => {
       console.log(friends);
 
       const result = [];
-      for (const friend of friends) {
-        let userObj = {};
+    //   for (const friend of friends) {
+    //     let userObj = {};
       
-        if (friend.fromFriendship.length > 0) {
-          userObj.id = friend.fromFriendship.toUser.id;
-          userObj.name = friend.fromFriendship.toUser.name;
-          userObj.picture = friend.fromFriendship.toUser.picture;
-          userObj.friendship = { 
-            id: friend.fromFriendship.id,
-            status: friend.status
-          };
-          result.push(userObj);
-        } else if (friend.toFriendship.length > 0) {
-          userObj.id = friend.toFriendship.toUser.id;
-          userObj.name = friend.toFriendship.toUser.name;
-          userObj.picture = friend.toFriendship.toUser.picture;
-          userObj.friendship = { 
-            id: friend.fromFriendship.id,
-            status: friend.status
-          };
-          result.push(userObj);
-        }
+    //     if (friend.fromFriendship.length > 0) {
+    //       userObj.id = friend.fromFriendship.toUser.id;
+    //       userObj.name = friend.fromFriendship.toUser.name;
+    //       userObj.picture = friend.fromFriendship.toUser.picture;
+    //       userObj.friendship = { 
+    //         id: friend.fromFriendship.id,
+    //         status: friend.status
+    //       };
+    //       result.push(userObj);
+    //     } else if (friend.toFriendship.length > 0) {
+    //       userObj.id = friend.toFriendship.toUser.id;
+    //       userObj.name = friend.toFriendship.toUser.name;
+    //       userObj.picture = friend.toFriendship.toUser.picture;
+    //       userObj.friendship = { 
+    //         id: friend.fromFriendship.id,
+    //         status: friend.status
+    //       };
+    //       result.push(userObj);
+    //     }
       
       
-      const responseData = {
-        users: result
-      };
-    }
+    //   const responseData = {
+    //     users: result
+    //   };
+    // }
       res.status(200).json(friends);
     } catch (error) {
       console.error(error);
