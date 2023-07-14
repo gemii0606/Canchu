@@ -49,12 +49,7 @@ router.get('/', checkAuthorization, async (req, res) => {
 
       const result = [];
       for (const friend of friends) {
-        let userObj = {
-          id: user.id,
-          name: user.name,
-          picture: user.picture,
-          friendship: null
-        };
+        let userObj = {};
       
         if (user.fromFriendship.length > 0) {
           userObj.id = friend.fromFriendship.toUser.id;
