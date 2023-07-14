@@ -48,10 +48,10 @@ router.get('/', checkAuthorization, async (req, res) => {
       console.log(friends);
 
       const result = [];
-      for (const friend of friends) {
-        let userObj = {};
       
-        if (friend.fromFriendship.length > 0) {
+      if (friend.fromFriendship.length > 0) {
+        for (const friend of friends) {
+          let userObj = {};
           userObj.id = friend.fromFriendship[0].toUser.id;
           userObj.name = friend.fromFriendship[0].toUser.name;
           userObj.picture = friend.fromFriendship[0].toUser.picture;
@@ -60,10 +60,12 @@ router.get('/', checkAuthorization, async (req, res) => {
             status: friend.status
           };
           result.push(userObj);
-          continue
-        } 
-        
-        if (friend.toFriendship.length > 0) {
+          }
+      } 
+      
+      if (friend.toFriendship.length > 0) {
+        for (const friend of friends) {
+          let userObj = {};
           userObj.id = friend.toFriendship[0].toUser.id;
           userObj.name = friend.toFriendship[0].toUser.name;
           userObj.picture = friend.toFriendship[0].toUser.picture;
@@ -72,9 +74,9 @@ router.get('/', checkAuthorization, async (req, res) => {
             status: friend.status
           };
           result.push(userObj);
-          continue
         }
       }
+      
       
       const responseData = {
         users: result
