@@ -15,11 +15,12 @@ router.get('/', checkAuthorization, async (req, res) => {
     try {
       const users = await User.findAll({
         where: { id: user_id },
-        attributes: ['id', 'name', 'picture'],
+        attributes: [],
         include: [
           {
             model: Friendship,
-            as: 'outgoingFriendships',
+            as: 'fromFriendship',
+            where:{status: 'friend'},
             attributes: ['id', 'from_id', 'to_id', 'status'],
             include: [
               {
@@ -31,7 +32,8 @@ router.get('/', checkAuthorization, async (req, res) => {
           },
           {
             model: Friendship,
-            as: 'incomingFriendships',
+            as: 'toFriendship',
+            where:{status: 'friend'},
             attributes: ['id', 'from_id', 'to_id', 'status'],
             include: [
               {
@@ -53,7 +55,6 @@ router.get('/', checkAuthorization, async (req, res) => {
       
         // 提取 outgoingFriendships 中的友誼信息
         if (user.outgoingFriendships.length > 0) {
-          console.log('here')
           friendship.id = user.outgoingFriendships[0].id;
           friendship.status = user.outgoingFriendships[0].status;
         }
@@ -78,7 +79,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         }
       };
 
-      res.status(200).json(response);
+      res.status(200).json(users);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
