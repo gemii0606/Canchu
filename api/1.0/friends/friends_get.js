@@ -49,7 +49,7 @@ router.get('/', checkAuthorization, async (req, res) => {
 
       const result = [];
       
-      if (friend.fromFriendship.length > 0) {
+      if (friends.fromFriendship.length > 0) {
         for (const friend of friends) {
           let userObj = {};
           userObj.id = friend.fromFriendship[0].toUser.id;
@@ -63,7 +63,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           }
       } 
       
-      if (friend.toFriendship.length > 0) {
+      if (friends.toFriendship.length > 0) {
         for (const friend of friends) {
           let userObj = {};
           userObj.id = friend.toFriendship[0].toUser.id;
