@@ -13,7 +13,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const user_id = decodedToken.id;  // see if you are receiver
 
     try {
-      const users = await User.findAll({
+      const friends = await User.findAll({
         where: { id: user_id },
         attributes: [],
         include: [
@@ -45,10 +45,10 @@ router.get('/', checkAuthorization, async (req, res) => {
           }
         ]
       });
-      console.log(users);
-      console.log(users[0].Friendships);
-      const result = users.map(user => {
-        const userObj = {
+
+      const result = [];
+      const refroming = users.map(user => {
+        let userObj = {
           id: user.id,
           name: user.name,
           picture: user.picture,
@@ -58,16 +58,16 @@ router.get('/', checkAuthorization, async (req, res) => {
         if (user.fromFriendship.length > 0) {
           userObj.friendship = {
             id: user.fromFriendship[0].id,
-            status: user.fromFriendship[0].status
+            status: user.fromFriendship[0].status      
           };
+          result.push(userObj);v
         } else if (user.toFriendship.length > 0) {
           userObj.friendship = {
             id: user.toFriendship[0].id,
             status: user.toFriendship[0].status
           };
+          result.push(userObj);
         }
-      
-        return userObj;
       });
       
       const responseData = {
