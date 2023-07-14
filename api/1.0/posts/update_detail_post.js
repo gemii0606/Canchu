@@ -82,24 +82,25 @@ router.get('/', checkAuthorization, async (req, res) => {
             where: {id: element.commenter_id},
             attributes: ['id', 'name', 'picture']
         });
-        const outcome = {
-            id: element.id,
-            created_at: element.createdAt,
-            content: element.content,
-            user: {
-                id: user_info.id,
-                name: user_info.name,
-                picture: user_info.picture
-            }
-        };
-        return outcome;
+        // const outcome = {
+        //     id: element.id,
+        //     created_at: element.createdAt,
+        //     content: element.content,
+        //     user: {
+        //         id: user_info.id,
+        //         name: user_info.name,
+        //         picture: user_info.picture
+        //     }
+        // };
+        // return outcome;
+        return user_info.id;
     });
 
     const user_info = await User.findOne({
         where: {id: 242},
         attributes: ['id', 'name', 'picture']
     });
-    console.log(result_1.postComment);
+    console.log(result_4);
 
     const data = {
         post:{
