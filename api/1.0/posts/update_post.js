@@ -6,7 +6,7 @@ const {User, Post, Like, Comment} = require('../utils/models/model');
 const { checkAuthorization } = require('../utils/function');
 
 
-router.post('/', checkAuthorization, async (req, res) => {
+router.put('/', checkAuthorization, async (req, res) => {
     const post_id = req.baseUrl.split('/').slice(-1);
     const decodedToken = req.decodedToken;
     const user_id = decodedToken.id;  // see if you are receiver
