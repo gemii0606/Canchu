@@ -82,18 +82,17 @@ router.get('/', checkAuthorization, async (req, res) => {
             where: {id: element.commenter_id},
             attributes: ['id', 'name', 'picture']
         });
-        // const outcome = {
-        //     id: element.id,
-        //     created_at: element.createdAt,
-        //     content: element.content,
-        //     user: {
-        //         id: user_info.id,
-        //         name: user_info.name,
-        //         picture: user_info.picture
-        //     }
-        // };
-        // return outcome;
-        return user_info.id;
+        const outcome = {
+            id: element.id,
+            created_at: element.createdAt,
+            content: element.content,
+            user: {
+                id: user_info.id,
+                name: user_info.name,
+                picture: user_info.picture
+            }
+        };
+        return outcome;
     });
     const resolvedResults = await Promise.all(result_4);
     console.log(resolvedResults);
