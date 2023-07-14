@@ -95,12 +95,8 @@ router.get('/', checkAuthorization, async (req, res) => {
         // return outcome;
         return user_info.id;
     });
-
-    const user_info = await User.findOne({
-        where: {id: 242},
-        attributes: ['id', 'name', 'picture']
-    });
-    console.log(result_4);
+    const resolvedResults = await Promise.all(result_4);
+    console.log(resolvedResults);
 
     const data = {
         post:{
