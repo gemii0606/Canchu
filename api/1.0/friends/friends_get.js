@@ -76,7 +76,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         users: result
       };
     }
-      res.status(200).json(responseData);
+      res.status(200).json(friends);
     } catch (error) {
       console.error(error);
       res.status(500).json({ error: 'Server error' });
