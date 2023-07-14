@@ -60,7 +60,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             id: user.fromFriendship[0].id,
             status: user.fromFriendship[0].status      
           };
-          result.push(userObj);v
+          result.push(userObj);
         } else if (user.toFriendship.length > 0) {
           userObj.friendship = {
             id: user.toFriendship[0].id,
