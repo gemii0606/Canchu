@@ -13,7 +13,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const user_id = decodedToken.id;  // see if you are receiver
 
     try {
-      const friends = await User.findAll({
+      const [friends] = await User.findAll({
         where: { id: user_id },
         attributes: [],
         include: [
