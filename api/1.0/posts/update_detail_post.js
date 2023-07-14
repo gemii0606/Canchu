@@ -96,7 +96,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     });
 
     const user_info = await User.findOne({
-        where: {id: element.commenter_id},
+        where: {id: 242},
         attributes: ['id', 'name', 'picture']
     });
     console.log(user_info);
