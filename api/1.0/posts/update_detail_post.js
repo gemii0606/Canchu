@@ -95,6 +95,12 @@ router.get('/', checkAuthorization, async (req, res) => {
         return outcome;
     });
 
+    const user_info = await User.findOne({
+        where: {id: element.commenter_id},
+        attributes: ['id', 'name', 'picture']
+    });
+    console.log(user_info);
+
     const data = {
         post:{
             id: post_id,
