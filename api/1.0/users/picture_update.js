@@ -1,4 +1,5 @@
 const express = require('express');
+const {User} = require('../utils/models/model');
 const multer = require('multer');
 const router = express.Router();
 
@@ -31,7 +32,15 @@ router.put('/', checkAuthorization, upload.single('picture'), async (req, res) =
     const fileName = req.file.filename ;
     const picturePAth = 'http://13.210.26.62/api/1.0/public/' + fileName;
 
-    const [result] = await pool.query('UPDATE users SET picture = ? WHERE id = ?', [picturePAth, id]);
+    const userInfo = await User.findOne({
+        where: {
+            id: id
+        },
+        attributes: ['id', 'picture']
+      });
+    
+    userInfo.picture = picturePAth;
+    await userInfo.save();
 
     return res.status(200).json({ picture: picturePAth });
 });
