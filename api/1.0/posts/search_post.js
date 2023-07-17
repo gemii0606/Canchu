@@ -115,9 +115,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                 }
             ]
         });
-        console.log(results)
-        // return results;
-    
+        console.log(results)    
     } else {
         results = await Post.findAll({
             where: options,
@@ -143,10 +141,8 @@ router.get('/', checkAuthorization, async (req, res) => {
                 }
             ]
         });
-        // return results;
     }
 
-    console.log(results)
     let next_cursor = null;
     if (results.length > pageSize) {
         results.pop();
