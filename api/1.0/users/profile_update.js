@@ -31,6 +31,7 @@ router.put('/', checkAuthorization, async (req, res) => {
       userInfo.name = name;
       userInfo.introduction = introduction;
       userInfo.tags = tags;
+      await userInfo.save();
 
       const user = {
         id: userInfo.id
