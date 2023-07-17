@@ -39,7 +39,7 @@ async function signInNative(object, res) {
     });
     console.log(user);
     // check whether the email exists
-    if (!!user) {
+    if (!user) {
       return res.status(403).json({error: 'Please make sure your email or password are corrrect!'});
     } 
     
