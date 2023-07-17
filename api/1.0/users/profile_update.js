@@ -1,4 +1,5 @@
 const express = require('express');
+const {User} = require('../utils/models/model');
 const router = express.Router();
 
 // take out the function
@@ -18,10 +19,21 @@ router.put('/', checkAuthorization, async (req, res) => {
       if (!(name || introduction || tags)) {
         return res.status(400).json({ error: 'You should make one change at least.' });
       }
-      const [result] = await pool.query('UPDATE users SET name = ?, introduction = ?, tags = ? WHERE id = ?', [name, introduction, tags, id]);
+      // const [result] = await pool.query('UPDATE users SET name = ?, introduction = ?, tags = ? WHERE id = ?', [name, introduction, tags, id]);
       
+      const userInfo = await User.findOne({
+        where: {
+            id: id
+        },
+        attributes: ['id', 'name', 'introduction', 'tags']
+      });
+      
+      userInfo.name = name;
+      userInfo.introduction = introduction;
+      userInfo.tags = tags;
+
       const user = {
-        id
+        id: userInfo.id
       };
 
       return res.status(200).json({ data: {user} });

@@ -16,11 +16,6 @@ router.get('/', checkAuthorization, async (req, res) => {
       const reqId = req.baseUrl.split('/').slice(-2,-1)[0];
       const userId = parseInt(reqId);
 
-      // const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
-      // const userInfo = userItem[0];
-
-      // const {id, name, picture, introduction, tags} = userInfo;
-
       const userInfo = await User.findOne({
         where: {
             id: userId
