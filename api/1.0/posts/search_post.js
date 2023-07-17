@@ -119,7 +119,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     //     return results;
     
     // } else {
-        results = await Post.findAll({
+        const results = await Post.findAll({
             where: options,
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             // order: [['id', 'DESC']],
