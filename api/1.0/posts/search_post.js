@@ -45,9 +45,9 @@ router.get('/', checkAuthorization, async (req, res) => {
     console.log(id)
     let results;
     if (user_id === id) {
-        let friends = await User.findAll({
+        let [friends] = await User.findAll({
             where: { id: id },
-            attributes: [],
+            attributes: ['name'],
             include: [
               {
                 model: Friendship,
