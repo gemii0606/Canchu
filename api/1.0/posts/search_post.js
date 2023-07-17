@@ -116,7 +116,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             ]
         });
         console.log(results)
-        return results;
+        // return results;
     
     } else {
         results = await Post.findAll({
@@ -143,7 +143,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                 }
             ]
         });
-        return results;
+        // return results;
     }
 
     console.log(results)
