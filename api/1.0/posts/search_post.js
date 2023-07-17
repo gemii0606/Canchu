@@ -61,7 +61,8 @@ router.get('/', checkAuthorization, async (req, res) => {
                 where:{status: 'friend'},
                 attributes: ['from_id']
               }
-            ]
+            ],
+            required: false
         });
 
         console.log(friends)
