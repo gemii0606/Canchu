@@ -12,7 +12,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     const id = decodedToken.id;  // see if you are receiver
 
-    const { user_id, cursor } = req.query;
+    let { user_id, cursor } = req.query;
 
     let last_id;
     let currentPage;
