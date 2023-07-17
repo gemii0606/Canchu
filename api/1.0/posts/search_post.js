@@ -36,17 +36,17 @@ router.get('/', checkAuthorization, async (req, res) => {
       where: whereClause
     };
     console.log(options)
-    // if (cursor) {
+    if (cursor) {
         options.where.id = { [Op.gt]: currentPage };
     
-    // }
+    }
     
     console.log(options)
     // 查詢數據庫
     const { count, rows } = await Post.findAndCountAll({
         where: options,
-        offset: (currentPage - 1) * pageSize,
-        limit: pageSize,
+        // offset: (currentPage - 1) * pageSize,
+        // limit: pageSize,
       });
 
     const totalPages = Math.ceil(count / pageSize);
