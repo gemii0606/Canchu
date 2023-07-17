@@ -44,7 +44,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         attributes: ['id', 'user_id', 'createdAt', 'context'],
         offset: (currentPage - 1) * pageSize,
         limit: pageSize,
-        includes:[
+        include:[
             {
                 model: Like,
                 as: 'postLike',
