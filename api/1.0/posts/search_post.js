@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {User, Post, Like, Comment} = require('../utils/models/model');
+const {User, Friendship, Post, Like, Comment} = require('../utils/models/model');
 const { Op } = require('sequelize');
 const moment = require('moment');
 
@@ -18,7 +18,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     if (cursor) {
         currentPage = parseInt(atob(cursor));
     } else {
-        currentPage = 1;
+        currentPage = 0;
     }
     
     const pageSize = 10;
@@ -36,36 +36,114 @@ router.get('/', checkAuthorization, async (req, res) => {
     
     }
     
-    const results = await Post.findAll({
-        where: options,
-        attributes: ['id', 'user_id', 'createdAt', 'context'],
-        offset: (currentPage - 1) * pageSize,
-        limit: pageSize + 1,
-        include:[
-            {
-                model: Like,
-                as: 'postLike',
-                attributes: ['liker_id']
-            },
-            {
-                model: Comment,
-                as: 'postComment',
-                attributes: ['id']
-            },
-            {
-                model: User,
-                as: 'postUser',
-                attributes: ['id','picture','name']
+    let results;
+    if (user_id === id) {
+        let [friends] = await User.findAll({
+            where: { id: id },
+            attributes: [],
+            include: [
+              {
+                model: Friendship,
+                as: 'fromFriendship',
+                where:{status: 'friend'},
+                attributes: [],
+                include: [
+                  {
+                    model: User,
+                    as: 'toUser',
+                    attributes: ['id', 'name', 'picture'],
+                  }
+                ]
+              },
+              {
+                model: Friendship,
+                as: 'toFriendship',
+                where:{status: 'friend'},
+                attributes: [],
+                include: [
+                  {
+                    model: User,
+                    as: 'fromUser',
+                    attributes: ['id', 'name', 'picture']
+                  }
+                ]
+              }
+            ]
+        });
+
+        let friends_id = [];
+        if (friends.fromFriendship.length > 0) {
+            for (const friend of friends.fromFriendship) {
+                friends_id.push({user_id: friend.toUser.id});
+                }
+        } 
+            
+        if (friends.toFriendship.length > 0) {
+            for (const friend of friends.toFriendship) {
+                friends_id.push({user_id: friend.toUser.id});
             }
-        ]
-      });
+        }
     
+        results = await Post.findAll({
+            where: {
+                [Op.or]: [{user_id: id}, ...friends_id]
+            },
+            attributes: ['id', 'user_id', 'createdAt', 'context'],
+            order: [['id', 'DESC']],
+            offset: (currentPage - 1) * pageSize,
+            limit: pageSize + 1,
+            include:[
+                {
+                    model: Like,
+                    as: 'postLike',
+                    attributes: ['liker_id']
+                },
+                {
+                    model: Comment,
+                    as: 'postComment',
+                    attributes: ['id']
+                },
+                {
+                    model: User,
+                    as: 'postUser',
+                    attributes: ['id','picture','name']
+                }
+            ]
+        });
+        
+    } else {
+        results = await Post.findAll({
+            where: options,
+            attributes: ['id', 'user_id', 'createdAt', 'context'],
+            order: [['id', 'DESC']],
+            offset: (currentPage - 1) * pageSize,
+            limit: pageSize + 1,
+            include:[
+                {
+                    model: Like,
+                    as: 'postLike',
+                    attributes: ['liker_id']
+                },
+                {
+                    model: Comment,
+                    as: 'postComment',
+                    attributes: ['id']
+                },
+                {
+                    model: User,
+                    as: 'postUser',
+                    attributes: ['id','picture','name']
+                }
+            ]
+        });
+    }
+
     let next_cursor = null;
     if (results.length > pageSize) {
         results.pop();
-        next_cursor = btoa((results.length + currentPage - 1).toString());
+        next_cursor = btoa((results.length + currentPage).toString());
     }
-    console.log(results.length + currentPage - 1)
+    
     const posts = results.map(item =>{
         const outcome = {
             id: item.id,
@@ -86,6 +164,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         next_cursor: next_cursor
     };
     return res.status(200).json({ data });
+
 
 });
 
