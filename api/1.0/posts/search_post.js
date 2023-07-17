@@ -63,10 +63,9 @@ router.get('/', checkAuthorization, async (req, res) => {
     let next_cursor = null;
     if (results.length > pageSize) {
         results.pop();
-        // 獲取下一頁的 cursor（例如使用 createdAt）
         next_cursor = btoa((results.length + currentPage - 1).toString());
     }
-
+    console.log(next_cursor)
     const posts = results.map(item =>{
         const outcome = {
             id: item.id,
