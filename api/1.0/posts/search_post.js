@@ -48,12 +48,12 @@ router.get('/', checkAuthorization, async (req, res) => {
             {
                 model: Like,
                 as: 'postLike',
-                attributes: ['id', 'liker_id']
+                attributes: ['id','post_id', 'liker_id']
             },
             {
                 model: Comment,
                 as: 'postComment',
-                attributes: ['id', 'commenter_id']
+                attributes: ['id','post_id', 'commenter_id']
             },
             {
                 model: User,
