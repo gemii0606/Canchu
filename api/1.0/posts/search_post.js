@@ -44,9 +44,7 @@ router.get('/', checkAuthorization, async (req, res) => {
 
     // 查詢數據庫
     const { count, rows } = await Post.findAndCountAll({
-        where: {
-          options
-        },
+        where: options,
         offset: (currentPage - 1) * pageSize,
         limit: pageSize,
       });
@@ -64,7 +62,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     
     const data ={
         posts: result.posts,
-        next_cursor: btoa((result.currentPage + 1).toString())
+        next_cursor: btoa((currentPage + 1).toString())
     };
     // 返回結果
     return res.status(200).json({ data });
