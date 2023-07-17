@@ -39,29 +39,41 @@ router.get('/', checkAuthorization, async (req, res) => {
     
     console.log(options)
     // 查詢數據庫
-    const { count, rows } = await Post.findAndCountAll({
+    const result = await Post.findAll({
         where: options,
+        attributes: ['id', 'user_id', 'createdAt', 'context'],
         offset: (currentPage - 1) * pageSize,
         limit: pageSize,
+        includes:[
+            {
+                model: Like,
+                as: 'postLike',
+                attributes: ['id']
+            },
+            {
+                model: Comment,
+                as: 'postComment',
+                attributes: ['id']
+            },
+            {
+                model: User,
+                as: 'postUser',
+                attributes: ['picture', 'name']
+            }
+        ]
       });
 
-    const totalPages = Math.ceil(count / pageSize);
-    const hasNextPage = currentPage < totalPages;
+    // const totalPages = Math.ceil(count / pageSize);
+    // const hasNextPage = currentPage < totalPages;
 
-    const result = {
-        posts: rows,
-        totalPosts: count,
-        currentPage,
-        totalPages,
-        hasNextPage,
-      };
+    console.log(result)
     
-    const data ={
-        posts: result.posts,
-        next_cursor: btoa((currentPage + 1).toString())
-    };
+    // const data ={
+    //     posts: 'rows',
+    //     next_cursor: btoa((currentPage + 1).toString())
+    // };
     // 返回結果
-    return res.status(200).json({ data });
+    return res.status(200).json({ result });
 
 });
 
