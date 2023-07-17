@@ -26,7 +26,8 @@ router.get('/', checkAuthorization, async (req, res) => {
                 as: 'toUser',
                 attributes: ['id', 'name', 'picture']
               }
-            ]
+            ],
+            required: false
           },
           {
             model: Friendship,
@@ -39,9 +40,11 @@ router.get('/', checkAuthorization, async (req, res) => {
                 as: 'fromUser',
                 attributes: ['id', 'name', 'picture']
               }
-            ]
+            ],
+            required: false
           }
-        ]
+        ],
+        required: false
       });
       console.log(friends);
 
