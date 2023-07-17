@@ -31,19 +31,16 @@ router.get('/', checkAuthorization, async (req, res) => {
         options.user_id = id;
     }
 
-    console.log(options)
     if (cursor) {
         options.id = { [Op.gt]: currentPage };
     
     }
     
-    console.log(options)
-    // 查詢數據庫
-    const result = await Post.findAll({
+    const results = await Post.findAll({
         where: options,
         attributes: ['id', 'user_id', 'createdAt', 'context'],
         offset: (currentPage - 1) * pageSize,
-        limit: pageSize,
+        limit: pageSize + 1,
         include:[
             {
                 model: Like,
@@ -62,10 +59,15 @@ router.get('/', checkAuthorization, async (req, res) => {
             }
         ]
       });
-
-    console.log(result)
     
-    const posts = result.map(item =>{
+    let next_cursor = null;
+    if (results.length > pageSize) {
+        results.pop();
+        // 獲取下一頁的 cursor（例如使用 createdAt）
+        next_cursor = btoa((results.length + currentPage - 1).toString());
+    }
+
+    const posts = results.map(item =>{
         const outcome = {
             id: item.id,
             user_id: item.user_id,
@@ -82,9 +84,8 @@ router.get('/', checkAuthorization, async (req, res) => {
 
     const data ={
         posts: posts,
-        next_cursor: btoa((currentPage + 1).toString())
+        next_cursor: next_cursor
     };
-
     return res.status(200).json({ data });
 
 });
