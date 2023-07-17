@@ -33,14 +33,14 @@ router.get('/', checkAuthorization, async (req, res) => {
 
     // 設置分頁的選項
     const options = {
-      where: whereClause,
-      limit: pageSize + 1, // 加1是為了檢查是否有下一頁
+      where: whereClause
     };
 
     if (cursor) {
-        options.where.cursor = { [Op.gt]: currentPage };
+        options.where.id = { [Op.gt]: currentPage };
     
     }
+    console.log(options)
 
     // 查詢數據庫
     const { count, rows } = await Post.findAndCountAll({
