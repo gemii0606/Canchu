@@ -34,7 +34,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           picture: userInfo.picture,
           friend_count: 1,
           introduction: userId.introduction,
-          tags,
+          tags: userInfo.tags,
           friendship: {
             id: 1,
             status: "requested"
