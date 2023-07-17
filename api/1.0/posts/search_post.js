@@ -65,7 +65,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         results.pop();
         next_cursor = btoa((results.length + currentPage - 1).toString());
     }
-    console.log(next_cursor)
+    console.log(results.length + currentPage - 1)
     const posts = results.map(item =>{
         const outcome = {
             id: item.id,
