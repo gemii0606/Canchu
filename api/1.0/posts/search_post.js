@@ -14,10 +14,14 @@ router.get('/', checkAuthorization, async (req, res) => {
 
     const { user_id, cursor } = req.query;
 
+    let last_id;
     let currentPage;
     if (cursor) {
-        currentPage = parseInt(atob(cursor));
+        let req_cursor_info = atob(cursor).split(":");
+        last_id = parseInt(req_cursor_info[0]);
+        currentPage = parseInt(req_cursor_info[1]);
     } else {
+        last_id = 0;
         currentPage = 1;
     }
     
@@ -29,10 +33,11 @@ router.get('/', checkAuthorization, async (req, res) => {
         options.user_id = user_id;
     } else {
         options.user_id = id;
+        user_id = id;
     }
 
     if (cursor) {
-        options.id = { [Op.gt]: currentPage };
+        options.id = { [Op.lt]: last_id };
     
     }
     
@@ -48,27 +53,13 @@ router.get('/', checkAuthorization, async (req, res) => {
                 model: Friendship,
                 as: 'fromFriendship',
                 where:{status: 'friend'},
-                attributes: [],
-                include: [
-                  {
-                    model: User,
-                    as: 'toUser',
-                    attributes: ['id', 'name', 'picture'],
-                  }
-                ]
+                attributes: ['to_id']
               },
               {
                 model: Friendship,
                 as: 'toFriendship',
                 where:{status: 'friend'},
-                attributes: [],
-                include: [
-                  {
-                    model: User,
-                    as: 'fromUser',
-                    attributes: ['id', 'name', 'picture']
-                  }
-                ]
+                attributes: ['from_id']
               }
             ]
         });
@@ -78,20 +69,20 @@ router.get('/', checkAuthorization, async (req, res) => {
         let friends_id = [];
         if (friends.fromFriendship.length > 0) {
             for (const friend of friends.fromFriendship) {
-                friends_id.push({user_id: friend.toUser.id});
+                friends_id.push({user_id: friend.to_id});
                 }
         } 
             
         if (friends.toFriendship.length > 0) {
             for (const friend of friends.toFriendship) {
-                friends_id.push({user_id: friend.toUser.id});
+                friends_id.push({user_id: friend.from_id});
             }
         }
     
         results = await Post.findAll({
             where: {
                 [Op.or]: [{user_id: id}, ...friends_id],
-                id: {[Op.gt]: currentPage}
+                id: {[Op.lt]: last_id}
             },
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             order: [['id', 'DESC']],
@@ -118,9 +109,12 @@ router.get('/', checkAuthorization, async (req, res) => {
         console.log(results)    
     } else {
         results = await Post.findAll({
-            where: options,
+            where: {
+                user_id: user_id, 
+                id: {[Op.lt]: last_id}
+            },
             attributes: ['id', 'user_id', 'createdAt', 'context'],
-            // order: [['id', 'DESC']],
+            order: [['id', 'DESC']],
             offset: (currentPage - 1) * pageSize,
             limit: pageSize + 1,
             include:[
@@ -146,7 +140,8 @@ router.get('/', checkAuthorization, async (req, res) => {
     let next_cursor = null;
     if (results.length > pageSize) {
         results.pop();
-        next_cursor = btoa((results.length + currentPage).toString());
+        let cursor_info = `${results[results.length - 1].id}:${results.length + currentPage}`;
+        next_cursor = btoa(cursor_info.toString());
     }
     
     const posts = results.map(item =>{
