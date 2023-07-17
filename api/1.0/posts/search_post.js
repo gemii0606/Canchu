@@ -138,7 +138,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     //         ]
     //     });
     // }
-
+    console.log(results)
     let next_cursor = null;
     if (results.length > pageSize) {
         results.pop();
