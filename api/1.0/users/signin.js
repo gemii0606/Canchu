@@ -34,7 +34,8 @@ async function signInNative(object, res) {
       where: {
           email,
           password: securePassword
-      }
+      },
+      attributes: ['id', 'provider', 'name', 'email', 'picture']
     });
 
     // check whether the email exists
