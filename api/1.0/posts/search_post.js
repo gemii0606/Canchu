@@ -55,12 +55,12 @@ router.get('/', checkAuthorization, async (req, res) => {
                 where:{status: 'friend'},
                 attributes: ['to_id']
               },
-            //   {
-            //     model: Friendship,
-            //     as: 'toFriendship',
-            //     where:{status: 'friend'},
-            //     attributes: ['from_id']
-            //   }
+              {
+                model: Friendship,
+                as: 'toFriendship',
+                where:{status: 'friend'},
+                attributes: ['from_id']
+              }
             ]
         });
 
