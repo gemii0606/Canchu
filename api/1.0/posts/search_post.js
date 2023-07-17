@@ -38,88 +38,88 @@ router.get('/', checkAuthorization, async (req, res) => {
     
     console.log(user_id)
     console.log(id)
-    // let results;
-    // if (user_id === id) {
-    //     let [friends] = await User.findAll({
-    //         where: { id: id },
-    //         attributes: [],
-    //         include: [
-    //           {
-    //             model: Friendship,
-    //             as: 'fromFriendship',
-    //             where:{status: 'friend'},
-    //             attributes: [],
-    //             include: [
-    //               {
-    //                 model: User,
-    //                 as: 'toUser',
-    //                 attributes: ['id', 'name', 'picture'],
-    //               }
-    //             ]
-    //           },
-    //           {
-    //             model: Friendship,
-    //             as: 'toFriendship',
-    //             where:{status: 'friend'},
-    //             attributes: [],
-    //             include: [
-    //               {
-    //                 model: User,
-    //                 as: 'fromUser',
-    //                 attributes: ['id', 'name', 'picture']
-    //               }
-    //             ]
-    //           }
-    //         ]
-    //     });
+    let results;
+    if (user_id === id) {
+        let [friends] = await User.findAll({
+            where: { id: id },
+            attributes: [],
+            include: [
+              {
+                model: Friendship,
+                as: 'fromFriendship',
+                where:{status: 'friend'},
+                attributes: [],
+                include: [
+                  {
+                    model: User,
+                    as: 'toUser',
+                    attributes: ['id', 'name', 'picture'],
+                  }
+                ]
+              },
+              {
+                model: Friendship,
+                as: 'toFriendship',
+                where:{status: 'friend'},
+                attributes: [],
+                include: [
+                  {
+                    model: User,
+                    as: 'fromUser',
+                    attributes: ['id', 'name', 'picture']
+                  }
+                ]
+              }
+            ]
+        });
 
-    //     console.log(friends)
+        console.log(friends)
 
-    //     let friends_id = [];
-    //     if (friends.fromFriendship.length > 0) {
-    //         for (const friend of friends.fromFriendship) {
-    //             friends_id.push({user_id: friend.toUser.id});
-    //             }
-    //     } 
+        let friends_id = [];
+        if (friends.fromFriendship.length > 0) {
+            for (const friend of friends.fromFriendship) {
+                friends_id.push({user_id: friend.toUser.id});
+                }
+        } 
             
-    //     if (friends.toFriendship.length > 0) {
-    //         for (const friend of friends.toFriendship) {
-    //             friends_id.push({user_id: friend.toUser.id});
-    //         }
-    //     }
+        if (friends.toFriendship.length > 0) {
+            for (const friend of friends.toFriendship) {
+                friends_id.push({user_id: friend.toUser.id});
+            }
+        }
     
-    //     results = await Post.findAll({
-    //         where: {
-    //             [Op.or]: [{user_id: id}, ...friends_id],
-    //             id: {[Op.gt]: currentPage}
-    //         },
-    //         attributes: ['id', 'user_id', 'createdAt', 'context'],
-    //         order: [['id', 'DESC']],
-    //         offset: (currentPage - 1) * pageSize,
-    //         limit: pageSize + 1,
-    //         include:[
-    //             {
-    //                 model: Like,
-    //                 as: 'postLike',
-    //                 attributes: ['liker_id']
-    //             },
-    //             {
-    //                 model: Comment,
-    //                 as: 'postComment',
-    //                 attributes: ['id']
-    //             },
-    //             {
-    //                 model: User,
-    //                 as: 'postUser',
-    //                 attributes: ['id','picture','name']
-    //             }
-    //         ]
-    //     });
-    //     console.log(results)
-    //     return results;
+        results = await Post.findAll({
+            where: {
+                [Op.or]: [{user_id: id}, ...friends_id],
+                id: {[Op.gt]: currentPage}
+            },
+            attributes: ['id', 'user_id', 'createdAt', 'context'],
+            order: [['id', 'DESC']],
+            offset: (currentPage - 1) * pageSize,
+            limit: pageSize + 1,
+            include:[
+                {
+                    model: Like,
+                    as: 'postLike',
+                    attributes: ['liker_id']
+                },
+                {
+                    model: Comment,
+                    as: 'postComment',
+                    attributes: ['id']
+                },
+                {
+                    model: User,
+                    as: 'postUser',
+                    attributes: ['id','picture','name']
+                }
+            ]
+        });
+        console.log(results)
+        return results;
     
-    // } else {
-        const results = await Post.findAll({
+    } else {
+        results = await Post.findAll({
             where: options,
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             // order: [['id', 'DESC']],
@@ -143,8 +143,8 @@ router.get('/', checkAuthorization, async (req, res) => {
                 }
             ]
         });
-    //     return results;
-    // }
+        return results;
+    }
 
     console.log(results)
     let next_cursor = null;
