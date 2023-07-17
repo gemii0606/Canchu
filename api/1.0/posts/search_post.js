@@ -33,11 +33,11 @@ router.get('/', checkAuthorization, async (req, res) => {
 
     // 設置分頁的選項
     const options = {
-      where: whereClause
+      whereClause
     };
     console.log(options)
     if (cursor) {
-        options.where.id = { [Op.gt]: currentPage };
+        options.id = { [Op.gt]: currentPage };
     
     }
     
@@ -45,8 +45,8 @@ router.get('/', checkAuthorization, async (req, res) => {
     // 查詢數據庫
     const { count, rows } = await Post.findAndCountAll({
         where: options,
-        // offset: (currentPage - 1) * pageSize,
-        // limit: pageSize,
+        offset: (currentPage - 1) * pageSize,
+        limit: pageSize,
       });
 
     const totalPages = Math.ceil(count / pageSize);
