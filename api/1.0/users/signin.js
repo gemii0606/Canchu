@@ -4,9 +4,6 @@ const jwt = require('jsonwebtoken');
 const {User} = require('../utils/models/model');
 const router = express.Router();
 
-// set the connection with mysql server
-const pool = require('../utils/mysql');
-
 function isValidEmail(email) {
   const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   return re.test(email);

@@ -9,9 +9,6 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-// set the connection with mysql server
-const pool = require('../utils/mysql');
-
 router.post('/', async (req, res) => {
     // for Sign-up finction
       const {name, email, password} = req.body;

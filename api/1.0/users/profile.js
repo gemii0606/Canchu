@@ -4,11 +4,7 @@ const router = express.Router();
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
-
-// set the connection with mysql server
-const pool = require('../utils/mysql');
   
-
 router.get('/', checkAuthorization, async (req, res) => {
   // if the authorization passes, user can see others profile
     try {
