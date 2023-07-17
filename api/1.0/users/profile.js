@@ -30,8 +30,8 @@ router.get('/', checkAuthorization, async (req, res) => {
 
       const user = {
           id: userInfo.id,
-          name: userInfo,name,
-          picture: userInfo. picture,
+          name: userInfo.name,
+          picture: userInfo.picture,
           friend_count: 1,
           introduction: userId.introduction,
           tags,
