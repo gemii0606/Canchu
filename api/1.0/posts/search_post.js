@@ -68,6 +68,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         });
 
         console.log(friends)
+        console.log(friends.fromFriendship)
 
         let friends_id = [];
         if (friends.fromFriendship.length > 0) {
