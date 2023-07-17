@@ -18,7 +18,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     if (cursor) {
         currentPage = parseInt(atob(cursor));
     } else {
-        currentPage = 0;
+        currentPage = 1;
     }
     
     const pageSize = 10;
