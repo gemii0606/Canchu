@@ -117,33 +117,35 @@ router.get('/', checkAuthorization, async (req, res) => {
         });
         console.log(results)
         return results;
+    
+    } else {
+        results = await Post.findAll({
+            where: options,
+            attributes: ['id', 'user_id', 'createdAt', 'context'],
+            order: [['id', 'DESC']],
+            offset: (currentPage - 1) * pageSize,
+            limit: pageSize + 1,
+            include:[
+                {
+                    model: Like,
+                    as: 'postLike',
+                    attributes: ['liker_id']
+                },
+                {
+                    model: Comment,
+                    as: 'postComment',
+                    attributes: ['id']
+                },
+                {
+                    model: User,
+                    as: 'postUser',
+                    attributes: ['id','picture','name']
+                }
+            ]
+        });
+        return results;
     }
-    // } else {
-    //     results = await Post.findAll({
-    //         where: options,
-    //         attributes: ['id', 'user_id', 'createdAt', 'context'],
-    //         order: [['id', 'DESC']],
-    //         offset: (currentPage - 1) * pageSize,
-    //         limit: pageSize + 1,
-    //         include:[
-    //             {
-    //                 model: Like,
-    //                 as: 'postLike',
-    //                 attributes: ['liker_id']
-    //             },
-    //             {
-    //                 model: Comment,
-    //                 as: 'postComment',
-    //                 attributes: ['id']
-    //             },
-    //             {
-    //                 model: User,
-    //                 as: 'postUser',
-    //                 attributes: ['id','picture','name']
-    //             }
-    //         ]
-    //     });
-    // }
+
     console.log(results)
     let next_cursor = null;
     if (results.length > pageSize) {
