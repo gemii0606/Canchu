@@ -1,4 +1,5 @@
 const express = require('express');
+const {User} = require('../utils/models/model');
 const router = express.Router();
 
 // take out the function
@@ -15,17 +16,24 @@ router.get('/', checkAuthorization, async (req, res) => {
       const reqId = req.baseUrl.split('/').slice(-2,-1)[0];
       const userId = parseInt(reqId);
 
-      const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
-      const userInfo = userItem[0];
+      // const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [userId]);
+      // const userInfo = userItem[0];
 
-      const {id, name, picture, introduction, tags} = userInfo;
+      // const {id, name, picture, introduction, tags} = userInfo;
+
+      const userInfo = await User.findOne({
+        where: {
+            id: userId
+        },
+        attributes: ['id', 'name', 'picture', 'introduction', 'tags']
+      });
 
       const user = {
-          id,
-          name,
-          picture,
+          id: userInfo.id,
+          name: userInfo,name,
+          picture: userInfo. picture,
           friend_count: 1,
-          introduction,
+          introduction: userId.introduction,
           tags,
           friendship: {
             id: 1,
