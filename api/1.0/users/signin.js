@@ -1,6 +1,7 @@
 const express = require('express');
 const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
+const {User} = require('../utils/models/model');
 const router = express.Router();
 
 // set the connection with mysql server
@@ -28,8 +29,14 @@ async function signInNative(object, res) {
         .update(password + email)
         .digest('base64');
 
-    const [userItem] = await pool.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, securePassword]);
-    
+    // const [userItem] = await pool.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, securePassword]);
+    const userItem = await User.findOne({
+      where: {
+          email,
+          password: securePassword
+      }
+    });
+
     // check whether the email exists
     if (userItem.length === 0) {
       return res.status(403).json({error: 'Please make sure your email or password are corrrect!'});
@@ -70,18 +77,30 @@ async function signInFB(object, res) {
     const { name, email } = userInfo;
     const password = email;
     
-    const [select] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    // const [select] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    const select = await User.findOne({
+      where: {
+          email
+      }
+    });
     // establish the user data if they didn't sign up in native before
     if (select.length === 0) {
-        const [item] = await pool.query('INSERT INTO users (name, email, password, provider, picture) VALUES (?, ?, ?, ?, ?)', [name, email, password, "facebook", null]);
+        // const [item] = await pool.query('INSERT INTO users (name, email, password, provider, picture) VALUES (?, ?, ?, ?, ?)', [name, email, password, "facebook", null]);
+        const user = await User.create({
+          name,
+          email,
+          password: securePassword,
+          provider: "facebook",
+          picture: null
+        });
     }
     // if the user have sign up with the native before, deny their access with FB
     if (select.provider === 'native'){
       return res.status(403).json({error: 'Please use your native account!'});
     }
     // take the user data from database(we need the database id)
-    const [userItem] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-    const user = userItem[0];
+    // const [userItem] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
+    // const user = userItem[0];
 
     let payload = {
         id: user.id,
