@@ -71,6 +71,8 @@ router.get('/', checkAuthorization, async (req, res) => {
             ]
         });
 
+        console.log(friends)
+
         let friends_id = [];
         if (friends.fromFriendship.length > 0) {
             for (const friend of friends.fromFriendship) {
@@ -111,6 +113,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                 }
             ]
         });
+        console.log(results)
         return results;
     }
     // } else {
