@@ -23,18 +23,14 @@ router.get('/', checkAuthorization, async (req, res) => {
     
     const pageSize = 10;
 
-    const whereClause = {};
+    const options = {};
 
     if (user_id) {
-      whereClause.user_id = user_id;
+        options.user_id = user_id;
     } else {
-      whereClause.user_id = id;
+        options.user_id = id;
     }
 
-    // 設置分頁的選項
-    const options = {
-      whereClause
-    };
     console.log(options)
     if (cursor) {
         options.id = { [Op.gt]: currentPage };
