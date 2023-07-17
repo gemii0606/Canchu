@@ -21,7 +21,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         last_id = parseInt(req_cursor_info[0]);
         currentPage = parseInt(req_cursor_info[1]);
     } else {
-        last_id = 0;
+        last_id = Infinity;
         currentPage = 1;
     }
     
