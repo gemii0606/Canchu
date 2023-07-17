@@ -29,7 +29,6 @@ async function signInNative(object, res) {
         .update(password + email)
         .digest('base64');
 
-    // const [userItem] = await pool.query('SELECT * FROM users WHERE email = ? AND password = ?', [email, securePassword]);
     const user = await User.findOne({
       where: {
           email,
@@ -37,7 +36,6 @@ async function signInNative(object, res) {
       },
       attributes: ['id', 'provider', 'name', 'email', 'picture']
     });
-    console.log(user);
     // check whether the email exists
     if (!user) {
       return res.status(403).json({error: 'Please make sure your email or password are corrrect!'});
@@ -75,7 +73,6 @@ async function signInFB(object, res) {
     const { name, email } = userInfo;
     const password = email;
     
-    // const [select] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
     const user = await User.findOne({
       where: {
           email
@@ -84,7 +81,6 @@ async function signInFB(object, res) {
     });
     // establish the user data if they didn't sign up in native before
     if (!user) {
-        // const [item] = await pool.query('INSERT INTO users (name, email, password, provider, picture) VALUES (?, ?, ?, ?, ?)', [name, email, password, "facebook", null]);
         const cr_user = await User.create({
           name,
           email,
@@ -97,9 +93,6 @@ async function signInFB(object, res) {
     if (user.provider === 'native'){
       return res.status(403).json({error: 'Please use your native account!'});
     }
-    // take the user data from database(we need the database id)
-    // const [userItem] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
-    // const user = userItem[0];
 
     let payload = {
         id: user.id,
