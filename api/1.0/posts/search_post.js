@@ -122,7 +122,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         results = await Post.findAll({
             where: options,
             attributes: ['id', 'user_id', 'createdAt', 'context'],
-            order: [['id', 'DESC']],
+            // order: [['id', 'DESC']],
             offset: (currentPage - 1) * pageSize,
             limit: pageSize + 1,
             include:[
