@@ -48,32 +48,44 @@ router.get('/', checkAuthorization, async (req, res) => {
             {
                 model: Like,
                 as: 'postLike',
-                attributes: ['id','post_id', 'liker_id']
+                attributes: ['liker_id']
             },
             {
                 model: Comment,
                 as: 'postComment',
-                attributes: ['id','post_id', 'commenter_id']
+                attributes: ['id']
             },
             {
                 model: User,
                 as: 'postUser',
-                attributes: ['id']
+                attributes: ['id','picture','name']
             }
         ]
       });
 
-    // const totalPages = Math.ceil(count / pageSize);
-    // const hasNextPage = currentPage < totalPages;
-
     console.log(result)
     
+    const posts = result.map(item =>{
+        const outcome = {
+            id: item.id,
+            user_id: item.user_id,
+            created_at: item.createdAt,
+            context: item.context,
+            is_liked: item.postLike.some(like => like.liker_id === item.user_id),
+            like_count: item.postLike.length,
+            comment_count: item.postComment.length,
+            picture: item.postUser.picture,
+            name: item.postUser.name
+        }
+        return outcome;
+    });
+
     // const data ={
-    //     posts: 'rows',
+    //     posts: 'a',
     //     next_cursor: btoa((currentPage + 1).toString())
     // };
-    // 返回結果
-    return res.status(200).json({ result });
+
+    return res.status(200).json({ posts });
 
 });
 
