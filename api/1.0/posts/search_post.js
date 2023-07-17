@@ -41,7 +41,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     
     }
     
-
+    console.log(options)
     // 查詢數據庫
     const { count, rows } = await Post.findAndCountAll({
         where: options,
