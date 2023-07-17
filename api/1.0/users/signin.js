@@ -84,12 +84,12 @@ async function signInFB(object, res) {
       }
     });
     // establish the user data if they didn't sign up in native before
-    if (select.length === 0) {
+    if (!select) {
         // const [item] = await pool.query('INSERT INTO users (name, email, password, provider, picture) VALUES (?, ?, ?, ?, ?)', [name, email, password, "facebook", null]);
         const user = await User.create({
           name,
           email,
-          password: securePassword,
+          password: password,
           provider: "facebook",
           picture: null
         });

@@ -26,7 +26,6 @@ router.post('/', async (req, res) => {
         }
         
         // check if the user had already had an account
-        // const [select] = await pool.query('SELECT * FROM users WHERE email = ?', [email]);
         const select = await User.findOne({
           where: {
               email
@@ -42,11 +41,6 @@ router.post('/', async (req, res) => {
             .createHash('sha256')
             .update(password + email)
             .digest('base64');
-
-        // add the user data into database, and select the info from database(we need database id)
-        // const [item] = await pool.query('INSERT INTO users (name, email, password, provider, picture) VALUES (?, ?, ?, ?, ?)', [name, email, securePassword, "native", null]);
-        // const [userItem] = await pool.query('SELECT * FROM users WHERE id = ?', [item.insertId]);
-        // const user = userItem[0];
         
         const user = await User.create({
           name,
