@@ -86,7 +86,8 @@ router.get('/', checkAuthorization, async (req, res) => {
     
         results = await Post.findAll({
             where: {
-                [Op.or]: [{user_id: id}, ...friends_id]
+                [Op.or]: [{user_id: id}, ...friends_id],
+                id: {[Op.gt]: currentPage}
             },
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             order: [['id', 'DESC']],
