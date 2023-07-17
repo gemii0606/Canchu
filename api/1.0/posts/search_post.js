@@ -80,12 +80,12 @@ router.get('/', checkAuthorization, async (req, res) => {
         return outcome;
     });
 
-    // const data ={
-    //     posts: 'a',
-    //     next_cursor: btoa((currentPage + 1).toString())
-    // };
+    const data ={
+        posts: posts,
+        next_cursor: btoa((currentPage + 1).toString())
+    };
 
-    return res.status(200).json({ posts });
+    return res.status(200).json({ data });
 
 });
 
