@@ -33,7 +33,7 @@ router.post('/', async (req, res) => {
           }
         });
 
-        if (select.length !== 0) {
+        if (!!select) {
           return res.status(403).json({error: 'email adress has already exist!'});
         }
 
