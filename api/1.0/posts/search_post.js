@@ -21,7 +21,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         last_id = parseInt(req_cursor_info[0]);
         currentPage = parseInt(req_cursor_info[1]);
     } else {
-        last_id = Infinity;
+        last_id = 1000;
         currentPage = 1;
     }
     
@@ -41,8 +41,6 @@ router.get('/', checkAuthorization, async (req, res) => {
     
     }
     
-    console.log(user_id)
-    console.log(id)
     let results;
     if (user_id === id) {
         let [friends] = await User.findAll({
