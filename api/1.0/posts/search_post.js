@@ -51,9 +51,6 @@ router.get('/', checkAuthorization, async (req, res) => {
             required: false
         });
 
-        console.log(friends)
-        console.log(friends.fromFriendship)
-
         let friends_id = [];
         if (friends.fromFriendship.length > 0) {
             for (const friend of friends.fromFriendship) {
@@ -64,7 +61,6 @@ router.get('/', checkAuthorization, async (req, res) => {
         if (friends.toFriendship.length > 0) {
             for (const friend of friends.toFriendship) {
                 friends_id.push({user_id: friend.from_id});
-                console.log('here')
             }
         }
     
