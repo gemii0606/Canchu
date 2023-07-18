@@ -18,6 +18,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     let currentPage;
     if (cursor) {
         let req_cursor_info = atob(cursor).split(":");
+        console.log(req_cursor_info)
         last_id = parseInt(req_cursor_info[0]);
         currentPage = parseInt(req_cursor_info[1]);
     } else {
