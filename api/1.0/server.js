@@ -1,11 +1,12 @@
 const express = require('express');
 const app = express();
+var cors = require('cors')
 const usersRoute = require('./users');
 const friendsRoute = require('./friends');
 const eventsRoute = require('./events');
 const postsRoute = require('./posts');
 
-
+app.use(cors());
 app.use(express.json());
 app.use(express.static('public'))
 
