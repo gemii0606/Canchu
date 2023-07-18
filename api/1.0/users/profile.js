@@ -15,26 +15,26 @@ router.get('/', checkAuthorization, async (req, res) => {
       const decodedToken = req.decodedToken;
       const id = decodedToken.id;  // see if you are receiver
 
-      const userInfo = await User.findOne({
+      const userInfo = await User.findAll({
         where: {
             id: userId
         },
         attributes: ['id', 'name', 'picture', 'introduction', 'tags'],
-        // include: [
-        //   {
-        //     model: Friendship,
-        //     as: 'fromFriendship',
-        //     where:{to_id: id},
-        //     attributes: ['id', 'status']
-        //   },
-        //   {
-        //     model: Friendship,
-        //     as: 'toFriendship',
-        //     where:{from_id: id},
-        //     attributes: ['id', 'status']
-        //   }
-        // ],
-        // required: false
+        include: [
+          {
+            model: Friendship,
+            as: 'fromFriendship',
+            where:{to_id: id},
+            attributes: ['id', 'status']
+          },
+          {
+            model: Friendship,
+            as: 'toFriendship',
+            where:{from_id: id},
+            attributes: ['id', 'status']
+          }
+        ],
+        required: false
       });
       console.log(userInfo)
       // if (userInfo.fromFriendship)
