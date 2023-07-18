@@ -15,7 +15,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       const decodedToken = req.decodedToken;
       const id = decodedToken.id;  // see if you are receiver
 
-      const userInfo = await User.findAll({
+      const userInfo = await User.findOne({
         where: {
             id: userId
         },
@@ -24,14 +24,14 @@ router.get('/', checkAuthorization, async (req, res) => {
           {
             model: Friendship,
             as: 'fromFriendship',
-            where:{from_id: id},
+            where:{to_id: id},
             attributes: ['id', 'status'],
             required: false
           },
           {
             model: Friendship,
             as: 'toFriendship',
-            where:{to_id: id},
+            where:{from_id: id},
             attributes: ['id', 'status'],
             required: false
           }
@@ -39,6 +39,8 @@ router.get('/', checkAuthorization, async (req, res) => {
         required: false
       });
       console.log(userInfo)
+      console.log(userInfo.fromFriendship)
+      console.log(userInfo.toFriendship)
       // if (userInfo.fromFriendship)
 
       // const result = [];
