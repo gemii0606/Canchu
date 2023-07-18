@@ -15,15 +15,10 @@ router.get('/', checkAuthorization, async (req, res) => {
     let { user_id, cursor } = req.query;
 
     let last_id;
-    let currentPage;
     if (cursor) {
-        let req_cursor_info = atob(cursor).split(":");
-        console.log(req_cursor_info)
-        last_id = parseInt(req_cursor_info[0]);
-        currentPage = parseInt(req_cursor_info[1]);
+        last_id = parseInt(atob(cursor));
     } else {
         last_id = 18446744073709551615n;
-        currentPage = 1;
     }
     
     const pageSize = 10;
@@ -80,7 +75,6 @@ router.get('/', checkAuthorization, async (req, res) => {
             },
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             order: [['id', 'DESC']],
-            // offset: (currentPage - 1) * pageSize,
             limit: pageSize + 1,
             include:[
                 {
@@ -100,7 +94,6 @@ router.get('/', checkAuthorization, async (req, res) => {
                 }
             ]
         });
-        console.log(results)    
     } else {
         results = await Post.findAll({
             where: {
@@ -109,7 +102,6 @@ router.get('/', checkAuthorization, async (req, res) => {
             },
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             order: [['id', 'DESC']],
-            // offset: (currentPage - 1) * pageSize,
             limit: pageSize + 1,
             include:[
                 {
@@ -134,7 +126,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     let next_cursor = null;
     if (results.length > pageSize) {
         results.pop();
-        let cursor_info = `${results[results.length - 1].id}:${results.length + currentPage}`;
+        let cursor_info = results[results.length - 1].id;
         next_cursor = btoa(cursor_info.toString());
     }
     
