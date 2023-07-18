@@ -25,13 +25,15 @@ router.get('/', checkAuthorization, async (req, res) => {
             model: Friendship,
             as: 'fromFriendship',
             where:{from_id: id},
-            attributes: ['id', 'status']
+            attributes: ['id', 'status'],
+            required: false
           },
           {
             model: Friendship,
             as: 'toFriendship',
             where:{to_id: id},
-            attributes: ['id', 'status']
+            attributes: ['id', 'status'],
+            required: false
           }
         ],
         required: false
