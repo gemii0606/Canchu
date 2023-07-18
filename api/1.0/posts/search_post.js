@@ -21,24 +21,14 @@ router.get('/', checkAuthorization, async (req, res) => {
         last_id = parseInt(req_cursor_info[0]);
         currentPage = parseInt(req_cursor_info[1]);
     } else {
-        last_id = 1000;
+        last_id = 18446744073709551615n;
         currentPage = 1;
     }
     
     const pageSize = 10;
 
-    const options = {};
-
-    if (user_id) {
-        options.user_id = user_id;
-    } else {
-        options.user_id = id;
+    if (!user_id) {
         user_id = id;
-    }
-
-    if (cursor) {
-        options.id = { [Op.lt]: last_id };
-    
     }
     
     let results;
