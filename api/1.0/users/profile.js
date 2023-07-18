@@ -15,6 +15,8 @@ router.get('/', checkAuthorization, async (req, res) => {
       const decodedToken = req.decodedToken;
       const id = decodedToken.id;  // see if you are receiver
 
+
+      // get user's info and check if you are his friend
       const userInfo = await User.findOne({
         where: {
             id: userId
@@ -49,6 +51,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         friendship = userInfo.fromFriendship[0].dataValues;
       }
 
+      // count the user's friend
       const { rows, count } = await Friendship.findAndCountAll({
         where:{
           [Op.or]: [{from_id: userId}, {to_id: userId}],
