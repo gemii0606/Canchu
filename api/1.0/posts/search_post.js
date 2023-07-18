@@ -80,7 +80,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             },
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             order: [['id', 'DESC']],
-            offset: (currentPage - 1) * pageSize,
+            // offset: (currentPage - 1) * pageSize,
             limit: pageSize + 1,
             include:[
                 {
@@ -109,7 +109,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             },
             attributes: ['id', 'user_id', 'createdAt', 'context'],
             order: [['id', 'DESC']],
-            offset: (currentPage - 1) * pageSize,
+            // offset: (currentPage - 1) * pageSize,
             limit: pageSize + 1,
             include:[
                 {
