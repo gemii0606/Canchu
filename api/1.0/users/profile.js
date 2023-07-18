@@ -41,45 +41,32 @@ router.get('/', checkAuthorization, async (req, res) => {
       console.log(userInfo)
       console.log(userInfo.fromFriendship)
       console.log(userInfo.toFriendship)
-      // if (userInfo.fromFriendship)
 
-      // const result = [];
-      
-      // if (userInfo.fromFriendship.length > 0) {
-      //   for (const friend of userInfo.fromFriendship) {
-      //     let userObj = {};
-      //     userObj.id = friend.toUser.id;
-      //     userObj.name = friend.toUser.name;
-      //     userObj.picture = friend.toUser.picture;
-      //     userObj.friendship = { 
-      //       id: friend.id,
-      //       status: friend.status
-      //     };
-      //     result.push(userObj);
-      //     }
-      // } 
-      
-      // if (userInfo.toFriendship.length > 0) {
-      //   for (const friend of userInfo.toFriendship) {
-      //     let userObj = {
-      //       id: friend.id,
-      //       status: friend.status
-      //     };
-      //     result.push(userObj);
-      //   }
-      // }
+      let friendship = null;
+      if (userInfo.fromFriendship.length > 0) {
+        friendship = userInfo.fromFriendship[0].dataValues;
+        if (friendship.status !== 'friend') {
+          friendship.status = 'requested';
+        }
+      } else if (userInfo.toFriendship.length > 0) {
+        friendship = userInfo.fromFriendship[0].dataValues;
+      }
+
+      const { rows, count } = await Friendship.findAndCountAll({
+        where:{
+          [Op.or]: [{from_id: userId}, {to_id: userId}],
+          status: 'friend'
+        }
+      });
 
       const user = {
           id: userInfo.id,
           name: userInfo.name,
           picture: userInfo.picture,
-          friend_count: 1,
+          friend_count: count,
           introduction: userId.introduction,
           tags: userInfo.tags,
-          friendship: {
-            id: 1,
-            status: "requested"
-          }
+          friendship: friendship
       };
 
       return res.status(200).json({ data: {user} });
