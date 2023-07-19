@@ -75,7 +75,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     console.log(result_3)
     const post_id = result_1.id;
     const post_user_id = result_1.user_id;
-    const post_created_at = moment(result_1.createdAt).format("YYYY-MM-DD HH:mm:ss");
+    const post_created_at = moment.utc(result_1.createdAt).utcOffset(8).format("YYYY-MM-DD HH:mm:ss");
     const post_context = result_1.context;
     const post_is_like = (!!result_3);
     const post_like_count = result_1.postLike.length;

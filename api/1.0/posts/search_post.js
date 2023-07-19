@@ -136,7 +136,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             const outcome = {
                 id: item.id,
                 user_id: item.user_id,
-                created_at: moment(item.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                created_at: moment.utc(item.createdAt).utcOffset(8).format("YYYY-MM-DD HH:mm:ss"),
                 context: item.context,
                 is_liked: item.postLike.some(like => like.liker_id === id),
                 like_count: item.postLike.length,

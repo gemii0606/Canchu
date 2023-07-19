@@ -33,7 +33,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                 type: event.type,
                 is_read: event.is_read,
                 image: event.eventFromUser.picture,
-                created_at: moment(event.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                created_at: moment.utc(event.createdAt).utcOffset(8).format("YYYY-MM-DD HH:mm:ss"),
                 summary: event.summary
                 };
             return data;
