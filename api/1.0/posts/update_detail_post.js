@@ -71,7 +71,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const [result_3] = await Like.findAll({
         where: { id: result_1.user_id, post_id: search_post_id}
     });
-
+    console.log(result_3)
     const post_id = result_1.id;
     const post_created_at = moment(result_1.createdAt).format("YYYY-MM-DD HH:mm:ss");
     const post_context = result_1.context;
