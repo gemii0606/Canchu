@@ -42,6 +42,6 @@ router.get('/', checkAuthorization, async (req, res) => {
 //         console.error(`${err.message} `);
 //         res.status(500).json({ error: 'Server error' });
 //     }
-// });
+});
 
 module.exports = router;
