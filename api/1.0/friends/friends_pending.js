@@ -7,7 +7,7 @@ const { checkAuthorization } = require('../utils/function');
 
 
 router.get('/', checkAuthorization, async (req, res) => {
-    try {
+    // try {
         const decodedToken = req.decodedToken;
         const to_id = decodedToken.id;  // see if you are receiver
 
@@ -38,10 +38,10 @@ router.get('/', checkAuthorization, async (req, res) => {
         });
     
         return res.status(200).json({data: {users}});
-    } catch (err) {
-        console.error(`${err.message} `);
-        res.status(500).json({ error: 'Server error' });
-    }
-});
+//     } catch (err) {
+//         console.error(`${err.message} `);
+//         res.status(500).json({ error: 'Server error' });
+//     }
+// });
 
 module.exports = router;
