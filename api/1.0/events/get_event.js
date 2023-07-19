@@ -16,6 +16,7 @@ router.get('/', checkAuthorization, async (req, res) => {
 
         const events_request = await Event.findAll({
             where: { to_id: user_id },
+            order: [['id', 'DESC']],
             include: [
                 {
                     model: User,
