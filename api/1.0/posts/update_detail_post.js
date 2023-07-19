@@ -74,6 +74,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     });
     console.log(result_3)
     const post_id = result_1.id;
+    const post_user_id = result_1.user_id;
     const post_created_at = moment(result_1.createdAt).format("YYYY-MM-DD HH:mm:ss");
     const post_context = result_1.context;
     const post_is_like = (!!result_3);
@@ -90,7 +91,6 @@ router.get('/', checkAuthorization, async (req, res) => {
         });
         const outcome = {
             id: element.id,
-            user_id: element.user_id,
             created_at: moment(element.createdAt).format("YYYY-MM-DD HH:mm:ss"),
             content: element.content,
             user: {
@@ -109,6 +109,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const data = {
         post:{
             id: post_id,
+            user_id: post_user_id,
             created_at: post_created_at,
             context: post_context,
             is_liked: post_is_like,
