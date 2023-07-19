@@ -68,7 +68,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           tags: userInfo.tags,
           friendship: friendship
       };
-      console.log(user)
+      
       return res.status(200).json({ data: {user} });
 
     } catch (err) {

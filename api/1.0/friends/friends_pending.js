@@ -26,7 +26,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         
         // data reform
         const users = friendships_info.map(friend =>{
-            const user_info = friend.dataValues.FromUser.dataValues;
+            const user_info = friend.fromUser.dataValues;
             const data ={
                 ...user_info,
                 friendship: {
@@ -36,7 +36,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             };
             return data;
         });
-    
+        console.log(users)
         return res.status(200).json({data: {users}});
 //     } catch (err) {
 //         console.error(`${err.message} `);
