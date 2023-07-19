@@ -24,7 +24,9 @@ router.put('/', checkAuthorization, async (req, res) => {
       });
       
       userInfo.name = name;
+      await userInfo.save();
       userInfo.introduction = introduction;
+      await userInfo.save();
       userInfo.tags = tags;
       await userInfo.save();
 
