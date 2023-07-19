@@ -23,15 +23,16 @@ router.put('/', checkAuthorization, async (req, res) => {
         attributes: ['id', 'name', 'introduction', 'tags']
       });
       
-      await userInfo.update({
+      const update_user = await userInfo.update({
         name,
         introduction,
         tags
       })
       // await userInfo.save();
+      console.log(update_user)
 
       const user = {
-        id: userInfo.id
+        id: update_user.id
       };
 
       return res.status(200).json({ data: {user} });
