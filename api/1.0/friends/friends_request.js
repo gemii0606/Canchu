@@ -20,6 +20,10 @@ router.post('/', checkAuthorization, async (req, res) => {
             return res.status(400).json({ error: 'User does not exist.' });
         }
 
+        if (from_id === to_id) {
+            return res.status(400).json({ error: 'You cannot make friend with you.' });
+        }
+
         const AtoB = await Friendship.findOne( { where: { from_id, to_id } } );
     
         if (AtoB) {

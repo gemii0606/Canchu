@@ -27,7 +27,7 @@ router.post('/', checkAuthorization, async (req, res) => {
 
         friendship.status = 'friend';
         await friendship.save(); // to save this change permanently
-
+        console.log(friendship)
         // find the user's id and name 
         const accept_event = await User.findOne({
             where: { id: friendship.from_id },
