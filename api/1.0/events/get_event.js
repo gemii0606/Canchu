@@ -25,15 +25,15 @@ router.get('/', checkAuthorization, async (req, res) => {
             ]
         });
 
-
+        console.log(events_request)
         const events = events_request.map(event =>{
             const data ={
-                id: event.dataValues.id,
-                type: event.dataValues.type,
-                is_read: event.dataValues.is_read,
-                image: event.dataValues.FromUser.dataValues.picture,
-                created_at: moment(event.dataValues.createdAt).format("YYYY-MM-DD HH:mm:ss"),
-                summary: event.dataValues.summary
+                id: event.id,
+                type: event.type,
+                is_read: event.is_read,
+                image: event.eventFromUser.picture,
+                created_at: moment(event.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+                summary: event.summary
                 };
             return data;
         });
