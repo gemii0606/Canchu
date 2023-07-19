@@ -22,11 +22,9 @@ router.put('/', checkAuthorization, async (req, res) => {
         },
         attributes: ['id', 'name', 'introduction', 'tags']
       });
-      
+      console.log(userInfo)
       userInfo.name = name;
-      await userInfo.save();
       userInfo.introduction = introduction;
-      await userInfo.save();
       userInfo.tags = tags;
       await userInfo.save();
 
