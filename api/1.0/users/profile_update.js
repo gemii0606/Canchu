@@ -29,7 +29,6 @@ router.put('/', checkAuthorization, async (req, res) => {
         tags
       })
       // await userInfo.save();
-      console.log(update_user)
 
       const user = {
         id: update_user.id

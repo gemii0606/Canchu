@@ -64,7 +64,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           name: userInfo.name,
           picture: userInfo.picture,
           friend_count: count,
-          introduction: userId.introduction,
+          introduction: userInfo.introduction,
           tags: userInfo.tags,
           friendship: friendship
       };
