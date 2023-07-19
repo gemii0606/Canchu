@@ -44,13 +44,13 @@ router.get('/', checkAuthorization, async (req, res) => {
       console.log(userInfo.fromFriendship)
       console.log(userInfo.toFriendship)
       let friendship = null;
-      if (userInfo.fromFriendship.length > 0) {
-        friendship = userInfo.fromFriendship[0].dataValues;
+      if (userInfo.toFriendship.length > 0) {
+        friendship = userInfo.toFriendship[0].dataValues;
         if (friendship.status !== 'friend') {
           friendship.status = 'requested';
         }
-      } else if (userInfo.toFriendship.length > 0) {
-        friendship = userInfo.toFriendship[0].dataValues;
+      } else if (userInfo.fromFriendship.length > 0) {
+        friendship = userInfo.fromFriendship[0].dataValues;
       }
 
       // count the user's friend
