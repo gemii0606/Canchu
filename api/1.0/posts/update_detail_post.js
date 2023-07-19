@@ -60,7 +60,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             }
         ]
     });
-
+    console.log(result_1)
     // get the post author id
     const result_2 = await User.findOne({
         where: { id: result_1.user_id },
