@@ -62,11 +62,11 @@ Friendship.belongsTo(User, { foreignKey: 'from_id', as: 'fromUser' });
 User.hasMany(Friendship, { foreignKey: 'to_id', as: 'toFriendship' });
 Friendship.belongsTo(User, { foreignKey: 'to_id', as: 'toUser' });
 
-User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id' });
-Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id'});
+User.hasMany(Event, { foreignKey: 'from_id', sourceKey: 'id', as: 'userFromEvent'});
+Event.belongsTo(User, { foreignKey: 'from_id', targetKey: 'id', as: 'eventToUser'});
 
-User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id' });
-Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id'});
+User.hasMany(Event, { foreignKey: 'to_id', sourceKey: 'id', as: 'userToEvent' });
+Event.belongsTo(User, { foreignKey: 'to_id', targetKey: 'id', as: 'eventFromUser'});
 
 User.hasMany(Post, { foreignKey: 'user_id', sourceKey: 'id', as: 'userPost'});
 Post.belongsTo(User, { foreignKey: 'user_id', targetKey: 'id', as: 'postUser'});
