@@ -43,7 +43,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const decodedToken = req.decodedToken;
     const id = decodedToken.id;
     // const user_id = decodedToken.id;  // see if you are receiver
- 
+    console.log(id)
     // find the post and get the associated like and comment
     const result_1 = await Post.findOne({
         where: { id: search_post_id },
@@ -70,7 +70,7 @@ router.get('/', checkAuthorization, async (req, res) => {
 
     // to see if the author like his post
     const [result_3] = await Like.findAll({
-        where: { id: id, post_id: search_post_id}
+        where: { liker_id: id, post_id: search_post_id}
     });
     console.log(result_3)
     const post_id = result_1.id;
