@@ -30,7 +30,7 @@ router.put('/', checkAuthorization, upload.single('picture'), async (req, res) =
         return res.status(400).json({ error: 'No image file uploaded' });
     }
     const fileName = req.file.filename ;
-    const picturePAth = 'http://13.210.26.62/api/1.0/public/' + fileName;
+    const picturePAth = 'https://13.210.26.62/api/1.0/public/' + fileName;
 
     const userInfo = await User.findOne({
         where: {
