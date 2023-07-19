@@ -20,7 +20,7 @@ router.get('/', checkAuthorization, async (req, res) => {
                 {
                     model: User,
                     attributes: ['picture'],
-                    as: 'FromUser'
+                    as: 'eventFromUser'
                 }
             ]
         });
