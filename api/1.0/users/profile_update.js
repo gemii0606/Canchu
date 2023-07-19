@@ -11,7 +11,7 @@ router.put('/', checkAuthorization, async (req, res) => {
       const id = decodedToken.id;
 
       const { name, introduction, tags } = req.body;
-
+      console.log(req.body)
       if (!(name || introduction || tags)) {
         return res.status(400).json({ error: 'You should make one change at least.' });
       }
