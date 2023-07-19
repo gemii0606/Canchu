@@ -91,7 +91,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         });
         const outcome = {
             id: element.id,
-            created_at: moment(element.createdAt).format("YYYY-MM-DD HH:mm:ss"),
+            created_at: moment.utc(element.createdAt).utcOffset(8).format("YYYY-MM-DD HH:mm:ss"),
             content: element.content,
             user: {
                 id: user_info.id,
