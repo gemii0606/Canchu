@@ -23,7 +23,7 @@ router.put('/', checkAuthorization, async (req, res) => {
         attributes: ['id', 'name', 'introduction', 'tags']
       });
       
-      userInfo.update({
+      await userInfo.update({
         name,
         introduction,
         tags
