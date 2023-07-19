@@ -87,7 +87,7 @@ router.get('/', checkAuthorization, async (req, res) => {
     const result_4 = result_1.postComment.map(async (element) => {
         const user_info = await User.findOne({
             where: {id: element.commenter_id},
-            attributes: ['id', 'user_id', 'name', 'picture']
+            attributes: ['id', 'name', 'picture']
         });
         const outcome = {
             id: element.id,
