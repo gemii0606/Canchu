@@ -14,7 +14,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       const userId = parseInt(reqId);
       const decodedToken = req.decodedToken;
       const id = decodedToken.id;  // see if you are receiver
-      console.log(reqId)
+      console.log(userId)
 
       // get user's info and check if you are his friend
       const userInfo = await User.findOne({
