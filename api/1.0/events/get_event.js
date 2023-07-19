@@ -39,7 +39,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         });
         return res.status(200).json({data: {events}});
     
-    } catch {
+    } catch (err) {
         console.error(`${err.message} `);
         res.status(500).json({ error: 'Server error' });
     }
