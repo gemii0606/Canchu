@@ -40,7 +40,9 @@ router.get('/', checkAuthorization, async (req, res) => {
         ],
         required: false
       });
-
+      console.log(userInfo)
+      console.log(userInfo.fromFriendship)
+      console.log(userInfo.toFriendship)
       let friendship = null;
       if (userInfo.fromFriendship.length > 0) {
         friendship = userInfo.fromFriendship[0].dataValues;
