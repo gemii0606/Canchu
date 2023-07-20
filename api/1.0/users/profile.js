@@ -7,7 +7,7 @@ const router = express.Router();
 const { checkAuthorization } = require('../utils/function');
   
 router.get('/', checkAuthorization, async (req, res) => {
-  // if the authorization passes, user can see others profile
+  // if the authorization passes, user can see others profiles
     try {
       // taken id from its baseUrl property, if /:id/profile, then :id should be in the -2 position
       const reqId = req.baseUrl.split('/').slice(-2,-1)[0];
