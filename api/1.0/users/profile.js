@@ -64,10 +64,13 @@ router.get('/', checkAuthorization, async (req, res) => {
       friend_count = count;
     }
 
+    // set the friendship info
     let friendship = null; 
     if (userFriendship) {
+      // if info in redis, use it directly
       friendship = JSON.parse(userFriendship);
     } else {
+      // search the db if redis does not have
       friend_result = await User.findOne({
         where: { id: userId },
         attributes: [],
@@ -90,6 +93,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         required: false
       });
 
+      // determine the relationship
       if (friend_result.toFriendship.length > 0) {
         friendship = friend_result.toFriendship[0].dataValues;
         if (friendship.status !== 'friend') {
@@ -99,7 +103,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         friendship = friend_result.fromFriendship[0].dataValues;
       }
     }
-    
+
     const user_profile = {
       id: userInfo.id,
       name: userInfo.name,
@@ -114,6 +118,7 @@ router.get('/', checkAuthorization, async (req, res) => {
           friendship: friendship
       };
       
+      // store the info in redis
       await redisClient.setex(userProfileKey, 3600, JSON.stringify(user_profile));
       await redisClient.setex(userFriendshipKey, 3600, JSON.stringify(friendship));
 
