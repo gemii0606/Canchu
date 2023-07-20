@@ -1,5 +1,7 @@
 const express = require('express');
 const {User} = require('../utils/models/model');
+const Redis = require('ioredis');
+const redisClient = new Redis();
 const router = express.Router();
 
 // take out the function
@@ -33,6 +35,9 @@ router.put('/', checkAuthorization, async (req, res) => {
       const user = {
         id: update_user.id
       };
+
+      const deleteKey = `user:${id}:profile`;
+      redisClient.del(deleteKey);
 
       return res.status(200).json({ data: {user} });
 

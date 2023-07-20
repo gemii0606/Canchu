@@ -1,6 +1,8 @@
 const express = require('express');
 const {User} = require('../utils/models/model');
 const multer = require('multer');
+const Redis = require('ioredis');
+const redisClient = new Redis();
 const router = express.Router();
 
 // take out the function
@@ -25,7 +27,7 @@ const upload = multer({ storage: storage });
 router.put('/', checkAuthorization, upload.single('picture'), async (req, res) => {
     const decodedToken = req.decodedToken;
     const id = decodedToken.id;
-    console.log(req.file);
+
     if (!req.file) {
         return res.status(400).json({ error: 'No image file uploaded' });
     }
@@ -41,6 +43,9 @@ router.put('/', checkAuthorization, upload.single('picture'), async (req, res) =
     
     userInfo.picture = picturePAth;
     await userInfo.save();
+
+    const deleteKey = `user:${id}:profile`;
+    redisClient.del(deleteKey);
 
     return res.status(200).json({ picture: picturePAth });
 });

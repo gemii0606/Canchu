@@ -1,9 +1,9 @@
 const express = require('express');
 const {User, Friendship} = require('../utils/models/model');
 const { Op } = require('sequelize');
-const router = express.Router();
 const Redis = require('ioredis');
 const redisClient = new Redis();
+const router = express.Router();
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
