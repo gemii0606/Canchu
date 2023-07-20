@@ -2,6 +2,8 @@ const express = require('express');
 const {User, Friendship} = require('../utils/models/model');
 const { Op } = require('sequelize');
 const router = express.Router();
+const Redis = require('ioredis');
+const redisClient = new Redis();
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
@@ -14,34 +16,49 @@ router.get('/', checkAuthorization, async (req, res) => {
       const userId = parseInt(reqId);
       const decodedToken = req.decodedToken;
       const id = decodedToken.id;  // see if you are receiver
-      // console.log(req.baseUrl)
+      
+      // search for the redis
+      const userProfileKey = `user:${userId}:profile`;
+      const userProfile = await redisClient.get(userProfileKey);
+      
+      const userFriendshipKey = `user:${userId}:friendship:${id}`;
+      const userFriendship = await redisClient.get(userFriendshipKey);
 
-      // get user's info and check if you are his friend
-      const userInfo = await User.findOne({
-        where: {
-            id: userId
-        },
-        attributes: ['id', 'name', 'picture', 'introduction', 'tags'],
-        include: [
-          {
-            model: Friendship,
-            as: 'fromFriendship',
-            where:{to_id: id},
-            attributes: ['id', 'status'],
-            required: false
-          },
-          {
-            model: Friendship,
-            as: 'toFriendship',
-            where:{from_id: id},
-            attributes: ['id', 'status'],
-            required: false
-          }
-        ],
-        required: false
-      });
+      let userInfo;
+      if (userProfile) {
+        // If user profile exists in Redis, use it directly
+        userInfo = JSON.parse(userProfile);
+      } else {
+        // get user's info and check if you are his friend
+        userInfo = await User.findOne({
+          where: { id: userId },
+          attributes: ['id', 'name', 'picture', 'introduction', 'tags'],
+          include: [
+            {
+              model: Friendship,
+              as: 'fromFriendship',
+              where:{to_id: id},
+              attributes: ['id', 'status'],
+              required: false
+            },
+            {
+              model: Friendship,
+              as: 'toFriendship',
+              where:{from_id: id},
+              attributes: ['id', 'status'],
+              required: false
+            }
+          ],
+          required: false
+        });
+    }
 
-      let friendship = null;
+    let friendship = null;
+    let friend_count;
+    if (userFriendship) {
+      friendship = JSON.parse(userFriendship);
+    } else {
+      
       if (userInfo.toFriendship.length > 0) {
         friendship = userInfo.toFriendship[0].dataValues;
         if (friendship.status !== 'friend') {
@@ -59,16 +76,25 @@ router.get('/', checkAuthorization, async (req, res) => {
         }
       });
 
-      const user = {
-          id: userInfo.id,
-          name: userInfo.name,
-          picture: userInfo.picture,
-          friend_count: count,
-          introduction: userInfo.introduction,
-          tags: userInfo.tags,
+      friend_count = count;
+    }
+    const user_profile = {
+      id: userInfo.id,
+      name: userInfo.name,
+      picture: userInfo.picture,
+      friend_count: friend_count,
+      introduction: userInfo.introduction,
+      tags: userInfo.tags,
+    }
+    
+    const user = {
+          ...user_profile,
           friendship: friendship
       };
       
+      await redisClient.setex(userProfileKey, 3600, JSON.stringify(user_profile));
+      await redisClient.setex(userFriendshipKey, 3600, JSON.stringify(friendship));
+
       return res.status(200).json({ data: {user} });
 
     } catch (err) {
