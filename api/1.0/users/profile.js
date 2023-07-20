@@ -98,9 +98,8 @@ router.get('/', checkAuthorization, async (req, res) => {
       } else if (friend_result.fromFriendship.length > 0) {
         friendship = friend_result.fromFriendship[0].dataValues;
       }
-
-      
     }
+    
     const user_profile = {
       id: userInfo.id,
       name: userInfo.name,
