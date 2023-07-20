@@ -25,6 +25,7 @@ router.get('/', checkAuthorization, async (req, res) => {
       const userFriendship = await redisClient.get(userFriendshipKey);
 
       let userInfo;
+      let friend_count;
       if (userProfile) {
         // If user profile exists in Redis, use it directly
         userInfo = JSON.parse(userProfile);
@@ -51,22 +52,6 @@ router.get('/', checkAuthorization, async (req, res) => {
           ],
           required: false
         });
-    }
-
-    let friendship = null;
-    let friend_count;
-    if (userFriendship) {
-      friendship = JSON.parse(userFriendship);
-    } else {
-      
-      if (userInfo.toFriendship.length > 0) {
-        friendship = userInfo.toFriendship[0].dataValues;
-        if (friendship.status !== 'friend') {
-          friendship.status = 'requested';
-        }
-      } else if (userInfo.fromFriendship.length > 0) {
-        friendship = userInfo.fromFriendship[0].dataValues;
-      }
 
       // count the user's friend
       const { rows, count } = await Friendship.findAndCountAll({
@@ -77,6 +62,44 @@ router.get('/', checkAuthorization, async (req, res) => {
       });
 
       friend_count = count;
+    }
+
+    let friendship = null; 
+    if (userFriendship) {
+      friendship = JSON.parse(userFriendship);
+    } else {
+      friend_result = await User.findOne({
+        where: { id: userId },
+        attributes: [],
+        include: [
+          {
+            model: Friendship,
+            as: 'fromFriendship',
+            where:{to_id: id},
+            attributes: ['id', 'status'],
+            required: false
+          },
+          {
+            model: Friendship,
+            as: 'toFriendship',
+            where:{from_id: id},
+            attributes: ['id', 'status'],
+            required: false
+          }
+        ],
+        required: false
+      });
+
+      if (friend_result.toFriendship.length > 0) {
+        friendship = friend_result.toFriendship[0].dataValues;
+        if (friendship.status !== 'friend') {
+          friendship.status = 'requested';
+        }
+      } else if (friend_result.fromFriendship.length > 0) {
+        friendship = friend_result.fromFriendship[0].dataValues;
+      }
+
+      
     }
     const user_profile = {
       id: userInfo.id,
