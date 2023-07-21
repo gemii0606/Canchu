@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Redis = require('ioredis');
+const redisClient = new Redis();
 const {User, Friendship, Event} = require('../utils/models/model');
 
 // take out the function
@@ -58,6 +60,9 @@ router.post('/', checkAuthorization, async (req, res) => {
             is_read: false,
             summary: `${request_event.dataValues.name} invited you to be friends.`
         });
+
+        const deleteKey = `user:${to_id}:friendship:${from_id}`;
+        await redisClient.del(deleteKey);
         
         return res.status(200).json({ data: { friendship: {id: friendship.id} } });
 

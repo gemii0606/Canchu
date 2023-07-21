@@ -1,5 +1,7 @@
 const express = require('express');
 const router = express.Router();
+const Redis = require('ioredis');
+const redisClient = new Redis();
 const {User, Friendship, Event} = require('../utils/models/model');
 
 // take out the function
@@ -37,6 +39,10 @@ router.delete('/', checkAuthorization, async (req, res) => {
         const delete_action = await Friendship.destroy({
             where: { id: delete_id }
         });
+
+        const deleteKey_1 = `user:${delete_target.from_id}:friendship:${delete_target.to_id}`;
+        const deleteKey_2 = `user:${delete_target.to_id}:friendship:${delete_target.from_id}`;
+        await redisClient.del([deleteKey_1, deleteKey_2]);
 
         return res.status(200).json({ data: {friendship: delete_id}});
 

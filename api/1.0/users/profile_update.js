@@ -37,7 +37,7 @@ router.put('/', checkAuthorization, async (req, res) => {
       };
 
       const deleteKey = `user:${id}:profile`;
-      redisClient.del(deleteKey);
+      await redisClient.del(deleteKey);
 
       return res.status(200).json({ data: {user} });
 

@@ -45,7 +45,7 @@ router.put('/', checkAuthorization, upload.single('picture'), async (req, res) =
     await userInfo.save();
 
     const deleteKey = `user:${id}:profile`;
-    redisClient.del(deleteKey);
+    await redisClient.del(deleteKey);
 
     return res.status(200).json({ picture: picturePAth });
 });
