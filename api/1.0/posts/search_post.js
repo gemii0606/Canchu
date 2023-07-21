@@ -27,13 +27,26 @@ router.get('/', checkAuthorization, async (req, res) => {
         
         const pageSize = 10;
 
+        // if (user_id && last_id) {
+        //     const userPostIdKey = `user:${user_id}:post:cursor:${last_id}`;
+        //     const userPostId = await redisClient.get(userPostIdKey);
+        //     let posts = [];
+        //     for (let i = 0; i < userPostId.length; i++) {
+        //         let post = `post:${userPostId[i]}`;
+        //         if (post) {
+        //             posts.push(post);
+        //         } else {
+        //             // go database
+        //         }
+        //     }
+        // }
+
         // if there's no user_id provided, your own id is default 
         if (!user_id) {
             user_id = id;
         }
         
-        // const userProfileKey = `user:${userId}:profile`;
-        // const userProfile = await redisClient.get(userProfileKey);
+        
 
         // if user search himself, show him his and his friends' posts
         // if user search other's post, show only other's post
@@ -152,10 +165,13 @@ router.get('/', checkAuthorization, async (req, res) => {
             return outcome;
         });
 
-        const data ={
+        const data = {
             posts: posts,
             next_cursor: next_cursor
         };
+
+        // await redisClient.setex(userPostKey, 3600, JSON.stringify(data));
+
         return res.status(200).json({ data });
     } catch (err) {
         console.error(`${err.message} `);
