@@ -3,6 +3,8 @@ const router = express.Router();
 const {User, Friendship, Post, Like, Comment} = require('../utils/models/model');
 const { Op } = require('sequelize');
 const moment = require('moment');
+const Redis = require('ioredis');
+const redisClient = new Redis();
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
@@ -30,6 +32,9 @@ router.get('/', checkAuthorization, async (req, res) => {
             user_id = id;
         }
         
+        // const userProfileKey = `user:${userId}:profile`;
+        // const userProfile = await redisClient.get(userProfileKey);
+
         // if user search himself, show him his and his friends' posts
         // if user search other's post, show only other's post
         let results;
