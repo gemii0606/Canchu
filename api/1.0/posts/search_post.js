@@ -46,11 +46,13 @@ router.get('/', checkAuthorization, async (req, res) => {
             user_id = id;
         }
         
-        
-
         // if user search himself, show him his and his friends' posts
         // if user search other's post, show only other's post
-        let results;
+        let whereClause =  {
+            user_id: user_id, 
+            id: {[Op.lt]: last_id}
+        }
+
         if (user_id === id) {
             let [friends] = await User.findAll({
                 where: { id: id },
@@ -86,61 +88,37 @@ router.get('/', checkAuthorization, async (req, res) => {
                     friends_id.push({user_id: friend.from_id});
                 }
             }
-        
-            results = await Post.findAll({
-                where: {
-                    [Op.or]: [{user_id: id}, ...friends_id],
-                    id: {[Op.lt]: last_id}
-                },
-                attributes: ['id', 'user_id', 'createdAt', 'context'],
-                order: [['id', 'DESC']],
-                limit: pageSize + 1,
-                include:[
-                    {
-                        model: Like,
-                        as: 'postLike',
-                        attributes: ['liker_id']
-                    },
-                    {
-                        model: Comment,
-                        as: 'postComment',
-                        attributes: ['id']
-                    },
-                    {
-                        model: User,
-                        as: 'postUser',
-                        attributes: ['id','picture','name']
-                    }
-                ]
-            });
-        } else {
-            results = await Post.findAll({
-                where: {
-                    user_id: user_id, 
-                    id: {[Op.lt]: last_id}
-                },
-                attributes: ['id', 'user_id', 'createdAt', 'context'],
-                order: [['id', 'DESC']],
-                limit: pageSize + 1,
-                include:[
-                    {
-                        model: Like,
-                        as: 'postLike',
-                        attributes: ['liker_id']
-                    },
-                    {
-                        model: Comment,
-                        as: 'postComment',
-                        attributes: ['id']
-                    },
-                    {
-                        model: User,
-                        as: 'postUser',
-                        attributes: ['id','picture','name']
-                    }
-                ]
-            });
+            
+            whereClause = {
+                [Op.or]: [{user_id: id}, ...friends_id],
+                id: {[Op.lt]: last_id}
+            }
         }
+
+        const results = await Post.findAll({
+            where: whereClause,
+            attributes: ['id', 'user_id', 'createdAt', 'context'],
+            order: [['id', 'DESC']],
+            limit: pageSize + 1,
+            include:[
+                {
+                    model: Like,
+                    as: 'postLike',
+                    attributes: ['liker_id']
+                },
+                {
+                    model: Comment,
+                    as: 'postComment',
+                    attributes: ['id']
+                },
+                {
+                    model: User,
+                    as: 'postUser',
+                    attributes: ['id','picture','name']
+                }
+            ]
+        });
+        
 
         // next cursor only has info when there exists next page, or it will be null
         let next_cursor = null;
