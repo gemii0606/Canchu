@@ -36,6 +36,8 @@ router.get('/', checkAuthorization, async (req, res) => {
         let posts;
         let next_cursor = null;
         let success = false;
+        console.log(user_id)
+        console.log(id)
         if (user_id !== id && userPostId) {
             console.log('cache')
             posts = [];
