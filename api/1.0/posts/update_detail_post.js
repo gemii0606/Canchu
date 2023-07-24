@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const {User, Post, Like, Comment} = require('../utils/models/model');
 const moment = require('moment');
+const Redis = require('ioredis');
+const redisClient = new Redis();
 
 // take out the function
 const { checkAuthorization } = require('../utils/function');
@@ -34,6 +36,9 @@ router.put('/', checkAuthorization, async (req, res) => {
     const post = {
         id: find_post.id
     };
+
+    const deleteKey = `post:${post.id}`;
+    await redisClient.del(deleteKey);
 
     return res.status(200).json({ data: { post } });
 });
