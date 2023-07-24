@@ -16,7 +16,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         const id = decodedToken.id;  // see if you are receiver
 
         let { user_id, cursor } = req.query;
-
+        user_id = parseInt(user_id);
         // acquire the cursor info
         let last_id;
         if (cursor) {
