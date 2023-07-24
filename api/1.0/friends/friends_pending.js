@@ -36,7 +36,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             };
             return data;
         });
-        console.log(users)
+        
         return res.status(200).json({data: {users}});
     } catch (err) {
         console.error(`${err.message} `);
