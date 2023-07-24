@@ -41,6 +41,9 @@ router.post('/', checkAuthorization, async (req, res) => {
         id: post_id
     };
 
+    const deleteKey = `post:${post.id}`;
+    await redisClient.del(deleteKey);
+
     return res.status(200).json({ data: { post } });
 });
 

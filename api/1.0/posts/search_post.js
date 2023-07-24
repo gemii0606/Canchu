@@ -37,6 +37,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         let next_cursor = null;
         let success = false;
         if (user_id !== id && userPostId) {
+            console.log('cache')
             posts = [];
             for (const postId of userPostId) {
                 const postKey = `post:${postId}`;
@@ -56,6 +57,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         } 
 
         if (!success) {
+            console.log('db')
             let whereClause =  {
                 user_id: user_id, 
                 id: {[Op.lt]: last_id}
