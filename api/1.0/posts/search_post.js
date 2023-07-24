@@ -34,6 +34,7 @@ router.get('/', checkAuthorization, async (req, res) => {
         const userPostId = JSON.parse(await redisClient.get(userPostIdKey));
 
         let posts;
+        let next_cursor = null;
         let success = false;
         if (user_id !== id && userPostId) {
             posts = [];
@@ -127,7 +128,6 @@ router.get('/', checkAuthorization, async (req, res) => {
             
 
             // next cursor only has info when there exists next page, or it will be null
-            let next_cursor = null;
             if (results.length > pageSize) {
                 results.pop();
                 let cursor_info = results[results.length - 1].id;
