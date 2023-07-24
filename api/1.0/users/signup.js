@@ -38,7 +38,8 @@ router.post('/', async (req, res) => {
             .createHash('sha256')
             .update(password + email)
             .digest('base64');
-        
+ 
+        // Create a new user
         const user = await User.create({
           name,
           email,
@@ -47,6 +48,7 @@ router.post('/', async (req, res) => {
           picture: null
         });
 
+        // Create the JWT Token Payload
         let payload = {
           id: user.id,
           provider: user.provider,
@@ -55,9 +57,11 @@ router.post('/', async (req, res) => {
           picture: user.picture
         };
     
+        // Sign the Access Token using JWT
         const jwtSecret = 'Secret';
         let accessToken = jwt.sign(payload, jwtSecret);
     
+        // Return the successful signup response
         res.status(200).json({
           data: {
             access_token: accessToken,
@@ -65,6 +69,7 @@ router.post('/', async (req, res) => {
           },
         });
       } catch (err) {
+        // Error handling, return server error response
         console.error(`${err.message} `);
         res.status(500).json({ error: 'Server error' });
       }
