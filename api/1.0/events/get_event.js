@@ -26,7 +26,7 @@ router.get('/', checkAuthorization, async (req, res) => {
             ]
         });
 
-        console.log(events_request)
+        
         const events = events_request.map(event =>{
             const data ={
                 id: event.id,
