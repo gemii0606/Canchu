@@ -41,7 +41,8 @@ router.get('/', checkAuthorization, async (req, res) => {
             for (const postId of userPostId) {
                 const postKey = `post:${postId}`;
                 const likePostKey = `user:${id}:post:${postId}:like`;
-                const [postInfo, likePost]  = JSON.parse(await redisClient.mget([postKey, likePostKey]));
+                const postInfo  = JSON.parse(await redisClient.get(postKey));
+                const likePost = JSON.parse(await redisClient.get(likePostKey));
                 if ((!postInfo) || (!likePost)) {
                     break;
                 }
