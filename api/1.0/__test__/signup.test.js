@@ -1,22 +1,29 @@
 // __tests__/signup.test.js
 const request = require('supertest');
-const app = require('../users/signup.js'); // 假設你的Express應用程序主文件名為app.js
+const app = require('../users/signup.js');
 const { User } = require('../utils/models/model');
 
 describe('User API', () => {
-  // 測試用戶註冊API
-  it('should register a new user', async () => {
+  it('should register a new user and return access_token', async () => {
     const userData = {
       name: 'Test User',
-      email: 'testtest@example.com',
+      email: 'test@example.com',
       password: 'testPassword',
     };
 
-    // 在測試之前，確保該用戶不存在
-    const existingUser = await User.findOne({ where: { email: userData.email } });
-    expect(existingUser).toBeNull();
+    // 測試之前，確保用戶不存在
+    User.findOne = jest.fn().mockResolvedValue(null);
 
-    // 發送POST請求到API端點
+    // 模擬User.create，假設用戶創建成功
+    User.create = jest.fn().mockResolvedValue({
+      id: 1,
+      name: 'Test User',
+      email: 'test@example.com',
+      password: 'hashedPassword',
+      provider: 'native',
+      picture: null,
+    });
+
     const response = await request(app)
       .post('/api/users')
       .send(userData);
@@ -30,11 +37,63 @@ describe('User API', () => {
     expect(response.body.data.user.name).toBe(userData.name);
     expect(response.body.data.user.email).toBe(userData.email);
     expect(response.body.data.user.picture).toBeNull();
+  });
 
-    // 確認用戶已成功創建
-    const createdUser = await User.findOne({ where: { email: userData.email } });
-    expect(createdUser).toBeTruthy();
-  }, 20000);
+  it('should return 400 error if any required field is missing', async () => {
+    const userData = {
+      // 缺少name字段
+      email: 'test@example.com',
+      password: 'testPassword',
+    };
 
-  // 可以編寫其他測試用例，測試不同的API端點或功能
+    const response = await request(app)
+      .post('/api/users')
+      .send(userData);
+
+    // 確認回應狀態碼是否為400
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe('You should not leave empty!');
+  });
+
+  it('should return 400 error if email is invalid', async () => {
+    const userData = {
+      name: 'Test User',
+      email: 'invalidemail', // 不合法的email格式
+      password: 'testPassword',
+    };
+
+    const response = await request(app)
+      .post('/api/1.0/users/signup')
+      .send(userData);
+
+    // 確認回應狀態碼是否為400
+    expect(response.status).toBe(400);
+    expect(response.body.error).toBe('Please fill the correct email adress!');
+  });
+
+  it('should return 403 error if email address already exists', async () => {
+    const userData = {
+      name: 'Test User',
+      email: 'existing@example.com', // 已經存在的email地址
+      password: 'testPassword',
+    };
+
+    // 模擬User.findOne，假設用戶已經存在
+    User.findOne = jest.fn().mockResolvedValue({
+      id: 1,
+      name: 'Existing User',
+      email: 'existing@example.com',
+      password: 'hashedPassword',
+      provider: 'native',
+      picture: null,
+    });
+
+    const response = await request(app)
+      .post('/api/users')
+      .send(userData);
+
+    // 確認回應狀態碼是否為403
+    expect(response.status).toBe(403);
+    expect(response.body.error).toBe('email adress has already exist!');
+  });
 });
