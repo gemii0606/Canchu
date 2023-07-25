@@ -470,7 +470,6 @@ const userSearch = async (req, res) => {
 }
 
 module.exports ={
-    ErrorHandling,
     signUpUser,
     signInUser,
     getUserProfile,
