@@ -15,6 +15,7 @@ router.use('/profile', profileUpdateRoute);
 router.use('/picture', picetureUpdateRoute);
 router.use('/search', searchRoute);
 
+const { checkAuthorization } = require('../utils/function');
 const {ErrorHandling, signUpUser, signInUser} = require('../controller/users_controller')
 
 router.post('/signup', (req, res) => {ErrorHandling(signUpUser(req, res), res)});
