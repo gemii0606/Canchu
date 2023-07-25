@@ -324,9 +324,50 @@ const getUserProfile = async (req, res) => {
     return res.status(200).json({ data: { user } });
   }
 
+const userProfile = async (req, res) => {
+    const decodedToken = req.decodedToken;
+    const id = decodedToken.id; // Get the ID of the logged-in user
+
+    // Extract name, introduction, and tags from the request body
+    const { name, introduction, tags } = req.body;
+    console.log(req.body)
+
+    // Check if at least one field is provided for update
+    if (!(name || introduction || tags)) {
+      return res.status(400).json({ error: 'You should make one change at least.' });
+    }
+
+    // Find the user's current profile information
+    const userInfo = await User.findOne({
+      where: {
+        id: id
+      },
+      attributes: ['id', 'name', 'introduction', 'tags']
+    });
+
+    // Update the user's profile with the provided fields
+    const update_user = await userInfo.update({
+      name,
+      introduction,
+      tags
+    });
+
+    // Prepare the response data with the updated user ID
+    const user = {
+      id: update_user.id
+    };
+
+    // Delete the user's profile data from Redis to ensure it gets updated
+    const deleteKey = `user:${id}:profile`;
+    await redisClient.del(deleteKey);
+
+    return res.status(200).json({ data: { user } });
+}
+
 module.exports ={
     ErrorHandling,
     signUpUser,
     signInUser,
-    getUserProfile
+    getUserProfile,
+    userProfile
 }

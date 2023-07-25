@@ -21,6 +21,6 @@ const {ErrorHandling, signUpUser, signInUser, getUserProfile, userProfile} = req
 router.post('/signup', (req, res) => {ErrorHandling(signUpUser(req, res), res)});
 router.post('/signin', (req, res) => {ErrorHandling(signInUser(req, res), res)});
 router.get('/:id/profile', checkAuthorization, (req, res) => {ErrorHandling(getUserProfile(req, res), res)});
-router.put('/profile', checkAuthorization, async (req, res) => {ErrorHandling(userProfile(req, res), res)});
+router.put('/profile', checkAuthorization, (req, res) => {ErrorHandling(userProfile(req, res), res)});
 
 module.exports = router;
