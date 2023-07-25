@@ -1,20 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// const signinRoute = require('./signin');
-// const profileRoute = require('./profile');
-// const profileUpdateRoute = require('./profile_update');
-// const picetureUpdateRoute = require('./picture_update');
-// const searchRoute = require('./search');
-
-
-
-// router.use('/signin', signinRoute);
-// router.use('/:id/profile', profileRoute);
-// router.use('/profile', profileUpdateRoute);
-// router.use('/picture', picetureUpdateRoute);
-// router.use('/search', searchRoute);
-
 const { checkAuthorization, upload } = require('../utils/function');
 const {ErrorHandling, signUpUser, signInUser, getUserProfile, userProfile, userPictureUpdate, userSearch} = require('../controller/users_controller')
 
