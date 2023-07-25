@@ -11,7 +11,7 @@ const searchRoute = require('./search');
 
 // router.use('/signin', signinRoute);
 // router.use('/:id/profile', profileRoute);
-// router.use('/profile', profileUpdateRoute);
+router.use('/profile', profileUpdateRoute);
 router.use('/picture', picetureUpdateRoute);
 router.use('/search', searchRoute);
 
