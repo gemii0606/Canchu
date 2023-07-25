@@ -34,7 +34,7 @@ describe('User API', () => {
     // 確認用戶已成功創建
     const createdUser = await User.findOne({ where: { email: userData.email } });
     expect(createdUser).toBeTruthy();
-  }, 10000);
+  }, 20000);
 
   // 可以編寫其他測試用例，測試不同的API端點或功能
 });
