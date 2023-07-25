@@ -9,6 +9,16 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
+function ErrorHandling(fn) {
+  try {
+    fn
+  } catch (err) {
+    // Error handling, return server error response
+    console.error(`${err.message} `);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
+
 const signUpUser = async (req, res) => {
   const {name, email, password} = req.body;    
         if (!(name && email && password)) { 
@@ -67,15 +77,6 @@ const signUpUser = async (req, res) => {
         });
       }
 
-router.post('/', (req, res) => {
-    // for Sign-up finction
-    try {
-        signUpUser(req, res);
-      } catch (err) {
-        // Error handling, return server error response
-        console.error(`${err.message} `);
-        res.status(500).json({ error: 'Server error' });
-      }
-    });
+router.post('/', (req, res) => {ErrorHandling(signUpUser(req, res))});
 
 module.exports = router;
