@@ -9,9 +9,9 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-function ErrorHandling(fn) {
+const ErrorHandling = async (fn, res) => {
   try {
-    fn
+    await fn;
   } catch (err) {
     // Error handling, return server error response
     console.error(`${err.message} `);
