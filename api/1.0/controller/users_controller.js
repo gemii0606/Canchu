@@ -183,10 +183,29 @@ async function signInFB(object, res) {
     }
   }
 
+const signInUser = async (req, res) => {
+    const body = req.body;
+  
+    if (!body.provider) {
+      return res.status(400).json({ error: 'Empty provider!' });
+    }
+  
+    if (body.provider !== 'native' && body.provider !== 'facebook') {
+      return res.status(403).json({ error: 'Wrong provider!' });
+    }
+  
+    if (body.provider === 'native') {
+      signInNative(body, res);
+    }
+  
+    if (body.provider === 'facebook') {
+      signInFB(body, res);
+    }
+  }
+
 
 module.exports ={
     ErrorHandling,
     signUpUser,
-    signInNative,
-    signInFB
+    signInUser
 }
