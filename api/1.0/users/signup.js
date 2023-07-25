@@ -9,10 +9,8 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-router.post('/', async (req, res) => {
-    // for Sign-up finction
-    try {
-      const {name, email, password} = req.body;    
+const signUpUser = async (req, res) => {
+  const {name, email, password} = req.body;    
         if (!(name && email && password)) { 
           return res.status(400).json({error: 'You should not leave empty!'});
         }
@@ -67,6 +65,12 @@ router.post('/', async (req, res) => {
             user: payload,
           },
         });
+      }
+
+router.post('/', (req, res) => {
+    // for Sign-up finction
+    try {
+        signUpUser(req, res);
       } catch (err) {
         // Error handling, return server error response
         console.error(`${err.message} `);
