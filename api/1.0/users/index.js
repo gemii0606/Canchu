@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const { ErrorHandling, checkAuthorization, upload } = require('../utils/function');
-const { signUpUser, signInUser, getUserProfile, userProfile, userPictureUpdate, userSearch} = require('../controller/users_controller')
+const { signUpUser, signInUser, getUserProfile, userProfile, userPictureUpdate, userSearch} = require('../controller/users_controller');
 
 router.post('/signup', (req, res) => {ErrorHandling(signUpUser(req, res), res)});
 router.post('/signin', (req, res) => {ErrorHandling(signInUser(req, res), res)});
