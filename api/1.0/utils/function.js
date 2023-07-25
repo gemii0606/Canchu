@@ -1,4 +1,6 @@
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
+
 
 function checkAuthorization(req, res, next) {
 
