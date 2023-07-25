@@ -7,10 +7,10 @@ const { checkAuthorization } = require('../utils/function');
 
 // Route to get the user's friends
 router.get('/', checkAuthorization, async (req, res) => {
-  const decodedToken = req.decodedToken;
-  const user_id = decodedToken.id; // Get the user's ID from the decoded token
-
   try {
+    const decodedToken = req.decodedToken;
+    const user_id = decodedToken.id; // Get the user's ID from the decoded token
+    
     // Find the user's friendships where status is 'friend' and include the associated User models
     const [friends] = await User.findAll({
       where: { id: user_id },
