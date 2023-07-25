@@ -10,6 +10,16 @@ function isValidEmail(email) {
   return re.test(email);
 }
 
+const ErrorHandling = async (fn, res) => {
+  try {
+    await fn;
+  } catch (err) {
+    // Error handling, return server error response
+    console.error(`${err.message} `);
+    res.status(500).json({ error: 'Server error' });
+  }
+}
+
 // Function for handling user sign-in with native method
 async function signInNative(object, res) {
   const { provider, email, password } = object;
@@ -116,30 +126,31 @@ async function signInFB(object, res) {
   }
 }
 
-// Route for handling user sign-in
-router.post('/', async (req, res) => {
-  try {
-    const body = req.body;
+const signInUser = async (req, res) => {
+  const body = req.body;
 
-    if (!body.provider) {
-      return res.status(400).json({ error: 'Empty provider!' });
-    }
-
-    if (body.provider !== 'native' && body.provider !== 'facebook') {
-      return res.status(403).json({ error: 'Wrong provider!' });
-    }
-
-    if (body.provider === 'native') {
-      signInNative(body, res);
-    }
-
-    if (body.provider === 'facebook') {
-      signInFB(body, res);
-    }
-  } catch (err) {
-    console.error(`${err.message} `);
-    res.status(500).json({ error: 'Server error' });
+  if (!body.provider) {
+    return res.status(400).json({ error: 'Empty provider!' });
   }
+
+  if (body.provider !== 'native' && body.provider !== 'facebook') {
+    return res.status(403).json({ error: 'Wrong provider!' });
+  }
+
+  if (body.provider === 'native') {
+    signInNative(body, res);
+  }
+
+  if (body.provider === 'facebook') {
+    signInFB(body, res);
+  }
+}
+
+
+
+// Route for handling user sign-in
+router.post('/', (req, res) => {
+  ErrorHandling(signInUser(req, res), res);
 
 });
 
