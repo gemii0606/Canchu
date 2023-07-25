@@ -100,7 +100,7 @@ const userSearch = async (req, res) => {
 }
 
 // Route for handling user search by keyword
-router.get('/', checkAuthorization, async (req, res) => {
+router.get('/', checkAuthorization, (req, res) => {
     ErrorHandling(userSearch(req, res), res);
     // const decodedToken = req.decodedToken;
     // const user_id = decodedToken.id;
