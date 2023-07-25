@@ -9,7 +9,7 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-async function signUpUser(name, email, password) {
+async function signUpUser(res, name, email, password) {
   if (!(name && email && password)) {
     return res.status(400).json({error: 'You should not leave empty!'});
   }
