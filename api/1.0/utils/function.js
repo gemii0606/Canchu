@@ -3,7 +3,6 @@ const multer = require('multer');
 
 
 function checkAuthorization(req, res, next) {
-
     if (!req.headers.authorization) {
       return res.status(401).send({ error: 'No token provided' });
     }
@@ -18,6 +17,16 @@ function checkAuthorization(req, res, next) {
       req.decodedToken = decodedToken;
       return next();
     });
+  }
+
+const ErrorHandling = async (fn, res) => {
+    try {
+      await fn;
+    } catch (err) {
+      // Error handling, return server error response
+      console.error(`${err.message} `);
+      res.status(500).json({ error: 'Server error' });
+    }
   }
 
 const storage = multer.diskStorage({
@@ -35,6 +44,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage});
 
 module.exports = {
+    ErrorHandling,
     checkAuthorization,
     upload
 };

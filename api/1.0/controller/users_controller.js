@@ -12,16 +12,6 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
-const ErrorHandling = async (fn, res) => {
-  try {
-    await fn;
-  } catch (err) {
-    // Error handling, return server error response
-    console.error(`${err.message} `);
-    res.status(500).json({ error: 'Server error' });
-  }
-}
-
 const signUpUser = async (req, res) => {
   const {name, email, password} = req.body;    
         if (!(name && email && password)) { 
