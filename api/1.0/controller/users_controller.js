@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const {User, Friendship} = require('../utils/models/model');
 const { Op } = require('sequelize');
+const multer = require('multer');
 const Redis = require('ioredis');
 const redisClient = new Redis();
 
