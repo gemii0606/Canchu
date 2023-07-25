@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // const signinRoute = require('./signin');
-const profileRoute = require('./profile');
-// const profileUpdateRoute = require('./profile_update');
+// const profileRoute = require('./profile');
+const profileUpdateRoute = require('./profile_update');
 const picetureUpdateRoute = require('./picture_update');
 const searchRoute = require('./search');
 
