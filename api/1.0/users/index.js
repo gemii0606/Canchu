@@ -20,7 +20,7 @@ const {ErrorHandling, signUpUser, signInUser, getUserProfile} = require('../cont
 
 router.post('/signup', (req, res) => {ErrorHandling(signUpUser(req, res), res)});
 router.post('/signin', (req, res) => {ErrorHandling(signInUser(req, res), res)});
-router.get('/profile', checkAuthorization, (req, res) => {ErrorHandling(getUserProfile(req, res), res)});
+router.get('/:id/profile', checkAuthorization, (req, res) => {ErrorHandling(getUserProfile(req, res), res)});
 
 
 module.exports = router;
