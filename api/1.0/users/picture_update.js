@@ -19,30 +19,19 @@ const ErrorHandling = async (fn, res) => {
 }
 
 // Configure multer storage for file upload
-// const storage = multer.diskStorage({
-//   destination: function (req, file, cb) {
-//     cb(null, 'public'); // Store the uploaded file in the 'public' directory
-//   },
-//   filename: function (req, file, cb) {
-//     // Generate a unique filename for the uploaded image based on the original name and current timestamp
-//     cb(null, file.originalname.split('.')[0] + '_' + Date.now() + '.jpg');
-//     console.log(file.originalname.split('.')[0]);
-//   }
-// });
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public'); // Store the uploaded file in the 'public' directory
+  },
+  filename: function (req, file, cb) {
+    // Generate a unique filename for the uploaded image based on the original name and current timestamp
+    cb(null, file.originalname.split('.')[0] + '_' + Date.now() + '.jpg');
+    console.log(file.originalname.split('.')[0]);
+  }
+});
 
 // Create the multer middleware for handling file uploads
-const upload = multer({ 
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      cb(null, 'public'); // Store the uploaded file in the 'public' directory
-    },
-    filename: function (req, file, cb) {
-      // Generate a unique filename for the uploaded image based on the original name and current timestamp
-      cb(null, file.originalname.split('.')[0] + '_' + Date.now() + '.jpg');
-      console.log(file.originalname.split('.')[0]);
-    }
-  })
-});
+const upload = multer({ storage: storage});
 
 const userPictureUpdate = async (req, res) => {
     const decodedToken = req.decodedToken;
@@ -77,7 +66,7 @@ const userPictureUpdate = async (req, res) => {
 }
 
 // Route for updating user profile picture
-router.put('/', checkAuthorization, upload.single('picture'), async (req, res) => {
+router.put('/', checkAuthorization, upload.single('picture'), (req, res) => {
   ErrorHandling(userPictureUpdate(req, res), res);
   // try {
   //   const decodedToken = req.decodedToken;
