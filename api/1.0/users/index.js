@@ -5,7 +5,7 @@ const router = express.Router();
 // const profileRoute = require('./profile');
 // const profileUpdateRoute = require('./profile_update');
 // const picetureUpdateRoute = require('./picture_update');
-const searchRoute = require('./search');
+// const searchRoute = require('./search');
 
 
 
@@ -13,15 +13,17 @@ const searchRoute = require('./search');
 // router.use('/:id/profile', profileRoute);
 // router.use('/profile', profileUpdateRoute);
 // router.use('/picture', picetureUpdateRoute);
-router.use('/search', searchRoute);
+// router.use('/search', searchRoute);
 
 const { checkAuthorization, upload } = require('../utils/function');
-const {ErrorHandling, signUpUser, signInUser, getUserProfile, userProfile, userPictureUpdate} = require('../controller/users_controller')
+const {ErrorHandling, signUpUser, signInUser, getUserProfile, userProfile, userPictureUpdate, userSearch} = require('../controller/users_controller')
 
 router.post('/signup', (req, res) => {ErrorHandling(signUpUser(req, res), res)});
 router.post('/signin', (req, res) => {ErrorHandling(signInUser(req, res), res)});
 router.get('/:id/profile', checkAuthorization, (req, res) => {ErrorHandling(getUserProfile(req, res), res)});
 router.put('/profile', checkAuthorization, (req, res) => {ErrorHandling(userProfile(req, res), res)});
 router.put('/picture', checkAuthorization, upload.single('picture'), (req, res) => {ErrorHandling(userPictureUpdate(req, res), res)});
+router.get('/search', checkAuthorization, (req, res) => {ErrorHandling(userSearch(req, res), res)});
+
 
 module.exports = router;
