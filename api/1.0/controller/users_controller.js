@@ -209,6 +209,7 @@ const signInUser = async (req, res) => {
 const getUserProfile = async (req, res) => {
     // Get the user ID from the request URL
     const reqId = req.baseUrl.split('/').slice(-2, -1)[0];
+    console.log(reqId)
     const userId = parseInt(reqId);
     const decodedToken = req.decodedToken;
     const id = decodedToken.id; // Get the ID of the logged-in user
