@@ -365,10 +365,43 @@ const userProfile = async (req, res) => {
     return res.status(200).json({ data: { user } });
 }
 
+const userPictureUpdate = async (req, res) => {
+    const decodedToken = req.decodedToken;
+    const id = decodedToken.id; // Get the ID of the logged-in user
+
+    // Check if an image file was uploaded
+    if (!req.file) {
+      return res.status(400).json({ error: 'No image file uploaded' });
+    }
+
+    // Get the generated filename and construct the full picture path
+    const fileName = req.file.filename;
+    const picturePath = 'https://13.210.26.62/' + fileName;
+
+    // Find the user's current profile information
+    const userInfo = await User.findOne({
+      where: {
+        id: id
+      },
+      attributes: ['id', 'picture']
+    });
+
+    // Update the user's profile with the new picture path
+    userInfo.picture = picturePath;
+    await userInfo.save();
+
+    // Delete the user's profile data from Redis to ensure it gets updated
+    const deleteKey = `user:${id}:profile`;
+    await redisClient.del(deleteKey);
+
+    return res.status(200).json({ picture: picturePath });
+}
+
 module.exports ={
     ErrorHandling,
     signUpUser,
     signInUser,
     getUserProfile,
-    userProfile
+    userProfile,
+    userPictureUpdate
 }

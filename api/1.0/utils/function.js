@@ -18,8 +18,21 @@ function checkAuthorization(req, res, next) {
     });
   }
 
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public'); // Store the uploaded file in the 'public' directory
+  },
+  filename: function (req, file, cb) {
+    // Generate a unique filename for the uploaded image based on the original name and current timestamp
+    cb(null, file.originalname.split('.')[0] + '_' + Date.now() + '.jpg');
+    console.log(file.originalname.split('.')[0]);
+  }
+});
 
+// Create the multer middleware for handling file uploads
+const upload = multer({ storage: storage});
 
 module.exports = {
     checkAuthorization,
+    upload
 };
