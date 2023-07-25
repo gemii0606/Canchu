@@ -8,7 +8,7 @@ describe('User API', () => {
   it('should register a new user', async () => {
     const userData = {
       name: 'Test User',
-      email: 'test@example.com',
+      email: 'testtest@example.com',
       password: 'testPassword',
     };
 
