@@ -77,6 +77,6 @@ const signUpUser = async (req, res) => {
         });
       }
 
-router.post('/', (req, res) => {ErrorHandling(signUpUser(req, res))});
+router.post('/', (req, res) => {ErrorHandling(signUpUser(req, res), res)});
 
 module.exports = router;
