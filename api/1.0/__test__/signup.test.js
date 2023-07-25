@@ -1,6 +1,6 @@
 // __tests__/signup.test.js
 const request = require('supertest');
-const app = require('../users/signup'); // 假設你的Express應用程序主文件名為app.js
+const app = require('../users/signup.js'); // 假設你的Express應用程序主文件名為app.js
 const { User } = require('../utils/models/model');
 
 describe('User API', () => {
