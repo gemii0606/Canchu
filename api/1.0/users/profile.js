@@ -7,7 +7,7 @@ const router = express.Router();
 
 // Import the checkAuthorization function from utils/function
 const { checkAuthorization } = require('../utils/function');
-
+const {ErrorHandling, signUpUser, signInUser, getUserProfile} = require('../controller/users_controller')
 
 // const ErrorHandling = async (fn, res) => {
 //   try {
