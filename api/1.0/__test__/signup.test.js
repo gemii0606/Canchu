@@ -1,5 +1,5 @@
 const { Sequelize, DataTypes } = require('sequelize');
-const User = require('../utils/models/model'); // 假設 User 模型定義在 User.js 中
+// const User = require('../utils/models/model'); // 假設 User 模型定義在 User.js 中
 const {signUpUser} = require('../controller/users_controller'); // 假設 signUpUser 函式定義在 signUpUser.js 中
 
 // 使用 Sequelize 的 Mock 驅動程式來模擬資料庫連接
