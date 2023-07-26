@@ -50,7 +50,7 @@ const rateLimiter = async (req, res, next) => {
   const WINDOW_SIZE = 60; 
 
   const clientId = req.headers['X-Forwarded-For'];
-  console.log(clientId)
+  console.log(req.headers)
   const currentTime = Math.floor(Date.now() / 1000);
   const key = `requests:${clientId}`;
 
