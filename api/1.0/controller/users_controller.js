@@ -12,7 +12,10 @@ function isValidEmail(email) {
 }
 
 const signUpUser = async (req, res) => {
-  const {name, email, password} = req.body;    
+  const {name, email, password} = req.body; 
+  console.log(name)
+  console.log(email)
+  console.log(password)
         if (!(name && email && password)) { 
           return res.status(400).json({error: 'You should not leave empty!'});
         }
