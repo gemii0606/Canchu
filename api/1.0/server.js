@@ -16,7 +16,7 @@ const {rateLimiter} = require('./utils/function')
 
 // app.use(limiter);
 
-// app.use(rateLimiter);
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
