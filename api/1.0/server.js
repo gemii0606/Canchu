@@ -5,17 +5,18 @@ const usersRoute = require('./users');
 const friendsRoute = require('./friends');
 const eventsRoute = require('./events');
 const postsRoute = require('./posts');
-const rateLimit = require('express-rate-limit');
+// const rateLimit = require('express-rate-limit');
+const {rateLimiter} = require('./utils/function')
+
+// const limiter = rateLimit({
+//   windowMs: 1 * 1000, 
+//   max: 100
+// });
 
 
-const limiter = rateLimit({
-  windowMs: 1 * 1000, 
-  max: 100
-});
+// app.use(limiter);
 
-
-app.use(limiter);
-
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));

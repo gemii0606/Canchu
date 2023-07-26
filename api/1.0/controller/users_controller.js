@@ -476,3 +476,26 @@ module.exports ={
     userPictureUpdate,
     userSearch
 }
+
+function func() {
+  if (!(name && email && password)) { 
+    return {
+      status: 400,
+      json: {
+        error: 'You should not leave empty!'
+      }
+    }
+  }
+
+  if (!isValidEmail(email)) {
+    return {
+      status: 400,
+      json: {
+        error: 'You should not leave empty!'
+      }
+    }
+  }
+}
+
+const {status, json} = func();
+res.status(status).json(json);
