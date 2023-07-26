@@ -7,7 +7,7 @@ describe('User API', () => {
   it('should register a new user and return access_token', async () => {
     const userData = {
       name: 'Test User',
-      email: 'test@example.com',
+      email: 'testwwwww@example.com',
       password: 'testPassword',
     };
 
