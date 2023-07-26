@@ -1,99 +1,108 @@
-// __tests__/signup.test.js
-const request = require('supertest');
-const app = require('../server');
-// const { User } = require('../utils/models/model');
+const { Sequelize, DataTypes } = require('sequelize');
+const User = require('../utils/models/model'); // 假設 User 模型定義在 User.js 中
+const {signUpUser} = require('../controller/users_controller'); // 假設 signUpUser 函式定義在 signUpUser.js 中
 
-describe('User API', () => {
-  it('should register a new user and return access_token', async () => {
-    const userData = {
-      name: 'Test User',
-      email: 'testwwwwwt@example.com',
-      password: 'testPassword',
+// 使用 Sequelize 的 Mock 驅動程式來模擬資料庫連接
+const sequelizeMock = new Sequelize('sqlite::memory:', { logging: false });
+jest.spyOn(sequelizeMock, 'query').mockImplementation((query) => {
+  // 在這裡寫你的偽造資料庫查詢邏輯
+  if (query.includes('SELECT * FROM "users" WHERE "email" = ?')) {
+    return null;
+  } else if (query.includes('INSERT INTO "users"')) {
+    return [{ id: 1, name: 'John', email: 'john@example.com', password: 'hashed_password', provider: 'native', picture: null }];
+  }
+});
+
+describe('signUpUser', () => {
+  test('should create a new user and return access token and user data', async () => {
+    const req = {
+      body: {
+        name: 'John',
+        email: 'john@example.com',
+        password: 'password',
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
     };
 
-    // 測試之前，確保用戶不存在
-    // User.findOne = jest.fn().mockResolvedValue(null);
+    await signUpUser(req, res);
 
-    // // 模擬User.create，假設用戶創建成功
-    // User.create = jest.fn().mockResolvedValue({
-    //   id: 1,
-    //   name: 'Test User',
-    //   email: 'test@example.com',
-    //   password: 'hashedPassword',
-    //   provider: 'native',
-    //   picture: null,
-    // });
+    expect(res.status).toHaveBeenCalledWith(200);
+    expect(res.json).toHaveBeenCalledWith({
+      data: {
+        access_token: expect.any(String),
+        user: {
+          id: 1,
+          provider: 'native',
+          name: 'John',
+          email: 'john@example.com',
+          picture: null,
+        },
+      },
+    });
+  });
 
-    const res = await request(app)
-      .post('/api/1.0/users/signup')
-      .send(userData);
+  test('should return 400 if required fields are missing', async () => {
+    const req = {
+      body: {},
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
 
-    // 確認回應狀態碼是否為200
-    expect(res.status).toBe(200);
+    await signUpUser(req, res);
 
-  //   // 確認回應內容是否包含access_token和user資訊
-  //   expect(response.body.data).toHaveProperty('access_token');
-  //   expect(response.body.data).toHaveProperty('user');
-  //   expect(response.body.data.user.name).toBe(userData.name);
-  //   expect(response.body.data.user.email).toBe(userData.email);
-  //   expect(response.body.data.user.picture).toBeNull();
-  // });
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ error: 'You should not leave empty!' });
+  });
 
-  // it('should return 400 error if any required field is missing', async () => {
-  //   const userData = {
-  //     // 缺少name字段
-  //     email: 'test@example.com',
-  //     password: 'testPassword',
-  //   };
+  test('should return 400 if email is not valid', async () => {
+    const req = {
+      body: {
+        name: 'John',
+        email: 'invalid_email',
+        password: 'password',
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
 
-  //   const response = await request(app)
-  //     .post('/api/users')
-  //     .send(userData);
+    await signUpUser(req, res);
 
-  //   // 確認回應狀態碼是否為400
-  //   expect(response.status).toBe(400);
-  //   expect(response.body.error).toBe('You should not leave empty!');
-  // });
+    expect(res.status).toHaveBeenCalledWith(400);
+    expect(res.json).toHaveBeenCalledWith({ error: 'Please fill the correct email adress!' });
+  });
 
-  // it('should return 400 error if email is invalid', async () => {
-  //   const userData = {
-  //     name: 'Test User',
-  //     email: 'invalidemail', // 不合法的email格式
-  //     password: 'testPassword',
-  //   };
+  test('should return 403 if email address already exists', async () => {
+    const req = {
+      body: {
+        name: 'John',
+        email: 'john@example.com',
+        password: 'password',
+      },
+    };
+    const res = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn(),
+    };
 
-  //   const response = await request(app)
-  //     .post('/api/1.0/users/signup')
-  //     .send(userData);
+    // 使用 Sequelize 的 Mock 驅動程式來模擬資料庫中已存在的使用者
+    jest.spyOn(sequelizeMock, 'query').mockImplementation((query) => {
+      if (query.includes('SELECT * FROM "users" WHERE "email" = ?')) {
+        return [{ id: 1, name: 'Existing User', email: 'john@example.com' }];
+      } else {
+        return null;
+      }
+    });
 
-  //   // 確認回應狀態碼是否為400
-  //   expect(response.status).toBe(400);
-  //   expect(response.body.error).toBe('Please fill the correct email adress!');
-  // });
+    await signUpUser(req, res);
 
-  // it('should return 403 error if email address already exists', async () => {
-  //   const userData = {
-  //     name: 'Test User',
-  //     email: 'existing@example.com', // 已經存在的email地址
-  //     password: 'testPassword',
-  //   };
-
-  //   // 模擬User.findOne，假設用戶已經存在
-  //   User.findOne = jest.fn().mockResolvedValue({
-  //     id: 1,
-  //     name: 'Existing User',
-  //     email: 'existing@example.com',
-  //     password: 'hashedPassword',
-  //     provider: 'native',
-  //     picture: null,
-  //   });
-
-  //   const response = await request(app)
-  //     .post('/api/users')
-  //     .send(userData);
-
-  //   // 確認回應狀態碼是否為403
-  //   expect(response.status).toBe(403);
-  //   expect(response.body.error).toBe('email adress has already exist!');
+    expect(res.status).toHaveBeenCalledWith(403);
+    expect(res.json).toHaveBeenCalledWith({ error: 'email adress has already exist!' });
   });
 });
