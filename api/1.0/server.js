@@ -43,3 +43,6 @@ app.get('/api/1.0/users/signin', (req, res) => {
 app.listen(3000, () => {
     console.log('The application is running on localhost:3000')
 });
+
+module.exports =  app;
+
