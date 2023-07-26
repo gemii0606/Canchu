@@ -46,10 +46,10 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage});
 
 const rateLimiter = async (req, res, next) => {
-  const RATE_LIMIT = 5; // 允許的請求速率：每秒 100 次請求
-  const WINDOW_SIZE = 60; // 設定時間窗口為 60 秒
+  const RATE_LIMIT = 10; 
+  const WINDOW_SIZE = 1; 
 
-  const clientId = req.ip; // 使用 IP 地址作為用戶識別符號，你可以根據需要使用其他識別符號
+  const clientId = req.ip;
   const currentTime = Math.floor(Date.now() / 1000);
   const key = `requests:${clientId}`;
 
@@ -59,13 +59,16 @@ const rateLimiter = async (req, res, next) => {
       return res.status(429).send('Too Many Requests');
     }
 
-    await redisClient.zadd(key, currentTime, currentTime);
+    const addResult = await redisClient.zadd(key, currentTime, currentTime);
+    if (addResult === 1) {
+      await redisClient.expire(key, WINDOW_SIZE);
+    }
     await redisClient.zremrangebyscore(key, 0, currentTime - WINDOW_SIZE);
 
     next();
   } catch (error) {
     console.error('Error occurred:', error);
-    return res.status(500).send('Internal Server Error');
+    return res.status(500).send('Server Error');
   }
 };
 
