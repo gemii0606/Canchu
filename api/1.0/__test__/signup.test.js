@@ -1,6 +1,10 @@
 const request = require('supertest');
 const app = require('../server'); // 這裡假設你的 Express 應用程式是在 app.js 文件中
 
+afterAll(async () => {
+  await sequelize.close();
+});
+
 // 測試 signUpUser API
 describe('Test signUpUser API', () => {
   test('should create a new user and return access token', async () => {
