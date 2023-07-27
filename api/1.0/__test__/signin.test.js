@@ -17,7 +17,7 @@ describe('Test signInUser API', () => {
   test('should create a new user and return access token', async () => {
     const newUser = {
       provider: 'native',
-      email: 'test@example.com',
+      email: 'test1@example.com',
       password: 'test123',
     };
 
