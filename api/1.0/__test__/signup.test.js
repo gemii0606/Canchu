@@ -23,7 +23,7 @@ describe('Test signUpUser API', () => {
 
     // 使用 Supertest 發送 POST 請求
     const response = await request(app)
-      .post('/signUpUser')
+      .post('/api/1.0/users/signup')
       .send(newUser);
 
     // 檢查返回的狀態碼是否為 200
