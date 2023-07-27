@@ -1,6 +1,6 @@
 const request = require('supertest');
 const app = require('../server'); // 這裡假設你的 Express 應用程式是在 app.js 文件中
-
+const sequelize = require('../utils/mysql');
 // 在所有測試開始前，執行初始化 Sequelize 連接和資料庫創建
 // beforeAll(async () => {
 //   await sequelize.authenticate(); // 驗證連接
