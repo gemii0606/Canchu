@@ -2,11 +2,6 @@ const { Sequelize } = require('sequelize');
 const { Model, DataTypes } = require('sequelize');
 require('dotenv').config();
 
-// const sequelize = new Sequelize(process.env.DATABASE, 'gemii0606', process.env.SQL_NODEJS_PW, {
-//   host: 'localhost',
-//   dialect: 'mysql'
-// });
-
 const sequelize = require('../mysql')
 
 class Event extends Model {}
