@@ -2,10 +2,10 @@ const request = require('supertest');
 const app = require('../server'); // 這裡假設你的 Express 應用程式是在 app.js 文件中
 
 // 在所有測試開始前，執行初始化 Sequelize 連接和資料庫創建
-beforeAll(async () => {
-  await sequelize.authenticate(); // 驗證連接
-  await sequelize.sync({ force: true }); // 創建測試資料庫的資料表，force: true 表示將原有資料表刪除再創建
-});
+// beforeAll(async () => {
+//   await sequelize.authenticate(); // 驗證連接
+//   await sequelize.sync({ force: true }); // 創建測試資料庫的資料表，force: true 表示將原有資料表刪除再創建
+// });
 
 // 在所有測試結束後，關閉 Sequelize 連接
 afterAll(async () => {
