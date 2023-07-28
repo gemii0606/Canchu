@@ -5,6 +5,7 @@ const {Post, Like, Comment} = require('./posts');
 const Group = require('./groups');
 const Groupmember = require('./groupmembers');
 const Grouppost = require('./groupposts');
+const Chat = require('./chats');
 
 // Friendship.associate = function(models) {
 //     Friendship.belongsTo(User);
@@ -103,6 +104,8 @@ Group.belongsTo(User, { foreignKey: 'leader_id', as: 'groupUser' });
 User.hasMany(Grouppost, { foreignKey: 'user_id', as: 'userGrouppost' });
 Grouppost.belongsTo(User, { foreignKey: 'user_id', as: 'grouppostUser' });
 
+User.hasMany(Chat, { foreignKey: 'user_id', as: 'userChat' });
+Chat.belongsTo(User, { foreignKey: 'user_id', as: 'chatUser' });
 
 module.exports = {
     User,
@@ -113,6 +116,7 @@ module.exports = {
     Comment,
     Group,
     Groupmember,
-    Grouppost
+    Grouppost,
+    Chat
 };
 
