@@ -21,7 +21,7 @@ Groupmember.init({
     }
   },
   user_id: {
-    type: DataTypes.STRING,
+    type: DataTypes.INTEGER,
     references: {
       model: 'users',
       key: 'id'
