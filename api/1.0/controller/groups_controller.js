@@ -185,7 +185,43 @@ const groupPost = async (req, res) => {
     const decodedToken = req.decodedToken;
     const user_id = decodedToken.id;
 
-    const find_post = await Post.findAll
+    const {context} = req.body
+
+    if (!context) {
+        return res.status(400).json({error: 'Empty post is not available!'});
+    }
+
+    const find_group = await Group.findOne({
+        where: {id: group_id, leader_id: user_id}
+    })
+
+    const find_groupmember = await Groupmember.findOne({
+        where: {group_id: group_id, user_id: user_id, status: 'member'}
+    })
+
+    if (!find_group && !find_groupmember) {
+        return res.status(400).json({error: 'Check if the group exists or you are the member.'});
+    }
+
+    const create_post = await Grouppost.create({
+        group_id,
+        user_id,
+        context
+    });
+
+    const data = {
+        group:{
+            id: create_post.group_id
+        },
+        user:{
+            id: create_post.user_id
+        },
+        post:{
+            id: create_post.id
+        }
+    }
+
+    return res.status(200).json({data});
 }
 
 module.exports = {
@@ -193,5 +229,6 @@ module.exports = {
     groupDelete,
     groupJoin,
     groupPending,
-    groupMemberAgree
+    groupMemberAgree,
+    groupPost
 }
