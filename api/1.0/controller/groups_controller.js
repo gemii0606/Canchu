@@ -1,4 +1,4 @@
-const {User, Post, Group, Groupmember} = require('../utils/models/model');
+const {User, Group, Groupmember, Grouppost} = require('../utils/models/model');
 const { Op } = require('sequelize');
 
 const createGroup = async (req, res) => {
@@ -180,13 +180,13 @@ const groupMemberAgree = async (req, res) => {
     return res.status(200).json({data});
 }
 
-// const groupPost = async (req, res) => {
-//     const group_id = parseInt(req.params.group_id);  
-//     const decodedToken = req.decodedToken;
-//     const user_id = decodedToken.id;
+const groupPost = async (req, res) => {
+    const group_id = parseInt(req.params.group_id);  
+    const decodedToken = req.decodedToken;
+    const user_id = decodedToken.id;
 
-//     const find_post = await Post.findAll
-// }
+    const find_post = await Post.findAll
+}
 
 module.exports = {
     createGroup,

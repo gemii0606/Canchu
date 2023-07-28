@@ -112,6 +112,7 @@ module.exports = {
     Like,
     Comment,
     Group,
-    Groupmember
+    Groupmember,
+    Grouppost
 };
 
