@@ -23,8 +23,6 @@ app.use(express.static('public'));
 
 
 app.use('/api/1.0/users', usersRoute);
-
-
 app.use('/api/1.0/friends', friendsRoute);
 app.use('/api/1.0/events', eventsRoute);
 app.use('/api/1.0/posts', postsRoute);

@@ -2,6 +2,8 @@ const User = require('./users');
 const Friendship = require('./friendships');
 const Event = require('./events');
 const {Post, Like, Comment} = require('./posts');
+const Group = require('./groups');
+const Groupmember = require('./groupmembers');
 
 
 // Friendship.associate = function(models) {
@@ -83,6 +85,17 @@ Like.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'likePost'});
 Post.hasMany(Comment, { foreignKey: 'post_id', sourceKey: 'id', as: 'postComment'});
 Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'commentPost'});
 
+Group.hasMany(Groupmember, { foreignKey: 'group_id', as: 'groupGroupmember', onDelete: 'CASCADE' });
+Groupmember.belongsTo(Group, { foreignKey: 'group_id', as: 'groupmemberGroup' });
+
+User.hasMany(Groupmember, { foreignKey: 'user_id', as: 'userGroupmember' });
+Groupmember.belongsTo(User, { foreignKey: 'user_id', as: 'groupmemberUser' });
+
+User.hasMany(Group, { foreignKey: 'leader_id', as: 'userGroup' });
+Group.belongsTo(User, { foreignKey: 'leader_id', as: 'groupUser' });
+
+Groupmember.hasMany(Post, { foreignKey: 'user_id', as: 'groupmemberPost' });
+Post.belongsTo(Groupmember, { foreignKey: 'user_id', targetKey: 'id', as: 'postGroupmember'});
 
 module.exports = {
     User,
@@ -90,6 +103,8 @@ module.exports = {
     Event,
     Post,
     Like,
-    Comment
+    Comment,
+    Group,
+    Groupmember
 };
 
