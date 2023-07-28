@@ -6,6 +6,7 @@ const friendsRoute = require('./friends');
 const eventsRoute = require('./events');
 const postsRoute = require('./posts');
 const groupsRoute = require('./groups');
+const chatsRoute = require('./chats');
 // const rateLimit = require('express-rate-limit');
 const {rateLimiter} = require('./utils/function')
 
@@ -28,6 +29,7 @@ app.use('/api/1.0/friends', friendsRoute);
 app.use('/api/1.0/events', eventsRoute);
 app.use('/api/1.0/posts', postsRoute);
 app.use('/api/1.0/groups', groupsRoute);
+app.use('/api/1.0/chat', chatsRoute);
 
 
 

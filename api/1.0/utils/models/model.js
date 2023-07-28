@@ -104,8 +104,11 @@ Group.belongsTo(User, { foreignKey: 'leader_id', as: 'groupUser' });
 User.hasMany(Grouppost, { foreignKey: 'user_id', as: 'userGrouppost' });
 Grouppost.belongsTo(User, { foreignKey: 'user_id', as: 'grouppostUser' });
 
-User.hasMany(Chat, { foreignKey: 'user_id', as: 'userChat' });
-Chat.belongsTo(User, { foreignKey: 'user_id', as: 'chatUser' });
+User.hasMany(Chat, { foreignKey: 'sender_id', as: 'userChatSender' });
+Chat.belongsTo(User, { foreignKey: 'sender_id', as: 'chatUserSender' });
+
+User.hasMany(Chat, { foreignKey: 'receiver_id', as: 'userChatReceiver' });
+Chat.belongsTo(User, { foreignKey: 'receiver_id', as: 'chatUserReceiver' });
 
 module.exports = {
     User,
