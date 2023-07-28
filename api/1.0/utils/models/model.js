@@ -4,7 +4,7 @@ const Event = require('./events');
 const {Post, Like, Comment} = require('./posts');
 const Group = require('./groups');
 const Groupmember = require('./groupmembers');
-
+const Grouppost = require('./groupposts');
 
 // Friendship.associate = function(models) {
 //     Friendship.belongsTo(User);
@@ -88,14 +88,21 @@ Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'commentPo
 Group.hasMany(Groupmember, { foreignKey: 'group_id', as: 'groupGroupmember', onDelete: 'CASCADE' });
 Groupmember.belongsTo(Group, { foreignKey: 'group_id', as: 'groupmemberGroup' });
 
+Group.hasMany(Grouppost, { foreignKey: 'group_id', as: 'groupGrouppost', onDelete: 'CASCADE' });
+Grouppost.belongsTo(Group, { foreignKey: 'group_id', as: 'grouppostGroup' });
+
+Groupmember.hasMany(Grouppost, { foreignKey: 'group_id', sourceKey: 'group_id', as: 'groupmemberGrouppost' });
+Grouppost.belongsTo(Groupmember, { foreignKey: 'group_id', targetKey: 'group_id', as: 'grouppostGroupmember' });
+
 User.hasMany(Groupmember, { foreignKey: 'user_id', as: 'userGroupmember' });
 Groupmember.belongsTo(User, { foreignKey: 'user_id', as: 'groupmemberUser' });
 
 User.hasMany(Group, { foreignKey: 'leader_id', as: 'userGroup' });
 Group.belongsTo(User, { foreignKey: 'leader_id', as: 'groupUser' });
 
-Groupmember.hasMany(Post, { foreignKey: 'user_id', as: 'groupmemberPost' });
-Post.belongsTo(Groupmember, { foreignKey: 'user_id', targetKey: 'id', as: 'postGroupmember'});
+User.hasMany(Grouppost, { foreignKey: 'user_id', as: 'userGrouppost' });
+Grouppost.belongsTo(User, { foreignKey: 'user_id', as: 'grouppostUser' });
+
 
 module.exports = {
     User,

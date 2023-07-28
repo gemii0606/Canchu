@@ -136,7 +136,7 @@ const groupPending = async (req, res) => {
     // Reform the data to get the desired format
     const users = groupmember_info.map((groupmember) => {
       const result = {
-        id: groupmember.id,
+        id: groupmember.groupmemberUser.id,
         name: groupmember.groupmemberUser.name,
         picture:groupmember.groupmemberUser.picture,
         status: groupmember.status
@@ -173,12 +173,20 @@ const groupMemberAgree = async (req, res) => {
     await find_groupmember.save();
 
     const data = {
-        group: {
-            id: find_groupmember.id
+        user: {
+            id: find_groupmember.user_id
         }
     }
     return res.status(200).json({data});
 }
+
+// const groupPost = async (req, res) => {
+//     const group_id = parseInt(req.params.group_id);  
+//     const decodedToken = req.decodedToken;
+//     const user_id = decodedToken.id;
+
+//     const find_post = await Post.findAll
+// }
 
 module.exports = {
     createGroup,
