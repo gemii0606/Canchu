@@ -1,5 +1,6 @@
 const {User, Group, Groupmember, Grouppost} = require('../utils/models/model');
 const { Op } = require('sequelize');
+const moment = require('moment');
 
 const createGroup = async (req, res) => {
     const decodedToken = req.decodedToken;
@@ -224,11 +225,58 @@ const groupPost = async (req, res) => {
     return res.status(200).json({data});
 }
 
+const groupGetPost = async (req, res) => {
+    const group_id = parseInt(req.params.group_id);  
+    const decodedToken = req.decodedToken;
+    const user_id = decodedToken.id;
+
+    const find_group = await Group.findOne({
+        where: {id: group_id, leader_id: user_id}
+    })
+
+    const find_groupmember = await Groupmember.findOne({
+        where: {group_id: group_id, user_id: user_id, status: 'member'}
+    })
+
+    if (!find_group && !find_groupmember) {
+        return res.status(400).json({error: 'Check if the group exists or you are the member.'});
+    }
+
+    const get_post = await Grouppost.findAll({
+        where: {group_id: group_id},
+        attributes: ['id', 'user_id', 'createdAt', 'context'],
+        include: {
+            model: User,
+            as: 'grouppostUser',
+            attributes: ['name', 'picture']
+        }
+    });
+
+    const posts = get_post.map((post) => {
+        const result = {
+            id: post.id,
+            user_id: post.user_id,
+            created_at: moment.utc(post.createdAt).utcOffset(8).format("YYYY-MM-DD HH:mm:ss"),
+            context: post.context,
+            is_liked: false,
+            like_count: 0,
+            comment_count: 0,
+            picture: post.grouppostUser.picture,
+            name: post.grouppostUser.name
+        }
+        return result;
+    });
+
+    return res.status(200).json({ data: { posts } });
+
+}
+
 module.exports = {
     createGroup,
     groupDelete,
     groupJoin,
     groupPending,
     groupMemberAgree,
-    groupPost
+    groupPost,
+    groupGetPost
 }
