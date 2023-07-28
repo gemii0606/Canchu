@@ -125,7 +125,6 @@ const groupPending = async (req, res) => {
     const groupmember_info = await Groupmember.findAll({
       where: { group_id, status: 'pending' },
       attributes: ['id', 'group_id', 'user_id','status'],
-      order: [['id', 'DESC']],
       include: [
         {
           model: User,
@@ -246,6 +245,7 @@ const groupGetPost = async (req, res) => {
     const get_post = await Grouppost.findAll({
         where: {group_id: group_id},
         attributes: ['id', 'user_id', 'createdAt', 'context'],
+        order: [['id', 'DESC']],
         include: {
             model: User,
             as: 'grouppostUser',
