@@ -209,7 +209,6 @@ const friendAgree = async (req, res) => {
     // Update the status of the friendship to 'friend'
     friendship.status = 'friend';
     await friendship.save(); // Save this change permanently in the database
-    console.log(friendship);
 
     // Find the user's ID and name who sent the friend request
     const accept_event = await User.findOne({

@@ -148,9 +148,42 @@ const groupPending = async (req, res) => {
     return res.status(200).json({ data: { users } });
 }
 
+const groupMemberAgree = async (req, res) => {
+    const group_id = parseInt(req.params.group_id);
+    const user_id = parseInt(req.params.user_id);
+    const decodedToken = req.decodedToken;
+    const id = decodedToken.id;
+
+    const find_groupmember = await Groupmember.findOne({
+        where: {
+          group_id: group_id,
+          user_id: user_id
+        }
+      });
+
+    if (!find_groupmember) {
+        return res.status(400).json({error: 'No result.'});
+    }
+
+    if (find_groupmember.status === 'member') {
+        return res.status(400).json({error: 'The user has been already a member.'});
+    }
+
+    find_groupmember.status = 'member'
+    await find_groupmember.save();
+
+    const data = {
+        group: {
+            id: find_groupmember.id
+        }
+    }
+    return res.status(200).json({data});
+}
+
 module.exports = {
     createGroup,
     groupDelete,
     groupJoin,
-    groupPending
+    groupPending,
+    groupMemberAgree
 }
