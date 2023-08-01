@@ -1,0 +1,27 @@
+version: '3'
+
+services:
+  web:
+    image: canchu_image
+    ports:
+      - "3000:3000"
+    environment:
+      - MYSQL_HOST=13.210.26.62
+      - MYSQL_PORT=3306
+      - REDIS_HOST=13.210.26.62
+      - REDIS_PORT=6379
+    depends_on:
+      - mysql
+      - redis
+
+  mysql:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=@gG01020304
+    ports:
+      - "3306:3306"
+
+  redis:
+    image: redis:latest
+    ports:
+      - "6379:6379"
