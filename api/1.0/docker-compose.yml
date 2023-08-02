@@ -1,27 +1,45 @@
-version: '3'
+version: '3.8'
 
 services:
-  web:
-    image: canchu_image
-    ports:
-      - "3000:3000"
+  mysql:
+    image: mysql:5.7  # 使用輕量化的 MySQL 5.7 映像
     environment:
-      - MYSQL_HOST=13.210.26.62
-      - MYSQL_PORT=3306
-      - REDIS_HOST=13.210.26.62
-      - REDIS_PORT=6379
+      MYSQL_ROOT_PASSWORD: your_mysql_root_password
+      MYSQL_DATABASE: your_mysql_database
+      MYSQL_USER: your_mysql_user
+      MYSQL_PASSWORD: your_mysql_password
+    volumes:
+      - mysql_data:/var/lib/mysql  # 將 MySQL 資料持久化到本機
+
+  redis:
+    image: redis:6.2-alpine  # 使用輕量化的 Redis 6.2 映像
+    volumes:
+      - redis_data:/data  # 將 Redis 資料持久化到本機
+
+  canchu:
+    build: .  # 使用 Canchu 映像，並將其替換為實際映像名稱
+    ports:
+      - "8000:8000"
     depends_on:
       - mysql
       - redis
+    networks:
+      - canchu_network
 
-  mysql:
-    image: mysql:latest
-    environment:
-      - MYSQL_ROOT_PASSWORD=@gG01020304
-    ports:
-      - "3306:3306"
+  # nginx:
+  #   image: nginx:alpine  # 使用輕量化的 Nginx 映像
+  #   ports:
+  #     - "80:80"
+  #   volumes:
+  #     - ./path/to/your/nginx_conf:/etc/nginx/conf.d
+  #   depends_on:
+  #     - canchu
+  #   networks:
+  #     - canchu_network
 
-  redis:
-    image: redis:latest
-    ports:
-      - "6379:6379"
+networks:
+  canchu_network:
+
+volumes:
+  mysql_data:  # 定義 MySQL 資料持久化的卷
+  redis_data:  # 定義 Redis 資料持久化的卷
