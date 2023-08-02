@@ -18,6 +18,8 @@ services:
 
   canchu:
     build: .  # 使用 Canchu 映像，並將其替換為實際映像名稱
+    environment:
+      
     ports:
       - "8000:8000"
     depends_on:
