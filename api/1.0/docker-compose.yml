@@ -3,11 +3,6 @@ version: '3.8'
 services:
   mysql:
     image: mysql:5.7  # 使用輕量化的 MySQL 5.7 映像
-    environment:
-      MYSQL_ROOT_PASSWORD: '@gG01020304'
-      MYSQL_DATABASE: canchu
-      MYSQL_USER: gemii0606
-      MYSQL_PASSWORD: '@gG01020304'
     ports:
       - "3306:3306"
     volumes:
