@@ -4,24 +4,29 @@ services:
   mysql:
     image: mysql:5.7  # 使用輕量化的 MySQL 5.7 映像
     environment:
-      MYSQL_ROOT_PASSWORD: your_mysql_root_password
-      MYSQL_DATABASE: your_mysql_database
-      MYSQL_USER: your_mysql_user
-      MYSQL_PASSWORD: your_mysql_password
+      MYSQL_ROOT_PASSWORD: '@gG01020304'
+      MYSQL_DATABASE: canchu
+      MYSQL_USER: gemii0606
+      MYSQL_PASSWORD: '@gG01020304'
+    ports:
+      - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql  # 將 MySQL 資料持久化到本機
 
   redis:
     image: redis:6.2-alpine  # 使用輕量化的 Redis 6.2 映像
+    ports:
+      - "6379:6379"
     volumes:
       - redis_data:/data  # 將 Redis 資料持久化到本機
 
   canchu:
     build: .  # 使用 Canchu 映像，並將其替換為實際映像名稱
     environment:
-      
+      SQL_NODEJS_PW: '@gG01020304'
+      DATABASE: canchu
     ports:
-      - "8000:8000"
+      - "3000:3000"
     depends_on:
       - mysql
       - redis
