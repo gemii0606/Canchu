@@ -1,5 +1,5 @@
 # 使用 Node.js 14 作為基礎映像
-FROM node:20.4.0
+FROM node:18-alpine
 
 # 設置工作目錄
 WORKDIR /app
