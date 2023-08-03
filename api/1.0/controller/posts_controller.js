@@ -1,8 +1,7 @@
 const { User, Friendship, Post, Like, Comment } = require('../utils/models/model');
 const { Op } = require('sequelize');
 const moment = require('moment');
-const Redis = require('ioredis');
-const redisClient = new Redis();
+const redisClient = require('../utils/redis')
 
 const postCreate = async (req, res) => {
     const decodedToken = req.decodedToken;

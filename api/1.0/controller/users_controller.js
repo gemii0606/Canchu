@@ -2,8 +2,7 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const {User, Friendship} = require('../utils/models/model');
 const { Op } = require('sequelize');
-const Redis = require('ioredis');
-const redisClient = new Redis();
+const redisClient = require('../utils/redis')
 
 
 function isValidEmail(email) {

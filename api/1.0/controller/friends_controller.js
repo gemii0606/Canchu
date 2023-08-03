@@ -1,6 +1,5 @@
 const { User, Friendship, Event } = require('../utils/models/model');
-const Redis = require('ioredis');
-const redisClient = new Redis();
+const redisClient = require('../utils/redis')
 
 const friendRequest = async (req, res) => {
     // Get the user ID of the receiver from the request URL
