@@ -4,7 +4,9 @@ require('dotenv').config();
 
 const sequelize = require('../mysql')
 
-const User = sequelize.define('User', {
+class User extends Model {}
+
+User.init({
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -41,8 +43,9 @@ const User = sequelize.define('User', {
     allowNull: true
   }
 }, {
-  tableName: 'users',
-  timestamps: false
+  sequelize,
+  modelName: 'User',
+  tableName: 'users'
 });
 
 // User.associate = function(models) {
