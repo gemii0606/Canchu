@@ -11,7 +11,7 @@ require('dotenv').config();
 
 
 const sequelize = new Sequelize(process.env.DATABASE, 'gemii0606', process.env.SQL_NODEJS_PW, {
-    host: 'localhost',
+    host: 'canchu_mysql',
     dialect: 'mysql'
   });
 

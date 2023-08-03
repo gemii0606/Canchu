@@ -3,17 +3,24 @@ version: '3.8'
 services:
   mysql:
     image: mysql:5.7  # 使用輕量化的 MySQL 5.7 映像
+    container_name: canchu_mysql
+    restart: always
     ports:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql  # 將 MySQL 資料持久化到本機
+    networks:
+      - canchu_network
 
   redis:
     image: redis:6.2-alpine  # 使用輕量化的 Redis 6.2 映像
+    container_name: canchu_redis
     ports:
       - "6379:6379"
     volumes:
       - redis_data:/data  # 將 Redis 資料持久化到本機
+    networks:
+      - canchu_network
 
   canchu:
     build: .  # 使用 Canchu 映像，並將其替換為實際映像名稱
