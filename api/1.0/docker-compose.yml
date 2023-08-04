@@ -9,6 +9,11 @@ services:
       - "3306:3306"
     volumes:
       - mysql_data:/var/lib/mysql  # 將 MySQL 資料持久化到本機
+    environment:
+      - MYSQL_DATABASE=canchu  # 替换为您希望的数据库名
+      - MYSQL_ROOT_PASSWORD=@gG01020304  # 替换为您希望的root用户密码
+      - MYSQL_USER=gemii0606  # 替换为您希望的新用户名
+      - MYSQL_PASSWORD=@gG01020304  # 替换为您希望的新用户密码
     networks:
       - canchu_network
 
