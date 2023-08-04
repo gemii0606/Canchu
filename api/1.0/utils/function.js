@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
-const Redis = require("ioredis");
-const redisClient = new Redis();
+const redisClient = require('../utils/redis')
 
 
 function checkAuthorization(req, res, next) {
