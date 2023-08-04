@@ -42,6 +42,7 @@ services:
 
   nginx:
     image: nginx:alpine  # 使用輕量化的 Nginx 映像
+    restart: always
     ports:
       - "80:80"
       - "443:443"
