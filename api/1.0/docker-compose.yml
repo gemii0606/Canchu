@@ -29,6 +29,7 @@ services:
 
   canchu:
     build: .  # 使用 Canchu 映像，並將其替換為實際映像名稱
+    container_name: canchu
     environment:
       SQL_NODEJS_PW: '@gG01020304'
       DATABASE: canchu
