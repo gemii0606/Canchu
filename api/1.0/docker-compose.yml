@@ -25,21 +25,6 @@ services:
     networks:
       - canchu_network
 
-  canchu:
-    build: .  # 使用 Canchu 映像，並將其替換為實際映像名稱
-    container_name: canchu
-    environment:
-      SQL_NODEJS_PW: '@gG01020304'
-      DATABASE: canchu
-    ports:
-      - "3000:3000"
-    depends_on:
-      - mysql
-      - redis
-    command: sh -c "while ! nc -z canchu_mysql 3306; do sleep 1; done && node app.js"
-    networks:
-      - canchu_network
-
   nginx:
     image: nginx
     restart: always
@@ -52,6 +37,21 @@ services:
       - ./private/private.key:/etc/nginx/private.key:ro
     depends_on:
       - canchu
+    networks:
+      - canchu_network
+
+  canchu:
+    build: .  # 使用 Canchu 映像，並將其替換為實際映像名稱
+    container_name: canchu
+    environment:
+      SQL_NODEJS_PW: '@gG01020304'
+      DATABASE: canchu
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+      - redis
+    command: sh -c "while ! nc -z canchu_mysql 3306; do sleep 1; done && node app.js"
     networks:
       - canchu_network
 
