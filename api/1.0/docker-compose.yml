@@ -41,7 +41,7 @@ services:
       - canchu_network
 
   nginx:
-    image: nginx:alpine  # 使用輕量化的 Nginx 映像
+    image: nginx
     restart: always
     ports:
       - "80:80"
