@@ -45,7 +45,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage});
 
 const rateLimiter = async (req, res, next) => {
-  const RATE_LIMIT = 10; 
+  const RATE_LIMIT = 100; 
   const WINDOW_SIZE = 1; 
 
   const clientId = req.headers['x-forwarded-for'];
