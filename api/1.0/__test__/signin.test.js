@@ -17,7 +17,7 @@ describe('Test signInUser API', () => {
   test('should create a new user and return access token', async () => {
     const newUser = {
       provider: 'native',
-      email: 'test@example.com',
+      email: 'test@test.com',
       password: 'test123',
     };
 
@@ -55,7 +55,7 @@ describe('Test signInUser API', () => {
   test('should return 400 error for invalid email', async () => {
     const invalidEmailUser = {
       provider: 'native',
-      email: 'wrong@wrong.com',
+      email: 'wrong.com',
       password: 'test123',
     };
 
