@@ -8,7 +8,7 @@ const postsRoute = require('./posts');
 const groupsRoute = require('./groups');
 const chatsRoute = require('./chats');
 // const rateLimit = require('express-rate-limit');
-// const {rateLimiter} = require('./utils/function')
+const {rateLimiter} = require('./utils/function')
 
 // const limiter = rateLimit({
 //   windowMs: 1 * 1000, 
@@ -18,7 +18,7 @@ const chatsRoute = require('./chats');
 
 // app.use(limiter);
 
-// app.use(rateLimiter);
+app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
