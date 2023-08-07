@@ -10,6 +10,7 @@ beforeAll(async () => {
 // 在所有測試結束後，關閉 Sequelize 連接
 afterAll(async () => {
   await sequelize.close();
+  await app.close();
 });
 
 // 測試 signUpUser API
