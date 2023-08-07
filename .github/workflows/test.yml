@@ -26,5 +26,5 @@ jobs:
      - name: Wait for containers to start
        run: sleep 20
      - name: Run test file
-       run: docker exec canchu-server npm test -- --watch=false --forceExit
+       run: docker exec canchu npm test -- --watch=false --forceExit
          
