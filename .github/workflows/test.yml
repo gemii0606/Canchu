@@ -27,9 +27,6 @@ jobs:
        run: sleep 10
      - name: Run test file
        run: |
-         pwd
-         ls
-         docker ps -a
-         docker logs canchu
+         cd api/1.0
          docker exec canchu npm test -- --watch=false --forceExit
          
