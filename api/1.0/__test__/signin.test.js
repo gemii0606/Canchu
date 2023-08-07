@@ -1,6 +1,7 @@
 const request = require('supertest');
 const app = require('../server'); // 這裡假設你的 Express 應用程式是在 app.js 文件中
 const sequelize = require('../utils/mysql');
+const redisClient = require('../utils/redis');
 // 在所有測試開始前，執行初始化 Sequelize 連接和資料庫創建
 beforeAll(async () => {
   await sequelize.authenticate(); // 驗證連接
@@ -10,6 +11,7 @@ beforeAll(async () => {
 // 在所有測試結束後，關閉 Sequelize 連接
 afterAll(async () => {
   await sequelize.close();
+  await redisClient.quit();
 });
 
 // 測試 signUpUser API
