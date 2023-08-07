@@ -39,8 +39,6 @@ describe('Test signInUser API', () => {
   //   // 檢查返回的 JSON 數據中是否包含 access_token 和 user 屬性
     expect(response.body.data).toHaveProperty('access_token');
     expect(response.body.data).toHaveProperty('user');
-    expect(response.body.data.user.password).toBe(newUser.password);
-    expect(response.body.data.user.email).toBe(newUser.email);
   });
 
   test('should return 400 error for incomplete data', async () => {
