@@ -15,8 +15,16 @@ jobs:
     steps:
      - name: Checkout code
        uses: actions/checkout@v3
-     - name: test
+     - name: Build docker compose for test
        run: |
          cd api/1.0
+         echo "${{ secrets.ENV_FILE  }}" > .env
+         mkdir private
+         echo "${{ secrets.PRIVATE_KEY }}" > private/private.key
+         echo "${{ secrets.COMBINED_CRT }}" > private/combined.crt
          docker-compose up --build -d
+     - name: Wait for containers to start
+       run: sleep 20
+     - name: Run test file
+       run: docker exec canchu-server npm test -- --watch=false --forceExit
          
