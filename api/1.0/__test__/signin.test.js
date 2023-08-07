@@ -17,10 +17,13 @@ describe('Test signInUser API', () => {
   test('should create a new user and return access token', async () => {
     const newUser = {
       provider: 'native',
-      email: 'test2@example.com',
+      email: 'test@example.com',
       password: 'test123',
     };
 
+    const proxy_signup = await request(app)
+      .post('/api/1.0/users/signup')
+      .send(newUser);
     // 使用 Supertest 發送 POST 請求
     const response = await request(app)
       .post('/api/1.0/users/signin')
