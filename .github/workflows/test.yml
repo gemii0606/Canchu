@@ -28,5 +28,7 @@ jobs:
      - name: Run test file
        run: |
          cd api/1.0
+         ls -a
+         docker logs canchu
          docker exec canchu npm test -- --watch=false --forceExit
          
