@@ -72,10 +72,6 @@ Comment.init({
   tableName: 'comments'
 });
 
-// Post.sync()
-// Like.sync()
-// Comment.sync()
-
 Post.sync()
   .then(() => {
     console.log('Post table has been created!');
