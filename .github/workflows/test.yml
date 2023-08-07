@@ -23,7 +23,6 @@ jobs:
          echo "${{ secrets.PRIVATE_KEY }}" > private/private.key
          echo "${{ secrets.COMBINED_CRT }}" > private/combined.crt
          docker-compose up --build -d
-         ls -a
          docker logs canchu
          docker logs canchu_mysql
          docker logs canchu_redis
