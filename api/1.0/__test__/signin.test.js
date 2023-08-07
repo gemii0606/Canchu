@@ -15,15 +15,19 @@ afterAll(async () => {
 // 測試 signUpUser API
 describe('Test signInUser API', () => {
   test('should create a new user and return access token', async () => {
-    const newUser = {
-      provider: 'native',
-      email: 'test@test.com',
-      password: 'test123',
-    };
-
     const proxy_signup = await request(app)
       .post('/api/1.0/users/signup')
-      .send(newUser);
+      .send({
+        name: 'Test User',
+        email: 'signin@test.com',
+        password: 'test123',
+      });
+
+    const newUser = {
+        provider: 'native',
+        email: 'signin@test.com',
+        password: 'test123',
+      };
     // 使用 Supertest 發送 POST 請求
     const response = await request(app)
       .post('/api/1.0/users/signin')
