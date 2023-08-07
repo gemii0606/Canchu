@@ -29,7 +29,7 @@ jobs:
        run: |
          cd api/1.0
          pwd
-         ls
+         ls -a
          cat .env
          docker logs canchu
          docker exec canchu npm test -- --watch=false --forceExit
