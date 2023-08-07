@@ -1,0 +1,30 @@
+name: Canchu
+
+on: 
+ push:
+   branches:
+     - main
+ workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:    
+  build:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Checkout code
+       uses: actions/checkout@v3
+     - name: deploy to ec2
+       uses: appleboy/ssh-action@master
+       with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USERNAME }}
+          key: ${{ secrets.EC2_KEY }}
+          port: ${{ secrets.EC2_PORT }}
+     - name: docker-compose build
+       run: |
+        pwd
+        ls
+        cd api/1.0
+        pwd
