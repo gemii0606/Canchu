@@ -18,7 +18,7 @@ const chatsRoute = require('./chats');
 
 // app.use(limiter);
 
-app.use(rateLimiter);
+// app.use(rateLimiter);
 app.use(cors());
 app.use(express.json());
 app.use(express.static('public'));
