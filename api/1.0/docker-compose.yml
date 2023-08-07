@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mysql:
-    image: mysql:5.7  # 使用輕量化的 MySQL 5.7 映像
+    image: mysql:8.0-alpine
     container_name: canchu_mysql
     restart: always
     ports:
