@@ -24,7 +24,13 @@ jobs:
          echo "${{ secrets.COMBINED_CRT }}" > private/combined.crt
          docker-compose up --build -d
      - name: Wait for containers to start
-       run: sleep 20
+       run: sleep 10
      - name: Run test file
-       run: docker exec canchu-server npm test -- --watch=false --forceExit
+       run: |
+         cd api/1.0
+         pwd
+         ls -a
+         cat .env
+         docker logs canchu
+         docker exec canchu npm test -- --watch=false --forceExit
          
