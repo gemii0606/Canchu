@@ -18,3 +18,4 @@ jobs:
      - name: docker-compose build
        run: |
         pwd
+        ls
