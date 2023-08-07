@@ -17,7 +17,7 @@ describe('Test signInUser API', () => {
   test('should create a new user and return access token', async () => {
     const newUser = {
       provider: 'native',
-      email: 'test1@example.com',
+      email: 'test2@example.com',
       password: 'test123',
     };
 
@@ -32,7 +32,7 @@ describe('Test signInUser API', () => {
   //   // 檢查返回的 JSON 數據中是否包含 access_token 和 user 屬性
     expect(response.body.data).toHaveProperty('access_token');
     expect(response.body.data).toHaveProperty('user');
-    expect(response.body.data.user.name).toBe(newUser.name);
+    expect(response.body.data.user.password).toBe(newUser.password);
     expect(response.body.data.user.email).toBe(newUser.email);
   });
 
@@ -46,13 +46,13 @@ describe('Test signInUser API', () => {
       .send(incompleteUser);
 
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('error', 'You should not leave empty!');
+    expect(response.body).toHaveProperty('error', 'Empty provider!');
   });
 
   test('should return 400 error for invalid email', async () => {
     const invalidEmailUser = {
-      name: 'Invalid Email User',
-      email: 'invalid_email',
+      provider: 'native',
+      email: 'wrong@wrong.com',
       password: 'test123',
     };
 
@@ -61,7 +61,7 @@ describe('Test signInUser API', () => {
       .send(invalidEmailUser);
 
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('error', 'Please fill the correct email adress!');
+    expect(response.body).toHaveProperty('error', 'Please make sure your email or password are correct!');
   });
 
 });
