@@ -25,7 +25,7 @@ describe('Test signInUser API', () => {
 
     const newUser = {
         provider: 'native',
-        email: 'signup@test.com',
+        email: 'signin@test.com',
         password: 'test123',
       };
     // 使用 Supertest 發送 POST 請求
