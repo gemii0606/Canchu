@@ -1,4 +1,3 @@
 coverage/
 .env
 private/
-nginx.conf
