@@ -23,6 +23,8 @@ describe('Test signInUser API', () => {
         password: 'test123',
       });
 
+    expect(proxy_signup.status).toBe(200);
+  
     const newUser = {
         provider: 'native',
         email: 'signin@test.com',
