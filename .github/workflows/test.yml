@@ -18,5 +18,7 @@ jobs:
      - name: test
        run: |
          cd api/1.0
+         echo "${{ secrets.ENV_FILE  }}" > .env
          docker-compose up --build -d
+         docker exec canchu-server npm test -- --watch=false --forceExit
          
