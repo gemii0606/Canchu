@@ -2,9 +2,7 @@ const User = require('./users');
 const Friendship = require('./friendships');
 const Event = require('./events');
 const {Post, Like, Comment} = require('./posts');
-const Group = require('./groups');
-const Groupmember = require('./groupmembers');
-const Grouppost = require('./groupposts');
+const {Group, Groupmember, Grouppost} = require('./groups');
 const Chat = require('./chats');
 
 User.hasMany(Friendship, { foreignKey: 'from_id', as: 'fromFriendship' });
