@@ -22,7 +22,7 @@ jobs:
          mkdir private
          echo "${{ secrets.PRIVATE_KEY }}" > private/private.key
          echo "${{ secrets.COMBINED_CRT }}" > private/combined.crt
-         docker-compose up --build -d
+         docker-compose up --build -d 
      - name: Wait for containers to start
        run: sleep 10
      - name: Run test file
