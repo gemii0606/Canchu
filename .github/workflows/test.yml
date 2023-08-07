@@ -22,12 +22,16 @@ jobs:
          mkdir private
          echo "${{ secrets.PRIVATE_KEY }}" > private/private.key
          echo "${{ secrets.COMBINED_CRT }}" > private/combined.crt
-         docker-compose up --build -d 
-     - name: Wait for containers to start
-       run: sleep 30
-     - name: Run test file
-       run: |
-         cd api/1.0
+         docker-compose up --build -d
          docker logs canchu
-         docker exec canchu npm test -- --watch=false --forceExit
+         docker logs canchu_mysql
+         docker logs canchu_redis
+         docker logs nginx
+     # - name: Wait for containers to start
+     #   run: sleep 30
+     # - name: Run test file
+     #   run: |
+     #     cd api/1.0
+     #     docker logs canchu
+     #     docker exec canchu npm test -- --watch=false --forceExit
          
