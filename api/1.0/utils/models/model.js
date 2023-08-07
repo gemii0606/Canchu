@@ -34,10 +34,10 @@ Like.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'likePost'});
 Post.hasMany(Comment, { foreignKey: 'post_id', sourceKey: 'id', as: 'postComment'});
 Comment.belongsTo(Post, { foreignKey: 'post_id', targetKey: 'id', as: 'commentPost'});
 
-Group.hasMany(Groupmember, { foreignKey: 'group_id', as: 'groupGroupmember', onDelete: 'CASCADE' });
+Group.hasMany(Groupmember, { foreignKey: 'group_id', as: 'groupGroupmember' });
 Groupmember.belongsTo(Group, { foreignKey: 'group_id', as: 'groupmemberGroup' });
 
-Group.hasMany(Grouppost, { foreignKey: 'group_id', as: 'groupGrouppost', onDelete: 'CASCADE' });
+Group.hasMany(Grouppost, { foreignKey: 'group_id', as: 'groupGrouppost' });
 Grouppost.belongsTo(Group, { foreignKey: 'group_id', as: 'grouppostGroup' });
 
 Groupmember.hasMany(Grouppost, { foreignKey: 'group_id', sourceKey: 'group_id', as: 'groupmemberGrouppost' });
