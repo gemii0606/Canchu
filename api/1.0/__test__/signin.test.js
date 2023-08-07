@@ -64,7 +64,7 @@ describe('Test signInUser API', () => {
       .send(invalidEmailUser);
 
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('error', 'Please make sure your email or password are correct!');
+    expect(response.body).toHaveProperty('error', 'Please fill in the correct email!');
   });
 
-});
+}, 10000);

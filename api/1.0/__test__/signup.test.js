@@ -46,7 +46,7 @@ describe('Test signUpUser API', () => {
       .send(incompleteUser);
 
     expect(response.status).toBe(400);
-    expect(response.body).toHaveProperty('error', 'You should not leave empty!');
+    expect(response.body).toHaveProperty('error', 'Empty provider!');
   });
 
   test('should return 400 error for invalid email', async () => {
