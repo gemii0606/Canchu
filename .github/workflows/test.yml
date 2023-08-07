@@ -28,6 +28,7 @@ jobs:
      - name: Run test file
        run: |
          cd api/1.0
+         lsof -i :3000
          docker logs canchu
          docker exec canchu npm test -- --watch=false --forceExit
          
