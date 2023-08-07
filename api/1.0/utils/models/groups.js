@@ -19,10 +19,6 @@ Group.init({
   leader_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   }
 }, {
   sequelize,

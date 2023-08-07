@@ -15,18 +15,10 @@ Chat.init({
   sender_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   },
   receiver_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   },
   message: {
     type: DataTypes.STRING

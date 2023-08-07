@@ -15,18 +15,10 @@ Friendship.init({
   from_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   },
   to_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   },
   status: {
     type: DataTypes.ENUM('pending', 'friend'),

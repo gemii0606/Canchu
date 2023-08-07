@@ -15,17 +15,9 @@ Groupmember.init({
   group_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'groups',
-      key: 'id'
-    }
   },
   user_id: {
     type: DataTypes.INTEGER,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   },
   status: {
     type: DataTypes.ENUM('pending', 'member'),

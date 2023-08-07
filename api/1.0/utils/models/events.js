@@ -15,18 +15,10 @@ Event.init({
   from_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   },
   to_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
-    references: {
-      model: 'users',
-      key: 'id'
-    }
   },
   type: {
     type: DataTypes.STRING
