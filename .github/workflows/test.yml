@@ -45,7 +45,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_KEY }}
         script: |
-          pwd
+          ls
           cd api/1.0
           git pull origin master
           if [ ! -d "private" ]; then
