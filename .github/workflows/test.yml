@@ -29,6 +29,9 @@ jobs:
        run: |
          cd api/1.0
          docker logs canchu
+         docker logs canchu_mysql
+         docker logs canchu_redis
+         docker logs nginx
          docker exec canchu npm test -- --watch=false --forceExit
          
   deploy_canchu:
@@ -42,6 +45,7 @@ jobs:
         username: ${{ secrets.EC2_USERNAME }}
         key: ${{ secrets.EC2_KEY }}
         script: |
+          pwd
           cd api/1.0
           git pull origin master
           if [ ! -d "private" ]; then
@@ -53,4 +57,8 @@ jobs:
           docker-compose down
           docker-compose up --build -d
           docker image prune -af
+          docker logs canchu
+          docker logs canchu_mysql
+          docker logs canchu_redis
+          docker logs nginx
          
