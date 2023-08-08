@@ -46,7 +46,8 @@ jobs:
         key: ${{ secrets.EC2_KEY }}
         script: |
           ls
-          cd api/1.0
+          cd my-node-app/api/1.0
+          ls
           git pull origin master
           if [ ! -d "private" ]; then
             mkdir private
