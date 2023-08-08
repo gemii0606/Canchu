@@ -1,16 +1,16 @@
 name: Canchu
 
 on: 
- # push:
- #   branches:
- #     - master
+ push:
+   branches:
+     - master
  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:    
-  test:
+  test_canchu:
     runs-on: ubuntu-latest
     steps:
      - name: Checkout code
@@ -30,4 +30,27 @@ jobs:
          cd api/1.0
          docker logs canchu
          docker exec canchu npm test -- --watch=false --forceExit
+         
+  deploy_canchu:
+    needs: test_canchu
+    runs-on: ubuntu-latest
+    steps:
+    - name: Deploy to ec2
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.EC2_HOST }}
+        username: ${{ secrets.EC2_USERNAME }}
+        key: ${{ secrets.EC2_KEY }}
+        script: |
+          cd api/1.0
+          git pull origin master
+          if [ ! -d "private" ]; then
+            mkdir private
+          fi
+          echo "${{ secrets.ENV_FILE }}" > .env
+          echo "${{ secrets.PRIVATE_KEY }}" > private/private.key
+          echo "${{ secrets.COMBINED_KEY }}" > private/certificate.crt
+          docker-compose down
+          docker-compose up --build -d
+          docker image prune -af
          
