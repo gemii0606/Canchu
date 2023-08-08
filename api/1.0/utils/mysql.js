@@ -12,11 +12,7 @@ require('dotenv').config();
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
     host: process.env.DB_HOST,
-    dialect: 'mysql',
-    dialectOptions: {
-      charset: 'utf8mb4', // 設置字符集
-      collate: 'utf8mb4_unicode_ci', // 設置校對規則
-    }
+    dialect: 'mysql'
   });
 
 
