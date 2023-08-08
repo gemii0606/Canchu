@@ -51,7 +51,7 @@ jobs:
           echo "${{ secrets.COMBINED_KEY }}" > private/combined.crt
           docker-compose down
           docker-compose up --build -d
-          docker image prune -af
+          # docker image prune -af
           docker logs canchu
           docker logs canchu_mysql
           docker logs canchu_redis
