@@ -1,23 +1,23 @@
 version: '3.8'
 
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: canchu_mysql
-    restart: always
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql  # 將 MySQL 資料持久化到本機
-    environment:
-      - MYSQL_DATABASE=canchu  # 替换为您希望的数据库名
-      - MYSQL_ROOT_PASSWORD=@gG01020304  # 替换为您希望的root用户密码
-      - MYSQL_USER=gemii0606  # 替换为您希望的新用户名
-      - MYSQL_PASSWORD=@gG01020304  # 替换为您希望的新用户密码
-      - MYSQL_CHARSET=utf8mb4  # 新增字符集設置
-      - MYSQL_COLLATION=utf8mb4_unicode_ci  # 新增校對規則設置
-    networks:
-      - canchu_network
+  # mysql:
+  #   image: mysql:8.0
+  #   container_name: canchu_mysql
+  #   restart: always
+  #   ports:
+  #     - "3306:3306"
+  #   volumes:
+  #     - mysql_data:/var/lib/mysql  # 將 MySQL 資料持久化到本機
+  #   environment:
+  #     - MYSQL_DATABASE=canchu  # 替换为您希望的数据库名
+  #     - MYSQL_ROOT_PASSWORD=@gG01020304  # 替换为您希望的root用户密码
+  #     - MYSQL_USER=gemii0606  # 替换为您希望的新用户名
+  #     - MYSQL_PASSWORD=@gG01020304  # 替换为您希望的新用户密码
+  #     - MYSQL_CHARSET=utf8mb4  # 新增字符集設置
+  #     - MYSQL_COLLATION=utf8mb4_unicode_ci  # 新增校對規則設置
+  #   networks:
+  #     - canchu_network
 
   redis:
     image: redis:6.2-alpine  # 使用輕量化的 Redis 6.2 映像
