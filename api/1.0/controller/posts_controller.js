@@ -474,6 +474,22 @@ const postDetail = async (req, res) => {
   return res.status(200).json({ data });
 }
 
+const testpost = async (req, res) => {
+  const decodedToken = req.decodedToken;
+  const user_id = decodedToken.id; // Get the user ID from the decoded token
+
+  // Create a new post in the database
+  for (let i=0; i<=5000; i++) {
+    const cr_post = await Post.create({
+      user_id,
+      context: i,
+    });
+  }
+  
+  // Send the response with the post information
+  return res.status(200).json({ data: { post } });
+}
+
 module.exports = {
     postCreate,
     postComment,
@@ -481,5 +497,6 @@ module.exports = {
     postLikeDelete,
     postSearch,
     postUpdate,
-    postDetail
+    postDetail,
+    testpost
 }
