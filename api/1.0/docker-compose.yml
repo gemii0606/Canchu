@@ -54,12 +54,12 @@ services:
     depends_on:
       # - mysql
       - redis
-    command: sh -c "while ! nc -z canchu_mysql 3306; do sleep 1; done && node app.js"
+    # command: sh -c "while ! nc -z canchu_mysql 3306; do sleep 1; done && node app.js"
     networks:
       - canchu_network
 
 networks:
   canchu_network:
 
-volumes:
-  mysql_data:  # 定義 MySQL 資料持久化的卷
+# volumes:
+#   mysql_data:  # 定義 MySQL 資料持久化的卷
