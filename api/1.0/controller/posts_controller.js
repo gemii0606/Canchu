@@ -171,7 +171,7 @@ const postSearch = async (req, res) => {
       user_id = id;
     }
 
-    const pageSize = 10; // Number of posts per page
+    const pageSize = 100; // Number of posts per page
 
     const userPostIdKey = `user:${user_id}:post:cursor:${last_id}`;
     const userPostId = JSON.parse(await redisClient.get(userPostIdKey));
@@ -180,26 +180,26 @@ const postSearch = async (req, res) => {
     let next_cursor = null;
     let success = false;
 
-    if (user_id !== id && userPostId) {
-      // Use cached data if available for another user's posts
-      console.log('cache');
-      posts = [];
-      for (const postId of userPostId) {
-        const postKey = `post:${postId}`;
-        const likePostKey = `user:${id}:post:${postId}:like`;
-        const postInfo = JSON.parse(await redisClient.get(postKey));
-        const likePost = JSON.parse(await redisClient.get(likePostKey));
-        if ((!postInfo) || (!likePost)) {
-          break;
-        }
-        const obj = {
-          ...postInfo,
-          is_liked: likePost.is_liked
-        };
-        posts.push(obj);
-      }
-      success = true;
-    }
+    // if (user_id !== id && userPostId) {
+    //   // Use cached data if available for another user's posts
+    //   console.log('cache');
+    //   posts = [];
+    //   for (const postId of userPostId) {
+    //     const postKey = `post:${postId}`;
+    //     const likePostKey = `user:${id}:post:${postId}:like`;
+    //     const postInfo = JSON.parse(await redisClient.get(postKey));
+    //     const likePost = JSON.parse(await redisClient.get(likePostKey));
+    //     if ((!postInfo) || (!likePost)) {
+    //       break;
+    //     }
+    //     const obj = {
+    //       ...postInfo,
+    //       is_liked: likePost.is_liked
+    //     };
+    //     posts.push(obj);
+    //   }
+    //   success = true;
+    // }
 
     if (!success) {
       // Fetch data from the database if not available in the cache
