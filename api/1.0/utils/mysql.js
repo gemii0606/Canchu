@@ -10,8 +10,8 @@ require('dotenv').config();
 // });
 
 
-const sequelize = new Sequelize('canchu', 'root', 'gG01020304', {
-    host: 'canchu-database-1.cqhttrqtpt3n.ap-southeast-2.rds.amazonaws.com',
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
+    host: process.env.RDS_HOST,
     dialect: 'mysql'
   });
 
