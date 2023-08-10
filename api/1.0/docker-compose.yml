@@ -22,6 +22,7 @@ services:
   redis:
     image: redis:6.2-alpine  # 使用輕量化的 Redis 6.2 映像
     container_name: canchu_redis
+    restart: always
     ports:
       - "6379:6379"
     networks:
