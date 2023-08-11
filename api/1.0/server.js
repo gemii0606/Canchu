@@ -32,14 +32,8 @@ app.use('/api/1.0/groups', groupsRoute);
 app.use('/api/1.0/chat', chatsRoute);
 
 
-
-// app.get('/api/1.0/users/search', async (req, res) => {
-//   console.log('1');
-//   res.send('Hello,friend!');
-// });
-
-app.get('/api/1.0/users/signin', (req, res) => {
-  res.send('Hello2');
+app.get('/healthcheck', (req, res) => {
+  res.status(200).send('I am working!');
 });
 
 
