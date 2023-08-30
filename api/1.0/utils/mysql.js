@@ -11,7 +11,7 @@ require('dotenv').config();
 
 
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PW, {
-    host: process.env.RDS_HOST,
+    host: process.env.DB_HOST,
     dialect: 'mysql'
   });
 
