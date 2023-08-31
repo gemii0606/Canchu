@@ -210,7 +210,7 @@ const getUserProfile = async (req, res) => {
     const userFriendship = await redisClient.get(userFriendshipKey);
   
     let userInfo;
-    let friend_count;
+    // let friend_count;
     if (userProfile) {
       // If user profile exists in Redis, use it directly
       userInfo = JSON.parse(userProfile);
@@ -245,8 +245,8 @@ const getUserProfile = async (req, res) => {
           status: 'friend'
         }
       });
-  
-      friend_count = count;
+      userInfo.friend_count = count;
+      // friend_count = count;
     }
   
     // Set the friendship info
@@ -294,7 +294,7 @@ const getUserProfile = async (req, res) => {
       id: userInfo.id,
       name: userInfo.name,
       picture: userInfo.picture,
-      friend_count: friend_count,
+      friend_count: userInfo.friend_count,
       introduction: userInfo.introduction,
       tags: userInfo.tags,
     }
