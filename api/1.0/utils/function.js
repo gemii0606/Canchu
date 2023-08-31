@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const multer = require('multer');
 const redisClient = require('../utils/redis')
+require('dotenv').config();
 
 
 function checkAuthorization(req, res, next) {
@@ -9,7 +10,7 @@ function checkAuthorization(req, res, next) {
     }
     const token = req.headers.authorization.split(' ')[1];
   
-    const jwtSecret = 'Secret';
+    const jwtSecret = process.env.JWT_SECRET;
     jwt.verify(token, jwtSecret, (err, decoded) => {
       if (err) {
         return res.status(403).send({ error: "Wrong token" });

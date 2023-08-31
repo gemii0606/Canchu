@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const {User, Friendship} = require('../utils/models/model');
 const { Op } = require('sequelize');
 const redisClient = require('../utils/redis')
+require('dotenv').config();
 
 
 function isValidEmail(email) {
@@ -56,7 +57,7 @@ const signUpUser = async (req, res) => {
   };
 
   // Sign the Access Token using JWT
-  const jwtSecret = 'Secret';
+  const jwtSecret = process.env.JWT_SECRET;
   let accessToken = jwt.sign(payload, jwtSecret);
 
   // Return the successful signup response
