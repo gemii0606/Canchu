@@ -107,7 +107,7 @@ async function signInNative(object, res) {
       picture: user.picture
     };
   
-    const jwtSecret = 'Secret';
+    const jwtSecret = process.env.JWT_SECRET;
     let accessToken = jwt.sign(payload, jwtSecret);
   
     return res.status(200).json({
