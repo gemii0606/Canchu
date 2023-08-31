@@ -3,10 +3,10 @@ const { Sequelize } = require('sequelize');
 require('dotenv').config();
 
 // const pool = mysql.createPool({
-//     host: 'localhost',
-//     user: 'gemii0606',
-//     password: process.env.SQL_NODEJS_PW,
-//     database: 'canchu',
+//     host: process.env.HOST,
+//     user: process.env.DB_USER,
+//     password: process.env.DB_PW,
+//     database: process.env.DB_NAME,
 // });
 
 
