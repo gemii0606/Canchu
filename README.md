@@ -2,10 +2,9 @@
 
 ## User Features:
 
-## Registration and Login:
-
-- Users can register and log in.
-- Upon registration, an access token is generated using JWT (JSON Web Tokens).
+- Registration and Login:
+    - Users can register and log in.
+    - Upon registration, an access token is generated using JWT (JSON Web Tokens).
 - Profile Updates\(Users can update their personal information, including introductions and interests.\)
 - User Search\(Users have the ability to search for other users.\)
 
@@ -16,7 +15,7 @@
 - Friendship Management:
     - Users can send or cancel friend requests.
     - They can accept or cancel friend invitations.
-     - Users have the option to delete friends.
+    - Users have the option to delete friends.
 
 ## Notification System:
 
