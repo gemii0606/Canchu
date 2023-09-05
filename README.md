@@ -1,6 +1,7 @@
-# Canchu: A Social Networking Web Application - Backend Web API
+# Canchu: A Social Networking Web Application
 
-## User Features:
+## Backend Web API
+### User Features:
 
 - Registration and Login:
     - Users can register and log in.
@@ -10,21 +11,21 @@
 
 - Profile Picture Upload\(Users can upload profile pictures, with image storage managed using Multer and Express.static.\)
 
-## Social Networking Features:
+### Social Networking Features:
 
 - Friendship Management:
     - Users can send or cancel friend requests.
     - They can accept or cancel friend invitations.
     - Users have the option to delete friends.
 
-## Notification System:
+### Notification System:
 
 - Friendship Requests:
     - Notifications for incoming friend requests.
 - Friend Request Acceptance:
     - Notifications for accepted friend requests.
 
-## Article-related Features:
+### Article-related Features:
 
 - Post Creation and Editing:
     - Users can create and edit posts.
@@ -37,7 +38,7 @@
     - The feed displays posts from the user and all their friends, sorted from newest to oldest.
     - Pagination is implemented using a cursor-based approach, fetching 10 posts at a time from the database.
 
-## Additional Technical Skills and Services:
+### Additional Technical Skills and Services:
 
 - AWS Server Deployment and Related Services:
     - Proficient in setting up AWS servers and utilizing various related services.
@@ -47,8 +48,6 @@
     - Experienced in performing operations and tasks on MySQL databases.
 - Docker for Rapid Deployment:
     - Proficient in using Docker for efficient and rapid application deployment.
-- Web API Development:
-    - Capable of developing web APIs for your project.
 - Testing and Quality Assurance:
     - Expertise in various testing methodologies, including:
         - Unit Testing (Jest): Proficient in writing unit tests using Jest.
