@@ -31,7 +31,7 @@ describe('Test signUpUser API', () => {
     // 檢查返回的狀態碼是否為 200
     expect(response.status).toBe(200);
 
-  //   // 檢查返回的 JSON 數據中是否包含 access_token 和 user 屬性
+    // 檢查返回的 JSON 數據中是否包含 access_token 和 user 屬性
     expect(response.body.data).toHaveProperty('access_token');
     expect(response.body.data).toHaveProperty('user');
     expect(response.body.data.user.name).toBe(newUser.name);
