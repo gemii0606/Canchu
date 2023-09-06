@@ -40,8 +40,6 @@
 
 ### Additional Technical Skills and Services:
 
-- AWS Server Deployment and Related Services:
-    - Proficient in setting up AWS servers and utilizing various related services.
 - Nginx for Handling Connection Issues:
     - Skilled in using Nginx to manage and address connection-related issues.
 - MySQL Database Operations:
