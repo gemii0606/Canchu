@@ -1,5 +1,8 @@
 # Canchu: A Social Networking Web Application
 
+# Introduction
+Canchu is an interactive social community platform that offers users the freedom to create accounts and personalize their profiles by updating their bios and uploading profile pictures. Furthermore, users can engage in discussions by leaving comments and expressing their approval through likes on others' posts. The platform also boasts a dynamic feed feature that showcases recent posts from users and their friends, providing an up-to-date and engaging experience.
+
 ## Backend Web API
 ### User Features:
 
