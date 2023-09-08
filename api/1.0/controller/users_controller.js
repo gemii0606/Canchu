@@ -11,6 +11,7 @@ function isValidEmail(email) {
     return re.test(email);
 }
 
+// Function for new user sign up
 const signUpUser = async (req, res) => {
   const {name, email, password} = req.body;
   if (!(name && email && password)) { 
@@ -175,6 +176,7 @@ async function signInFB(object, res) {
     }
   }
 
+// Function for handling native sign-in or FB sign-in
 const signInUser = async (req, res) => {
     const body = req.body;
   
@@ -195,8 +197,8 @@ const signInUser = async (req, res) => {
     }
   }
 
+// Get the user ID from the request URL
 const getUserProfile = async (req, res) => {
-    // Get the user ID from the request URL
     const reqId = req.params.id;
     const userId = parseInt(reqId);
     const decodedToken = req.decodedToken;
@@ -311,6 +313,7 @@ const getUserProfile = async (req, res) => {
     return res.status(200).json({ data: { user } });
   }
 
+// Funtion for updating user profile
 const userProfile = async (req, res) => {
     const decodedToken = req.decodedToken;
     const id = decodedToken.id; // Get the ID of the logged-in user
@@ -351,6 +354,7 @@ const userProfile = async (req, res) => {
     return res.status(200).json({ data: { user } });
 }
 
+// Function for updating user picture 
 const userPictureUpdate = async (req, res) => {
     const decodedToken = req.decodedToken;
     const id = decodedToken.id; // Get the ID of the logged-in user
@@ -383,6 +387,7 @@ const userPictureUpdate = async (req, res) => {
     return res.status(200).json({ picture: picturePath });
 }
 
+// Function for user search bar
 const userSearch = async (req, res) => {
     const decodedToken = req.decodedToken;
     const user_id = decodedToken.id;

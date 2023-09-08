@@ -15,8 +15,8 @@ export const options = {
 };
 // test HTTP
 export default function () {
-  const res = http.get('http://13.210.26.62/api/1.0/posts/search', {headers:{
-    Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicHJvdmlkZXIiOiJuYXRpdmUiLCJuYW1lIjoidGVzdCIsImVtYWlsIjoidGVzdEBleGFtcGxlLmNvbSIsInBpY3R1cmUiOiJOVUxMIn0.UWra6dTU2ABK2c2Tqf55fkx_ATMCAj2A8ROioFmJChw'
+  const res = http.get('<<your target API endpoing>>', {headers:{
+    Authorization: '<<your access token>>'
   }});
   check(res, { 'status was 200': (r) => r.status == 200 });
   sleep(1);
